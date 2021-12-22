@@ -1,7 +1,7 @@
 import { userLoginAction, logout } from 'actions/userActions';
 import React, { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Redirect } from 'react-router-dom';
 export default function Login() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -24,6 +24,7 @@ export default function Login() {
   );
   return (
     <>
+      <Switch>{userInfo && <Redirect to="/admin/dashboard" />}</Switch>
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
