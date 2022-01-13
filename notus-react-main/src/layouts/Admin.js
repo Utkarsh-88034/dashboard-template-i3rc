@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 export default function Admin() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo, error } = userLogin;
+  console.log(userInfo);
   return (
     <>
       <Sidebar />

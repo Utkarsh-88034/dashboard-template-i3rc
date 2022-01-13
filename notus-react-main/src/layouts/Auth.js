@@ -29,7 +29,7 @@ export default function Auth() {
             }}
           ></div>
           <Switch>
-            <Route path="/admin/register" exact>
+            <Route path="/auth/register" exact>
               {userInfo?.authType == 'System Admin' ? (
                 <Register />
               ) : (
