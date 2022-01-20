@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-
+import axios from "axios";
 // components
 
 import CardLineChart from "components/Cards/CardLineChart.js";
@@ -23,15 +23,12 @@ const { loading, voters, error } = voterList;
 console.log(voters);
 
 const getVoterListHandler = useCallback(
-  async (e) => {
+  async () => {
     dispatch(listVoters());
   },
   []
 );
 
-useEffect(() => {
-  getVoterListHandler();
-}, [])
 
 
   return (
@@ -52,6 +49,9 @@ useEffect(() => {
           <CardSocialTraffic />
         </div>
       </div>
+      <>
+      <button onClick={() => getVoterListHandler()}>Get Voters</button>
+      </>
     </>
   );
 }

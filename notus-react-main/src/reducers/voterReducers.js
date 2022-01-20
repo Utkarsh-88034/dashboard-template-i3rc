@@ -11,7 +11,7 @@ export const voterListReducer = (state = { voters: [] }, action) => {
     case VOTER_LIST_SUCCESS:
       return {
         loading: false,
-        voters: action.payload.voters,
+        voters: action.payload.data,
       }
     case VOTER_LIST_FAIL:
       return { loading: false, error: action.payload }
