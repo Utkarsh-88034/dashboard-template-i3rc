@@ -14,6 +14,7 @@ import Dashboard from 'views/admin/Dashboard.js';
 import Maps from 'views/admin/Maps.js';
 import Settings from 'views/admin/Settings.js';
 import Tables from 'views/admin/Tables.js';
+import Questionnaire from 'views/admin/Questionnaire';
 import { useSelector } from 'react-redux';
 
 export default function Admin() {
@@ -23,25 +24,34 @@ export default function Admin() {
   return (
     <>
       <Sidebar />
-      <div className="relative md:ml-64 bg-blueGray-100">
-        <AdminNavbar />
+      <div className="block md:ml-64 bg-blueGray-100">
         {/* Header */}
-        <HeaderStats />
-        <div className="px-4 md:px-10 mx-auto w-full -m-24">
+        <AdminNavbar />
+        <div className="relative top-4 px-0 md:px-0 mx-0 w-full my-24">
           <Switch>
             <Route path="/admin/dashboard" exact>
+              <HeaderStats />
               {userInfo ? <Dashboard /> : <Redirect to="/auth/login" />}
             </Route>
             <Route path="/admin/maps" exact>
+              <HeaderStats />
+
               {userInfo ? <Maps /> : <Redirect to="/auth/login" />}
             </Route>
             <Route path="/admin/settings" exact>
+              <HeaderStats />
+
               {userInfo ? <Settings /> : <Redirect to="/auth/login" />}
             </Route>
             <Route path="/admin/tables" exact>
+              <HeaderStats />
+
               {userInfo ? <Tables /> : <Redirect to="/auth/login" />}
             </Route>
             {/* <Redirect from="*" to="/admin/dashboard" /> */}
+            <Route path="/admin/ques" exact>
+              {userInfo ? <Questionnaire /> : <Redirect to="/auth/login" />}
+            </Route>
           </Switch>
           <FooterAdmin />
         </div>
