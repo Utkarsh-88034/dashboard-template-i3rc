@@ -92,21 +92,53 @@ const Questionnaire = () => {
 
   return (
     <div>
-      <form>
-        <div>
+      <form className="flex flex-col" style={{ margin: '10px' }}>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>EPIC Number</label>
           <input type={'number'} ref={EpicRef}></input>
         </div>
 
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Name</label>
           <input type={'text'} ref={nameRef}></input>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Address</label>
           <input type={'text'} ref={AddressRef}></input>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Gender</label>
           <select ref={genderRef}>
             <option>Male</option>
@@ -114,11 +146,27 @@ const Questionnaire = () => {
             <option>Other</option>
           </select>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Father's/ Husband's Name</label>
           <input type={'text'} ref={fatherRef}></input>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Voter Status</label>
           <select ref={voterStatusRef}>
             <option value={1}>Active Voter</option>
@@ -128,11 +176,27 @@ const Questionnaire = () => {
             <option value={5}>No more voters</option>
           </select>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Contact Number</label>
           <input type={'number'} ref={contactRef}></input>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Qualification</label>
           <select ref={qualificationRef}>
             <option value={1}>Illiterate</option>
@@ -145,7 +209,15 @@ const Questionnaire = () => {
             <option value={8}>Any other Prof</option>
           </select>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>Occupation</label>
           <select ref={occupationRef}>
             <option value={1}>Unemployed</option>
@@ -165,7 +237,15 @@ const Questionnaire = () => {
             <option value={15}>Agriculture worker</option>
           </select>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>
             Please tell me the top 5 issues at all India level which are most
             important?
@@ -178,7 +258,15 @@ const Questionnaire = () => {
             <option value={5}>Issue 5</option>
           </select>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>
             Please tell me the top 5 issues of your locality which are most
             important?
@@ -191,7 +279,15 @@ const Questionnaire = () => {
             <option value={5}>Issue 5</option>
           </select>
         </div>
-        <div>
+        <div
+          className=" flex flex-row "
+          style={{
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <label>
             Please tell me who influence your choice of vote most or with whom
             you consult before deciding your vote?
@@ -209,7 +305,7 @@ const Questionnaire = () => {
           </select>
         </div>
         <div>
-          <label>
+          <label style={{ fontWeight: 'bolder' }}>
             Of the following, please tell me the impact of each aspect over your
             decision to vote on 10 point scale where 1 is mean not at all impact
             and 10 means critical/ full impact?
@@ -217,99 +313,131 @@ const Questionnaire = () => {
           <br />
           <br />
           <div className="flex flex-col">
-            <label>Candidate is member of my community/ caste/ religion</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate is member of my community/ caste/ religion
+            </label>
             <input type={'number'} max={10} ref={q7aRef}></input>
-            <label>Candidate is known from many years</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate is known from many years
+            </label>
             <input type={'number'} max={10} ref={q7bRef}></input>
-            <label>Candidate is local- from my area</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate is local- from my area
+            </label>
             <input type={'number'} max={10} ref={q7cRef}></input>
-            <label>I have personal connect with the candidate</label>
+            <label style={{ margin: '10px 0' }}>
+              I have personal connect with the candidate
+            </label>
             <input type={'number'} max={10} ref={q7dRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               Candidate is ready to help us to solve all our problems
             </label>
             <input type={'number'} max={10} ref={q7eRef}></input>
-            <label>Candidate is very Popular</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate is very Popular
+            </label>
             <input type={'number'} max={10} ref={q7fRef}></input>
-            <label>Candidate with strong ideology</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate with strong ideology
+            </label>
             <input type={'number'} max={10} ref={q7gRef}></input>
-            <label>Candidate is Non- corrupt/ honest image</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate is Non- corrupt/ honest image
+            </label>
             <input type={'number'} max={10} ref={q7hRef}></input>
-            <label>I will Analyse the candidates past performance</label>
+            <label style={{ margin: '10px 0' }}>
+              I will Analyse the candidates past performance
+            </label>
             <input type={'number'} max={10} ref={q7iRef}></input>
-            <label>Based on suggestion from family member</label>
+            <label style={{ margin: '10px 0' }}>
+              Based on suggestion from family member
+            </label>
             <input type={'number'} max={10} ref={q7jRef}></input>
-            <label>Based on suggestion from community people</label>
+            <label style={{ margin: '10px 0' }}>
+              Based on suggestion from community people
+            </label>
             <input type={'number'} max={10} ref={q7kRef}></input>
-            <label>Candidate must be active in the area</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate must be active in the area
+            </label>
             <input type={'number'} max={10} ref={q7lRef}></input>
-            <label>Candidate is Always available in the area</label>
+            <label style={{ margin: '10px 0' }}>
+              Candidate is Always available in the area
+            </label>
             <input type={'number'} max={10} ref={q7mRef}></input>
           </div>
         </div>
         <div>
           <br />
           <br />
-          <label>
+          <label style={{ fontWeight: 'bolder' }}>
             Of the following, please tell me how you are agree with on a scale
             of 10 where 10 means fully agree and 1 means not at all agree
           </label>
           <br />
           <br />
           <div className="flex flex-col">
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I choose whom to vote after duly considering the candidate, the
               party and their past performance
             </label>
             <input type={'number'} max={10} ref={q8aRef}></input>
-            <label>I value my vote and always go to vote in Elections</label>
+            <label style={{ margin: '10px 0' }}>
+              I value my vote and always go to vote in Elections
+            </label>
             <input type={'number'} max={10} ref={q8bRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I am loyal towards a particular party and always vote for that
               party irrespective of the candidate
             </label>
             <input type={'number'} max={10} ref={q8cRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               We as a family always vote for a particular party in every
               election
             </label>
             <input type={'number'} max={10} ref={q8dRef}></input>
-            <label>I vote for most deserving candidate</label>
+            <label style={{ margin: '10px 0' }}>
+              I vote for most deserving candidate
+            </label>
             <input type={'number'} max={10} ref={q8eRef}></input>
-            <label>I keep changing my choice of vote every new election</label>
+            <label style={{ margin: '10px 0' }}>
+              I keep changing my choice of vote every new election
+            </label>
             <input type={'number'} max={10} ref={q8fRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I will vote for any candidate who I think will help me personally
             </label>
             <input type={'number'} max={10} ref={q8gRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I am not very particular about voting and will vote for anyone
               whom I am familiar with
             </label>
             <input type={'number'} max={10} ref={q8hRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I would not hesitate to vote to a new candidate or party and give
               them a chance
             </label>
             <input type={'number'} max={10} ref={q8iRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I believe one should keep changing his/ her choice of vote to keep
               these politicians on their toes
             </label>
             <input type={'number'} max={10} ref={q8jRef}></input>
-            <label>I wait till the last minute to decide whom to vote</label>
+            <label style={{ margin: '10px 0' }}>
+              I wait till the last minute to decide whom to vote
+            </label>
             <input type={'number'} max={10} ref={q8kRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I have at times voted a candidate after getting influenced by
               their campaign and personal charisma
             </label>
             <input type={'number'} max={10} ref={q8lRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I have been influenced by the party workers tot vote for a
               particular candidate in the past
             </label>
             <input type={'number'} max={10} ref={q8mRef}></input>
-            <label>
+            <label style={{ margin: '10px 0' }}>
               I debate and discuss with friends, family and also do my own
               research to finally choosing the candidate to vote for very
               carefully
@@ -317,8 +445,8 @@ const Questionnaire = () => {
             <input type={'number'} max={10} ref={q8nRef}></input>
           </div>
         </div>
-        <div>
-          <label>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of INC party for your parliamentary
             Constituency?
           </label>
@@ -328,34 +456,60 @@ const Questionnaire = () => {
           </select>
           {
             <>
-              <label>Name of any three party candidates</label>
-              <input type="text" ref={INCname1Ref} />
-              <input type="text" ref={INCname2Ref} />
-              <input type="text" ref={INCname3Ref} />{' '}
+              <label style={{ margin: ' 10px 0' }}>
+                Name of any three party candidates
+              </label>
+              <input
+                type="text"
+                ref={INCname1Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={INCname2Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={INCname3Ref}
+                style={{ margin: ' 10px 0' }}
+              />{' '}
             </>
           }
         </div>
-        <div>
-          <label>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of BJP party for your parliamentary
             Constituency?
           </label>
 
-          <select ref={q9BJPRef}>
+          <select ref={q9BJPRef} style={{ margin: ' 10px 0' }}>
             <option value={1}>Yes</option>
             <option value={2}>No</option>
           </select>
           {
             <>
               <label>Name of any three party candidates</label>
-              <input type="text" ref={BJPname1Ref} />
-              <input type="text" ref={BJPname2Ref} />
-              <input type="text" ref={BJPname3Ref} />{' '}
+              <input
+                type="text"
+                ref={BJPname1Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={BJPname2Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={BJPname3Ref}
+                style={{ margin: ' 10px 0' }}
+              />{' '}
             </>
           }
         </div>
-        <div>
-          <label>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of BSP party for your parliamentary
             Constituency?
           </label>
@@ -367,14 +521,26 @@ const Questionnaire = () => {
           {
             <>
               <label>Name of any three party candidates</label>
-              <input type="text" ref={BSPname1Ref} />
-              <input type="text" ref={BSPname2Ref} />
-              <input type="text" ref={BSPname3Ref} />{' '}
+              <input
+                type="text"
+                ref={BSPname1Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={BSPname2Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={BSPname3Ref}
+                style={{ margin: ' 10px 0' }}
+              />{' '}
             </>
           }
         </div>
-        <div>
-          <label>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of SP party for your parliamentary
             Constituency?
           </label>
@@ -386,14 +552,26 @@ const Questionnaire = () => {
           {
             <>
               <label>Name of any three party candidates</label>
-              <input type="text" ref={SPname1Ref} />
-              <input type="text" ref={SPname2Ref} />
-              <input type="text" ref={SPname3Ref} />{' '}
+              <input
+                type="text"
+                ref={SPname1Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={SPname2Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={SPname3Ref}
+                style={{ margin: ' 10px 0' }}
+              />{' '}
             </>
           }
         </div>
-        <div>
-          <label>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of TMC party for your parliamentary
             Constituency?
           </label>
@@ -405,9 +583,21 @@ const Questionnaire = () => {
           {
             <>
               <label>Name of any three party candidates</label>
-              <input type="text" ref={TMCname1Ref} />
-              <input type="text" ref={TMCname2Ref} />
-              <input type="text" ref={TMCname3Ref} />{' '}
+              <input
+                type="text"
+                ref={TMCname1Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={TMCname2Ref}
+                style={{ margin: ' 10px 0' }}
+              />
+              <input
+                type="text"
+                ref={TMCname3Ref}
+                style={{ margin: ' 10px 0' }}
+              />{' '}
             </>
           }
         </div>
@@ -423,63 +613,123 @@ const Questionnaire = () => {
             <label>Past Performance: A performer</label>
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -487,63 +737,123 @@ const Questionnaire = () => {
             <label>Honesty and Integrity</label>
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -551,63 +861,123 @@ const Questionnaire = () => {
             <label>Popularity</label>
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -616,63 +986,123 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -681,63 +1111,123 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -747,63 +1237,123 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -813,63 +1363,123 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -878,63 +1488,123 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -943,63 +1613,123 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -1008,63 +1738,123 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
@@ -1073,68 +1863,137 @@ const Questionnaire = () => {
             <br />
             <br />
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{INCname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BJPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{BSPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{SPname3Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname1Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname2Ref.current?.value}</label>
             </div>
             <div>
-              <input type="checkbox" value={''} />
+              <input
+                type="checkbox"
+                value={''}
+                style={{ marginRight: '10px' }}
+              />
               <label>{TMCname3Ref.current?.value}</label>
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
           <label>
             Can you please tell me, which of these political parties did you
             vote for in the last general elections for MP?
@@ -1151,8 +2010,23 @@ const Questionnaire = () => {
             <option value={9}>First time voter</option>
           </select>
         </div>
-        <div>
-          <label>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
+          <label
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              margin: '10px 0',
+            }}
+          >
             Can you please tell me, which of these political parties did you
             vote for in the last assembly elections for MLA
           </label>
@@ -1168,8 +2042,23 @@ const Questionnaire = () => {
             <option value={9}>First time voter</option>
           </select>
         </div>
-        <div>
-          <label>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
+          <label
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              margin: '10px 0',
+            }}
+          >
             Whom will you vote for in the coming General elections for MP?
           </label>
           <select ref={q14Ref}>
@@ -1184,7 +2073,16 @@ const Questionnaire = () => {
             <option value={9}>First time voter</option>
           </select>
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
           <label>Do not ask just to observe and record</label>
           <select ref={q15Ref}>
             <option value={1}>Fully against</option>
@@ -1194,15 +2092,42 @@ const Questionnaire = () => {
             <option value={5}>Fully loyal</option>
           </select>
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
           <label>Remark/ suggestion/ Requirement</label>
           <input type="text" ref={q16Ref} />
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
           <label>Number of voters in household</label>
           <input type="text" ref={q17Ref} />
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
           <label>
             Could you tell me which religious category you belong to?{' '}
           </label>
@@ -1218,11 +2143,29 @@ const Questionnaire = () => {
             <option value={9}>Other</option>
           </select>
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
           <label>Please mention your caste</label>
           <input type="text" ref={q19Ref} />
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
+          }}
+        >
           <label>
             Do you need transportation facility for voting? Do not Ask
           </label>
