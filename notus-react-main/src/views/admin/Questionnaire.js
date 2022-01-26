@@ -1156,7 +1156,7 @@ const Questionnaire = () => {
             Can you please tell me, which of these political parties did you
             vote for in the last assembly elections for MLA
           </label>
-          <select ref={q12Ref}>
+          <select ref={q13Ref}>
             <option value={1}>BJP (Bharatiya Janata Party)</option>
             <option value={2}>BSP (Bahujan Samaj Party)</option>
             <option value={3}>SP-(Samajwadi Party)</option>
@@ -1172,7 +1172,7 @@ const Questionnaire = () => {
           <label>
             Whom will you vote for in the coming General elections for MP?
           </label>
-          <select ref={q12Ref}>
+          <select ref={q14Ref}>
             <option value={1}>BJP (Bharatiya Janata Party)</option>
             <option value={2}>BSP (Bahujan Samaj Party)</option>
             <option value={3}>SP-(Samajwadi Party)</option>
