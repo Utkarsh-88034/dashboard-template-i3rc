@@ -8,11 +8,21 @@ import {
   VOTER_POST_FAIL,
 } from "../constants/userConstants";
 
-export const listVoters = () => async (dispatch) => {
+export const listVoters = () => async (dispatch, getState) => {
   try {
     dispatch({ type: VOTER_LIST_REQUEST });
 
-    const { data } = await axios.get("/api/voter/voterdata");
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.AccessToken}`,
+      },
+    };
+
+    const { data } = await axios.get("/api/voter/voterdata", config);
 
     dispatch({
       type: VOTER_LIST_SUCCESS,
@@ -29,11 +39,22 @@ export const listVoters = () => async (dispatch) => {
   }
 };
 
-export const postVoterData = (voter) => async (dispatch) => {
+export const postVoterData = (voter) => async (dispatch, getState) => {
   try {
     dispatch({ type: VOTER_POST_REQUEST });
 
-    const { data } = await axios.post("/api/voter/voterdata", voter);
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.AccessToken}`,
+      },
+    };
+    console.log(config);
+
+    const { data } = await axios.post("/api/voter/voterdata", voter, config);
 
     dispatch({
       type: VOTER_POST_SUCCESS,
