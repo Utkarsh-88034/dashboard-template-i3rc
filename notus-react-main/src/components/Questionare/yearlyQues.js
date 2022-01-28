@@ -1,9 +1,9 @@
-import { postYearlyVoterData } from "actions/voterActions";
-import React, { useState } from "react";
-import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { postYearlyVoterData } from 'actions/voterActions';
+import React, { useState } from 'react';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
-const YearlyQues = ({ Vid }) => {
+const YearlyQues = ({ status }) => {
   const [q9INC, setQ9INC] = useState(1);
   const [q9BJP, setQ9BJP] = useState(1);
   const [q9BSP, setQ9BSP] = useState(1);
@@ -185,7 +185,7 @@ const YearlyQues = ({ Vid }) => {
       Othername3Ref.current?.value
     );
     const arrFiltered = tempList.filter((el) => {
-      return el != null && el != "";
+      return el != null && el != '';
     });
     setListOfCandidates(arrFiltered);
     console.log(listOfCandidates);
@@ -352,19 +352,21 @@ const YearlyQues = ({ Vid }) => {
       need_transportation: parseInt(q20Ref.current?.value),
       remarks: q16Ref.current?.value,
     };
-    dispatch(postYearlyVoterData(data, parseInt(Vid)));
+
+    dispatch(postYearlyVoterData(data, status._id));
+    console.log(status._id);
   };
 
   return (
     <>
-      <form style={{ margin: "10px 10px" }} onSubmit={submitHandler}>
+      <form style={{ margin: '10px 10px' }} onSubmit={submitHandler}>
         <div
           className=" flex flex-col "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
+            margin: '10px 0',
+            justifyContent: 'space-between',
 
-            flexWrap: "wrap",
+            flexWrap: 'wrap',
           }}
         >
           <label>
@@ -373,18 +375,18 @@ const YearlyQues = ({ Vid }) => {
           </label>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-evenly",
-              flexWrap: "wrap",
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-evenly',
+              flexWrap: 'wrap',
             }}
           >
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -402,10 +404,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -428,10 +430,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -454,10 +456,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -480,10 +482,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -509,9 +511,9 @@ const YearlyQues = ({ Vid }) => {
         <div
           className=" flex flex-col "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
           }}
         >
           <label>
@@ -520,18 +522,18 @@ const YearlyQues = ({ Vid }) => {
           </label>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-evenly",
-              flexWrap: "wrap",
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-evenly',
+              flexWrap: 'wrap',
             }}
           >
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -549,10 +551,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -575,10 +577,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -601,10 +603,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -627,10 +629,10 @@ const YearlyQues = ({ Vid }) => {
             </div>
             <div
               style={{
-                margin: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                margin: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
               <select
@@ -656,10 +658,10 @@ const YearlyQues = ({ Vid }) => {
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>
@@ -679,7 +681,7 @@ const YearlyQues = ({ Vid }) => {
           </select>
         </div>
         <div>
-          <label style={{ fontWeight: "bolder" }}>
+          <label style={{ fontWeight: 'bolder' }}>
             Of the following, please tell me the impact of each aspect over your
             decision to vote on 10 point scale where 1 is mean not at all impact
             and 10 means critical/ full impact?
@@ -687,140 +689,140 @@ const YearlyQues = ({ Vid }) => {
           <br />
           <br />
           <div className="flex flex-col">
-            <label style={{ margin: "10px 0" }}>
+            <label style={{ margin: '10px 0' }}>
               Candidate is member of my community/ caste/ religion
             </label>
-            <input type={"number"} max={10} ref={q7aRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7aRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate is known from many years
             </label>
-            <input type={"number"} max={10} ref={q7bRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7bRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate is local- from my area
             </label>
-            <input type={"number"} max={10} ref={q7cRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7cRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I have personal connect with the candidate
             </label>
-            <input type={"number"} max={10} ref={q7dRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7dRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate is ready to help us to solve all our problems
             </label>
-            <input type={"number"} max={10} ref={q7eRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7eRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate is very Popular
             </label>
-            <input type={"number"} max={10} ref={q7fRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7fRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate with strong ideology
             </label>
-            <input type={"number"} max={10} ref={q7gRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7gRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate is Non- corrupt/ honest image
             </label>
-            <input type={"number"} max={10} ref={q7hRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7hRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I will Analyse the candidates past performance
             </label>
-            <input type={"number"} max={10} ref={q7iRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7iRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Based on suggestion from family member
             </label>
-            <input type={"number"} max={10} ref={q7jRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7jRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Based on suggestion from community people
             </label>
-            <input type={"number"} max={10} ref={q7kRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7kRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate must be active in the area
             </label>
-            <input type={"number"} max={10} ref={q7lRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q7lRef}></input>
+            <label style={{ margin: '10px 0' }}>
               Candidate is Always available in the area
             </label>
-            <input type={"number"} max={10} ref={q7mRef}></input>
+            <input type={'number'} max={10} ref={q7mRef}></input>
           </div>
         </div>
         <div>
           <br />
           <br />
-          <label style={{ fontWeight: "bolder" }}>
+          <label style={{ fontWeight: 'bolder' }}>
             Of the following, please tell me how you are agree with on a scale
             of 10 where 10 means fully agree and 1 means not at all agree
           </label>
           <br />
           <br />
           <div className="flex flex-col">
-            <label style={{ margin: "10px 0" }}>
+            <label style={{ margin: '10px 0' }}>
               I choose whom to vote after duly considering the candidate, the
               party and their past performance
             </label>
-            <input type={"number"} max={10} ref={q8aRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8aRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I value my vote and always go to vote in Elections
             </label>
-            <input type={"number"} max={10} ref={q8bRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8bRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I am loyal towards a particular party and always vote for that
               party irrespective of the candidate
             </label>
-            <input type={"number"} max={10} ref={q8cRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8cRef}></input>
+            <label style={{ margin: '10px 0' }}>
               We as a family always vote for a particular party in every
               election
             </label>
-            <input type={"number"} max={10} ref={q8dRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8dRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I vote for most deserving candidate
             </label>
-            <input type={"number"} max={10} ref={q8eRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8eRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I keep changing my choice of vote every new election
             </label>
-            <input type={"number"} max={10} ref={q8fRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8fRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I will vote for any candidate who I think will help me personally
             </label>
-            <input type={"number"} max={10} ref={q8gRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8gRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I am not very particular about voting and will vote for anyone
               whom I am familiar with
             </label>
-            <input type={"number"} max={10} ref={q8hRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8hRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I would not hesitate to vote to a new candidate or party and give
               them a chance
             </label>
-            <input type={"number"} max={10} ref={q8iRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8iRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I believe one should keep changing his/ her choice of vote to keep
               these politicians on their toes
             </label>
-            <input type={"number"} max={10} ref={q8jRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8jRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I wait till the last minute to decide whom to vote
             </label>
-            <input type={"number"} max={10} ref={q8kRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8kRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I have at times voted a candidate after getting influenced by
               their campaign and personal charisma
             </label>
-            <input type={"number"} max={10} ref={q8lRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8lRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I have been influenced by the party workers tot vote for a
               particular candidate in the past
             </label>
-            <input type={"number"} max={10} ref={q8mRef}></input>
-            <label style={{ margin: "10px 0" }}>
+            <input type={'number'} max={10} ref={q8mRef}></input>
+            <label style={{ margin: '10px 0' }}>
               I debate and discuss with friends, family and also do my own
               research to finally choosing the candidate to vote for very
               carefully
             </label>
-            <input type={"number"} max={10} ref={q8nRef}></input>
+            <input type={'number'} max={10} ref={q8nRef}></input>
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ margin: " 10px 0" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of INC party for your parliamentary
             Constituency?
           </label>
@@ -835,38 +837,38 @@ const YearlyQues = ({ Vid }) => {
           </select>
           {q9INC == 1 ? (
             <>
-              <label style={{ margin: " 10px 0" }}>
+              <label style={{ margin: ' 10px 0' }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={INCname1Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={INCname2Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={INCname3Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
             </>
           ) : (
-            ""
+            ''
           )}
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ margin: " 10px 0" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of BJP party for your parliamentary
             Constituency?
           </label>
 
           <select
             ref={q9BJPRef}
-            style={{ margin: " 10px 0" }}
+            style={{ margin: ' 10px 0' }}
             onChange={(e) => {
               setQ9BJP(e.target.value);
             }}
@@ -876,31 +878,31 @@ const YearlyQues = ({ Vid }) => {
           </select>
           {q9BJP == 1 ? (
             <>
-              <label style={{ margin: " 10px 0" }}>
+              <label style={{ margin: ' 10px 0' }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={BJPname1Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={BJPname2Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={BJPname3Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
             </>
           ) : (
-            ""
+            ''
           )}
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ margin: " 10px 0" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of BSP party for your parliamentary
             Constituency?
           </label>
@@ -916,31 +918,31 @@ const YearlyQues = ({ Vid }) => {
           </select>
           {q9BSP == 1 ? (
             <>
-              <label style={{ margin: " 10px 0" }}>
+              <label style={{ margin: ' 10px 0' }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={BSPname1Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={BSPname2Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={BSPname3Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
             </>
           ) : (
-            ""
+            ''
           )}
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ margin: " 10px 0" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of SP party for your parliamentary
             Constituency?
           </label>
@@ -956,31 +958,31 @@ const YearlyQues = ({ Vid }) => {
           </select>
           {q9SP == 1 ? (
             <>
-              <label style={{ margin: " 10px 0" }}>
+              <label style={{ margin: ' 10px 0' }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={SPname1Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={SPname2Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={SPname3Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
             </>
           ) : (
-            ""
+            ''
           )}
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ margin: " 10px 0" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of TMC party for your parliamentary
             Constituency?
           </label>
@@ -996,32 +998,32 @@ const YearlyQues = ({ Vid }) => {
           </select>
           {q9TMC == 1 ? (
             <>
-              <label style={{ margin: " 10px 0" }}>
+              <label style={{ margin: ' 10px 0' }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={TMCname1Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={TMCname2Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={TMCname3Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
             </>
           ) : (
-            ""
+            ''
           )}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ margin: " 10px 0" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ margin: ' 10px 0' }}>
             Do you know the candidate of any Other party for your parliamentary
             Constituency?
           </label>
@@ -1036,27 +1038,27 @@ const YearlyQues = ({ Vid }) => {
           </select>
           {q9Other == 1 ? (
             <>
-              <label style={{ margin: " 10px 0" }}>
+              <label style={{ margin: ' 10px 0' }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={Othername1Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={Othername2Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
               <input
                 type="text"
                 ref={Othername3Ref}
-                style={{ margin: " 10px 0" }}
+                style={{ margin: ' 10px 0' }}
               />
             </>
           ) : (
-            ""
+            ''
           )}
         </div>
         <button
@@ -1065,15 +1067,15 @@ const YearlyQues = ({ Vid }) => {
             setParametersValue(e);
           }}
           style={{
-            margin: " 2rem 0",
-            padding: "0.5rem 1rem",
-            border: "1px solid black",
-            color: "white",
-            backgroundColor: "black",
-            borderRadius: "4px",
+            margin: ' 2rem 0',
+            padding: '0.5rem 1rem',
+            border: '1px solid black',
+            color: 'white',
+            backgroundColor: 'black',
+            borderRadius: '4px',
           }}
         >
-          {showParameters ? "HIDE CANDIDATES" : "SHOW CANDIDATES"}
+          {showParameters ? 'HIDE CANDIDATES' : 'SHOW CANDIDATES'}
         </button>
         {showParameters && (
           <div>
@@ -1088,19 +1090,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1118,10 +1120,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1143,10 +1145,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1168,10 +1170,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1196,19 +1198,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1226,10 +1228,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1251,10 +1253,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1276,10 +1278,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1304,19 +1306,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1334,10 +1336,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1359,10 +1361,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1384,10 +1386,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1412,19 +1414,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1442,10 +1444,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1467,10 +1469,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1492,10 +1494,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1520,19 +1522,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1550,10 +1552,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1575,10 +1577,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1600,10 +1602,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1629,19 +1631,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1659,10 +1661,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1684,10 +1686,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1709,10 +1711,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1738,19 +1740,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1768,10 +1770,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1793,10 +1795,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1818,10 +1820,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1846,19 +1848,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1876,10 +1878,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1901,10 +1903,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1926,10 +1928,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1954,19 +1956,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -1984,10 +1986,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2009,10 +2011,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2034,10 +2036,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2062,19 +2064,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2092,10 +2094,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2117,10 +2119,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2142,10 +2144,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2170,19 +2172,19 @@ const YearlyQues = ({ Vid }) => {
             <br />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                flexWrap: "wrap",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2200,10 +2202,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2225,10 +2227,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2250,10 +2252,10 @@ const YearlyQues = ({ Vid }) => {
               </div>
               <div
                 style={{
-                  margin: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  margin: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <select
@@ -2278,12 +2280,12 @@ const YearlyQues = ({ Vid }) => {
         )}
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label>
@@ -2304,19 +2306,19 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label
             style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "10px 0",
+              display: 'flex',
+              flexDirection: 'column',
+              margin: '10px 0',
             }}
           >
             Can you please tell me, which of these political parties did you
@@ -2336,19 +2338,19 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label
             style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "10px 0",
+              display: 'flex',
+              flexDirection: 'column',
+              margin: '10px 0',
             }}
           >
             Whom will you vote for in the coming General elections for MP?
@@ -2367,20 +2369,20 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            margin: '10px 0',
           }}
         >
           <label>Do not ask just to observe and record</label>
           <div
             style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              margin: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <label>BJP</label>
@@ -2394,10 +2396,10 @@ const YearlyQues = ({ Vid }) => {
           </div>
           <div
             style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              margin: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <label>INC</label>
@@ -2411,10 +2413,10 @@ const YearlyQues = ({ Vid }) => {
           </div>
           <div
             style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              margin: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <label>BSP</label>
@@ -2428,10 +2430,10 @@ const YearlyQues = ({ Vid }) => {
           </div>
           <div
             style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              margin: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <label>SP</label>
@@ -2445,10 +2447,10 @@ const YearlyQues = ({ Vid }) => {
           </div>
           <div
             style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              margin: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <label>Other</label>
@@ -2463,12 +2465,12 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label>Remark/ suggestion/ Requirement</label>
@@ -2476,12 +2478,12 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label>Number of voters in household</label>
@@ -2489,16 +2491,16 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label>
-            Could you tell me which religious category you belong to?{" "}
+            Could you tell me which religious category you belong to?{' '}
           </label>
           <select ref={q18Ref}>
             <option value={1}>Hindu General</option>
@@ -2514,12 +2516,12 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label>Please mention your caste</label>
@@ -2527,12 +2529,12 @@ const YearlyQues = ({ Vid }) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            margin: "10px 0",
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 0',
           }}
         >
           <label>
@@ -2546,13 +2548,13 @@ const YearlyQues = ({ Vid }) => {
         <button
           type="submit"
           style={{
-            width: "100%",
-            margin: " 2rem 0",
-            padding: "0.5rem 1rem",
-            border: "1px solid black",
-            color: "white",
-            backgroundColor: "black",
-            borderRadius: "4px",
+            width: '100%',
+            margin: ' 2rem 0',
+            padding: '0.5rem 1rem',
+            border: '1px solid black',
+            color: 'white',
+            backgroundColor: 'black',
+            borderRadius: '4px',
           }}
         >
           Submit Voter Data

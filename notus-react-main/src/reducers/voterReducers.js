@@ -8,7 +8,7 @@ import {
   VOTER_YEARLY_REQUEST,
   VOTER_YEARLY_SUCCESS,
   VOTER_YEARLY_FAIL,
-} from "../constants/userConstants";
+} from '../constants/userConstants';
 
 export const voterListReducer = (state = { voters: [] }, action) => {
   switch (action.type) {
@@ -26,10 +26,10 @@ export const voterListReducer = (state = { voters: [] }, action) => {
   }
 };
 
-export const voterPostReducer = (state = { status: [] }, action) => {
+export const voterPostReducer = (state = { status: {} }, action) => {
   switch (action.type) {
     case VOTER_POST_REQUEST:
-      return { loading: true, status: [] };
+      return { loading: true, status: {} };
     case VOTER_POST_SUCCESS:
       return { loading: false, status: action.payload.data };
     case VOTER_POST_FAIL:
