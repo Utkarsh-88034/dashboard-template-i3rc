@@ -325,7 +325,19 @@ const VoterQues = ({ nextStep }) => {
             <option value={15}>Agriculture worker</option>
           </select>
         </div>
-        <button type="submit">Create Voter</button>
+        <button
+          type="submit"
+          style={{
+            margin: ' 2rem 0',
+            padding: '0.5rem 1rem',
+            border: '1px solid black',
+            color: 'white',
+            backgroundColor: 'black',
+            borderRadius: '4px',
+          }}
+        >
+          Create Voter
+        </button>
       </form>
     </div>
   );
