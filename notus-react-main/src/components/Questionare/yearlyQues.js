@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRef } from 'react';
 
 const YearlyQues = () => {
+  const [q9INC, setQ9INC] = useState(1);
+  console.log('noice ', q9INC);
   // refs
   const issueNatRef = useRef();
   const issueLocRef = useRef();
@@ -305,11 +307,17 @@ const YearlyQues = () => {
             Do you know the candidate of INC party for your parliamentary
             Constituency?
           </label>
-          <select ref={q9INCRef}>
+          <select
+            ref={q9INCRef}
+            onChange={(e) => {
+              setQ9INC(e.target.value);
+              console.log(q9INC);
+            }}
+          >
             <option value={1}>Yes</option>
             <option value={2}>No</option>
           </select>
-          {
+          {q9INC === 1 ? (
             <>
               <label style={{ margin: ' 10px 0' }}>
                 Name of any three party candidates
@@ -330,7 +338,9 @@ const YearlyQues = () => {
                 style={{ margin: ' 10px 0' }}
               />{' '}
             </>
-          }
+          ) : (
+            ''
+          )}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <label style={{ margin: ' 10px 0' }}>
