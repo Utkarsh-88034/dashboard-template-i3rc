@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 const useGetTableData = (voters) => {
   const [columnsData, setColumns] = useState();
@@ -15,7 +15,6 @@ const useGetTableData = (voters) => {
           filterable: true,
           sortable: true,
         };
-        console.log(col);
         col.push(config);
       });
 
@@ -27,10 +26,10 @@ const useGetTableData = (voters) => {
 
   const createRows = (voters) => {
     const row = [];
-    if (voters != []) {
+    if (voters[0]) {
       voters.map((voter) => {
-        const tempData = voter.Upload_data;
-        tempData["id"] = voter._id;
+        const tempData = voter.Upload_data ? voter.Upload_data : {};
+        tempData['id'] = voter._id;
         row.push(tempData);
       });
       setRows(row);

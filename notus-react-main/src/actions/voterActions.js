@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   VOTER_LIST_REQUEST,
   VOTER_LIST_SUCCESS,
@@ -6,7 +6,7 @@ import {
   VOTER_POST_REQUEST,
   VOTER_POST_SUCCESS,
   VOTER_POST_FAIL,
-} from "../constants/userConstants";
+} from '../constants/userConstants';
 
 export const listVoters = () => async (dispatch, getState) => {
   try {
@@ -22,7 +22,7 @@ export const listVoters = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/voter/voterdata", config);
+    const { data } = await axios.get('/api/voter/voterdata'); //add config
 
     dispatch({
       type: VOTER_LIST_SUCCESS,
@@ -54,7 +54,7 @@ export const postVoterData = (voter) => async (dispatch, getState) => {
     };
     console.log(config);
 
-    const { data } = await axios.post("/api/voter/voterdata", voter, config);
+    const { data } = await axios.post('/api/voter/voterdata', voter, config);
 
     dispatch({
       type: VOTER_POST_SUCCESS,
