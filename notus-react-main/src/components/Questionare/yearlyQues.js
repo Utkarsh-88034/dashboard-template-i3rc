@@ -311,7 +311,6 @@ const YearlyQues = () => {
             ref={q9INCRef}
             onChange={(e) => {
               setQ9INC(e.target.value);
-              console.log(q9INC);
             }}
           >
             <option value={1}>Yes</option>
@@ -336,10 +335,10 @@ const YearlyQues = () => {
                 type="text"
                 ref={INCname3Ref}
                 style={{ margin: ' 10px 0' }}
-              />{' '}
+              />
             </>
           ) : (
-            ''
+            <h1>wtf</h1>
           )}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
