@@ -1,8 +1,11 @@
 import React from 'react';
 
 import UserDropdown from 'components/Dropdowns/UserDropdown.js';
+import { useSelector } from 'react-redux';
 
 export default function Navbar() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   return (
     <>
       {/* Navbar */}
@@ -14,7 +17,7 @@ export default function Navbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            Dashboard
+            Hello, {userInfo.authType}
           </a>
           {/* Form */}
           {/* <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">

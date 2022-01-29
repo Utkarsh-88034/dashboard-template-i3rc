@@ -36,7 +36,7 @@ const VoterQues = ({ nextStep, setVoterID }) => {
     };
     dispatch(postVoterData(data));
     setVoterID(EpicRef.current?.value);
-    nextStep();
+    nextStep(2);
   }, [nextStep, dispatch, setVoterID]);
 
   if (submitForm) {
@@ -337,9 +337,8 @@ const VoterQues = ({ nextStep, setVoterID }) => {
           style={{
             margin: ' 2rem 0',
             padding: '0.5rem 1rem',
-            border: '1px solid black',
             color: 'white',
-            backgroundColor: 'black',
+            backgroundColor: 'rgb(2, 132, 199)',
             borderRadius: '4px',
           }}
         >

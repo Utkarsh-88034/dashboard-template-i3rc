@@ -7,8 +7,8 @@ const Questionnaire = () => {
   const { status, error } = statusList;
 
   const [step, setStep] = useState(1);
-  const nextStep = () => {
-    setStep(2);
+  const nextStep = (i) => {
+    setStep(i);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -26,7 +26,7 @@ const Questionnaire = () => {
       {step === 1 || error ? (
         <VoterQues nextStep={nextStep} setVoterID={getVoterID} />
       ) : (
-        <YearlyQues status={status} voterID={voterID} />
+        <YearlyQues status={status} voterID={voterID} nextStep={nextStep} />
       )}
     </>
   );

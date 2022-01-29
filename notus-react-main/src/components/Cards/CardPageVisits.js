@@ -78,7 +78,7 @@ export default function CardPageVisits() {
     <>
       <>
         <form onSubmit={filterSubmitHandler}>
-          <label>Filter Gender</label>
+          <label style={{ margin: '15px' }}>Filter Gender</label>
           <select ref={ageFilterRef}>
             <option value="Male">M</option>
             <option value={'Female'}>F</option>
@@ -87,51 +87,59 @@ export default function CardPageVisits() {
             type="submit"
             style={{
               margin: '10px',
-              backgroundColor: 'cyan',
+              backgroundColor: 'rgb(2, 132, 199)',
               padding: '10px',
+              color: 'white',
             }}
           >
             Filter
           </button>
         </form>
 
-        <form style={{ display: 'flex', flexDirection: 'column' }}>
-          <label>Select Fields</label>
-          <select>
+        <form
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            marginBottom: '1.5rem',
+          }}
+        >
+          <label
+            style={{ margin: '15px', fontWeight: 'bolder', fontSize: '1.5rem' }}
+          >
+            Select Fields
+          </label>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+            }}
+          >
             {fields?.fieldList1?.map((field, id) => (
-              <option value={id} key={id}>
-                {field}
-              </option>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  margin: '10px 10px',
+                  width: '15rem',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <label style={{ margin: '0 5px' }}>{field}</label>
+                <input type={'checkbox'} value={field} key={id} />
+              </div>
             ))}
-          </select>
-          <select>
-            {fields?.fieldList1?.map((field, id) => (
-              <option value={id} key={id}>
-                {field}
-              </option>
-            ))}
-          </select>
-          <select>
-            {fields?.fieldList1?.map((field, id) => (
-              <option value={id} key={id}>
-                {field}
-              </option>
-            ))}
-          </select>
-          <select>
-            {fields?.fieldList1?.map((field, id) => (
-              <option value={id} key={id}>
-                {field}
-              </option>
-            ))}
-          </select>
-          <select>
-            {fields?.fieldList1?.map((field, id) => (
-              <option value={id} key={id}>
-                {field}
-              </option>
-            ))}
-          </select>
+          </div>
+          <button
+            type="submit"
+            style={{
+              margin: '10px',
+              backgroundColor: 'rgb(2, 132, 199)',
+              padding: '10px',
+              color: 'white',
+            }}
+          >
+            Apply Fields
+          </button>
         </form>
         <DataTable columns={columnsVoter} data={rowsVoter} />
       </>

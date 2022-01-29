@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
-const YearlyQues = ({ status }) => {
+const YearlyQues = ({ status, nextStep }) => {
   const [submitForm, setSubmitForm] = useState(false);
   const [renderModal, setRenderModal] = useState(false);
 
@@ -372,6 +372,7 @@ const YearlyQues = ({ status }) => {
     setSubmitForm(value);
     setRenderModal(false);
     document.body.style.overflow = 'auto';
+    nextStep(1);
   };
 
   return (
@@ -1094,9 +1095,8 @@ const YearlyQues = ({ status }) => {
           style={{
             margin: ' 2rem 0',
             padding: '0.5rem 1rem',
-            border: '1px solid black',
             color: 'white',
-            backgroundColor: 'black',
+            backgroundColor: 'rgb(2, 132, 199)',
             borderRadius: '4px',
           }}
         >
@@ -2576,9 +2576,8 @@ const YearlyQues = ({ status }) => {
             width: '100%',
             margin: ' 2rem 0',
             padding: '0.5rem 1rem',
-            border: '1px solid black',
             color: 'white',
-            backgroundColor: 'black',
+            backgroundColor: 'rgb(2, 132, 199)',
             borderRadius: '4px',
           }}
         >

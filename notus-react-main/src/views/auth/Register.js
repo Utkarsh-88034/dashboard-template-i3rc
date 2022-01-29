@@ -1,13 +1,16 @@
 import { register } from 'actions/userActions';
-import React, { useCallback, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import DataConfirmationCard from 'components/Cards/DataConfirmationCard';
+import React, { useCallback, useRef, useState } from 'react';
 
+import { useDispatch } from 'react-redux';
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const authTypeRef = useRef();
   const dispatch = useDispatch();
+
+  const [renderModal, setRenderModal] = useState(false);
 
   const submitHandler = useCallback(
     (e) => {
@@ -17,12 +20,19 @@ export default function Register() {
       const password = passwordRef.current.value;
       const authType = authTypeRef.current.value;
       dispatch(register(name, email, password, authType));
+      setRenderModal(true);
     },
     [dispatch]
   );
 
   return (
     <>
+      {renderModal && (
+        <DataConfirmationCard
+          message={'User Created Successfully'}
+          to={'/admin/dashboard'}
+        />
+      )}
       {
         <div className="container mx-auto px-4 h-full">
           <div className="flex content-center items-center justify-center h-full">
