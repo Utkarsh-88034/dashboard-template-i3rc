@@ -8,7 +8,10 @@ import {
   VOTER_YEARLY_REQUEST,
   VOTER_YEARLY_SUCCESS,
   VOTER_YEARLY_FAIL,
-} from '../constants/userConstants';
+  VOTER_ALL_ELECTION_REQUEST,
+  VOTER_ALL_ELECTION_SUCCESS,
+  VOTER_ALL_ELECTION_FAIL,
+} from "../constants/userConstants";
 
 export const voterListReducer = (state = { voters: [] }, action) => {
   switch (action.type) {
@@ -46,6 +49,22 @@ export const voterPostYearlyReducer = (state = {}, action) => {
     case VOTER_YEARLY_SUCCESS:
       return { loading: false, success: true, voters: action.payload };
     case VOTER_YEARLY_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const electionListReducer = (state = { elections: [] }, action) => {
+  switch (action.type) {
+    case VOTER_ALL_ELECTION_REQUEST:
+      return { loading: true, elections: [] };
+    case VOTER_ALL_ELECTION_SUCCESS:
+      return {
+        loading: false,
+        elections: action.payload.data,
+      };
+    case VOTER_ALL_ELECTION_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

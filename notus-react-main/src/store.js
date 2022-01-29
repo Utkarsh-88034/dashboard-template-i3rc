@@ -5,12 +5,14 @@ import { userLoginReducer } from "./reducers/userReducers";
 import { userListReducer } from "./reducers/userReducers";
 import { voterListReducer } from "reducers/voterReducers";
 import { voterPostReducer } from "reducers/voterReducers";
+import { electionListReducer } from "reducers/voterReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userList: userListReducer,
   voterList: voterListReducer,
   statusList: voterPostReducer,
+  electionList: electionListReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

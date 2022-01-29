@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const useGetTableData = (voters, fields) => {
   const [columnsData, setColumns] = useState();
   const [rowsData, setRows] = useState();
 
   const createColumn = (voters) => {
-    if (voters?.length > 1) {
+    if (voters?.length > 0) {
       const col = [];
       const fieldNames = Object.keys(voters[0].Upload_data);
       fieldNames.map((instance) => {
         const config = {
-          name: instance.replace(/_/g, ' '),
+          name: instance.replace(/_/g, " "),
           selector: (row) => row[instance],
           filterable: true,
           sortable: true,
