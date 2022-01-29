@@ -21,6 +21,17 @@ export default function CardPageVisits() {
   }, []);
 
   let { rowsData, columnsData } = useGetTableData(voters);
+
+  const selectableFields = (voters) => {
+    if (voters?.length > 1) {
+      const fieldList = Object.keys(voters[0].Upload_data);
+      for (let i = 0; i < fieldList.length; i++) {
+        fieldList[i] = fieldList[i].replace(/_/g, ' ');
+      }
+      return fieldList;
+    }
+  };
+
   useEffect(() => {
     setRows(rowsData);
     setColumns(columnsData);
@@ -52,6 +63,35 @@ export default function CardPageVisits() {
             >
               Filter
             </button>
+          </form>
+
+          <form style={{ display: 'flex', flexDirection: 'column' }}>
+            <label>Select Fields</label>
+            <select>
+              {selectableFields(voters)?.map((field, id) => (
+                <option value={id}>{field}</option>
+              ))}
+            </select>
+            <select>
+              {selectableFields(voters)?.map((field, id) => (
+                <option value={id}>{field}</option>
+              ))}
+            </select>
+            <select>
+              {selectableFields(voters)?.map((field, id) => (
+                <option value={id}>{field}</option>
+              ))}
+            </select>
+            <select>
+              {selectableFields(voters)?.map((field, id) => (
+                <option value={id}>{field}</option>
+              ))}
+            </select>
+            <select>
+              {selectableFields(voters)?.map((field, id) => (
+                <option value={id}>{field}</option>
+              ))}
+            </select>
           </form>
           <DataTable columns={columns} data={rows} />
         </>
