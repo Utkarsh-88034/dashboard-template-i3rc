@@ -90,7 +90,7 @@ const VoterQues = ({ nextStep, setVoterID }) => {
           }}
         >
           <label>EPIC Number</label>
-          <input type={"number"} ref={EpicRef}></input>
+          <input type={"number"} ref={EpicRef} required></input>
         </div>
 
         <div
@@ -103,7 +103,7 @@ const VoterQues = ({ nextStep, setVoterID }) => {
           }}
         >
           <label>Name</label>
-          <input type={"text"} ref={nameRef}></input>
+          <input type={"text"} ref={nameRef} required></input>
         </div>
         <div
           className=" flex flex-row "

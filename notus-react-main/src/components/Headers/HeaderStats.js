@@ -1,10 +1,51 @@
-import React from 'react';
+import React, { useCallback, useEffect } from "react";
 
 // components
 
-import CardStats from 'components/Cards/CardStats.js';
+import CardStats from "components/Cards/CardStats.js";
+import { useDispatch, useSelector } from "react-redux";
+import { listVoters } from "actions/voterActions";
+import { getAllElectionData } from "actions/voterActions";
+import counter from "helpers/counter";
+import { counterVoter } from "helpers/counter";
+import { counterElection } from "helpers/counter";
 
 export default function HeaderStats() {
+  // Fetching All Data
+  const dispatch = useDispatch();
+
+  const voterList = useSelector((state) => state.voterList);
+  const { loading, voters, error } = voterList;
+
+  const electionList = useSelector((state) => state.electionList);
+  const { elections } = electionList;
+  console.log(elections);
+
+  const getVoterListHandler = async () => {
+    dispatch(listVoters());
+    dispatch(getAllElectionData());
+  };
+
+  useEffect(() => {
+    getVoterListHandler();
+  }, []);
+
+  // Counting Values
+
+  // Gender
+  const male = counterVoter(voters, "Gender", "Male");
+  const female = counterVoter(voters, "Gender", "Female");
+  const other = counterVoter(voters, "Gender", "Other");
+
+  // Active Voters
+
+  const activeVoters = counterVoter(voters, "Voter_status", 1);
+  const needTransportation = counterElection(
+    elections,
+    "need_transportation",
+    1
+  );
+
   return (
     <>
       {/* Header */}
@@ -13,10 +54,10 @@ export default function HeaderStats() {
           <div>
             {/* Card stats */}
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+              {/* <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="TRAFFIC"
-                  statTitle="350,897"
+                  statSubtitle="Gender Count"
+                  statTitle={`Male: ${male}   Female: ${female}  \t Other: ${other}`}
                   statArrow="up"
                   statPercent="3.48"
                   statPercentColor="text-emerald-500"
@@ -24,23 +65,11 @@ export default function HeaderStats() {
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
                 />
-              </div>
+              </div> */}
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="NEW USERS"
-                  statTitle="2,356"
-                  statArrow="down"
-                  statPercent="3.48"
-                  statPercentColor="text-red-500"
-                  statDescripiron="Since last week"
-                  statIconName="fas fa-chart-pie"
-                  statIconColor="bg-orange-500"
-                />
-              </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
-                  statSubtitle="SALES"
-                  statTitle="924"
+                  statSubtitle="Active Voters"
+                  statTitle={activeVoters}
                   statArrow="down"
                   statPercent="1.10"
                   statPercentColor="text-orange-500"
@@ -51,6 +80,18 @@ export default function HeaderStats() {
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
+                  statSubtitle="Need Transportation"
+                  statTitle={needTransportation}
+                  statArrow="down"
+                  statPercent="3.48"
+                  statPercentColor="text-red-500"
+                  statDescripiron="Since last week"
+                  statIconName="fas fa-chart-pie"
+                  statIconColor="bg-orange-500"
+                />
+              </div>
+              {/* <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <CardStats
                   statSubtitle="PERFORMANCE"
                   statTitle="49,65%"
                   statArrow="up"
@@ -60,7 +101,7 @@ export default function HeaderStats() {
                   statIconName="fas fa-percent"
                   statIconColor="bg-lightBlue-500"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -22,6 +22,9 @@ export default function Tables() {
     dispatch(listVoters());
     dispatch(getAllElectionData());
   }, []);
+
+  // Counting Gender
+
   return (
     <>
       <div className="flex flex-wrap mt-4">
