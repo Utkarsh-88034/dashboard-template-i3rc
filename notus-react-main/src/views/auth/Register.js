@@ -1,7 +1,6 @@
 import { register } from 'actions/userActions';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import CreateUserModal from 'components/modals/createusermodal';
 
 export default function Register() {
   const nameRef = useRef();
@@ -10,15 +9,17 @@ export default function Register() {
   const authTypeRef = useRef();
   const dispatch = useDispatch();
 
-  const submitHandler = useCallback((e) => {
-    e.preventDefault(); // dhyan rakhein iska ..... Ispr aur bat krni h
-    const name = nameRef.current.value;
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    const authType = authTypeRef.current.value;
-    dispatch(register(name, email, password, authType));
-  }, []);
-  const [createSuccessModal, setCreateSuccessModal] = useState(true);
+  const submitHandler = useCallback(
+    (e) => {
+      e.preventDefault(); // dhyan rakhein iska ..... Ispr aur bat krni h
+      const name = nameRef.current.value;
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
+      const authType = authTypeRef.current.value;
+      dispatch(register(name, email, password, authType));
+    },
+    [dispatch]
+  );
 
   return (
     <>

@@ -10,6 +10,7 @@ export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState('hidden');
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo, error } = userLogin;
+  console.log(userInfo);
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -87,27 +88,33 @@ export default function Sidebar() {
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
-                <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/admin/dashboard') !== -1
-                      ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-blueGray-700 hover:text-blueGray-500')
-                  }
-                  to="/admin/dashboard"
-                >
-                  <i
+              {userInfo?.authType == 'Poll Admin Client' ||
+              userInfo?.authType == 'System Admin' ||
+              userInfo?.authType == 'BLO' ? (
+                <li className="items-center">
+                  <Link
                     className={
-                      'fas fa-tv mr-2 text-sm ' +
+                      'text-xs uppercase py-3 font-bold block ' +
                       (window.location.href.indexOf('/admin/dashboard') !== -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
+                        ? 'text-lightBlue-500 hover:text-lightBlue-600'
+                        : 'text-blueGray-700 hover:text-blueGray-500')
                     }
-                  ></i>{' '}
-                  Dashboard
-                </Link>
-              </li>
+                    to="/admin/dashboard"
+                  >
+                    <i
+                      className={
+                        'fas fa-tv mr-2 text-sm ' +
+                        (window.location.href.indexOf('/admin/dashboard') !== -1
+                          ? 'opacity-75'
+                          : 'text-blueGray-300')
+                      }
+                    ></i>{' '}
+                    Dashboard
+                  </Link>
+                </li>
+              ) : (
+                ''
+              )}
 
               <li className="items-center">
                 <Link
@@ -131,48 +138,58 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
-                <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/admin/tables') !== -1
-                      ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-blueGray-700 hover:text-blueGray-500')
-                  }
-                  to="/admin/tables"
-                >
-                  <i
+              {userInfo?.authType == 'Poll Admin Client' ||
+              userInfo?.authType == 'System Admin' ||
+              userInfo?.authType == 'BLO' ? (
+                <li className="items-center">
+                  <Link
                     className={
-                      'fas fa-table mr-2 text-sm ' +
+                      'text-xs uppercase py-3 font-bold block ' +
                       (window.location.href.indexOf('/admin/tables') !== -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
+                        ? 'text-lightBlue-500 hover:text-lightBlue-600'
+                        : 'text-blueGray-700 hover:text-blueGray-500')
                     }
-                  ></i>{' '}
-                  Tables
-                </Link>
-              </li>
-              <li className="items-center">
-                <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/admin/tables') !== -1
-                      ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-blueGray-700 hover:text-blueGray-500')
-                  }
-                  to="/admin/ques"
-                >
-                  <i
+                    to="/admin/tables"
+                  >
+                    <i
+                      className={
+                        'fas fa-table mr-2 text-sm ' +
+                        (window.location.href.indexOf('/admin/tables') !== -1
+                          ? 'opacity-75'
+                          : 'text-blueGray-300')
+                      }
+                    ></i>{' '}
+                    Tables
+                  </Link>
+                </li>
+              ) : (
+                ''
+              )}
+              {userInfo?.authType == 'Data Collector' ? (
+                <li className="items-center">
+                  <Link
                     className={
-                      'fas fa-table mr-2 text-sm ' +
+                      'text-xs uppercase py-3 font-bold block ' +
                       (window.location.href.indexOf('/admin/ques') !== -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
+                        ? 'text-lightBlue-500 hover:text-lightBlue-600'
+                        : 'text-blueGray-700 hover:text-blueGray-500')
                     }
-                  ></i>{' '}
-                  Questionnaire
-                </Link>
-              </li>
+                    to="/admin/ques"
+                  >
+                    <i
+                      className={
+                        'fas fa-user-tie mr-2 text-sm ' +
+                        (window.location.href.indexOf('/admin/ques') !== -1
+                          ? 'opacity-75'
+                          : 'text-blueGray-300')
+                      }
+                    ></i>{' '}
+                    Questionnaire
+                  </Link>
+                </li>
+              ) : (
+                ''
+              )}
 
               {/* <li className="items-center">
                 <Link
@@ -200,7 +217,7 @@ export default function Sidebar() {
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
-            {userInfo.authType == 'System Admin' && (
+            {userInfo?.authType == 'System Admin' && (
               <div>
                 <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                   Add New User

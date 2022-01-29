@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 // import { DataGrid } from '@mui/x-data-grid';
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { listVoters } from "actions/voterActions";
-import DataTable from "react-data-table-component";
-import { useGetTableData } from "hooks/use-get-table-data";
-import filters from "helpers/filters";
-import { getAllElectionData } from "actions/voterActions";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { listVoters } from 'actions/voterActions';
+import DataTable from 'react-data-table-component';
+import { useGetTableData } from 'hooks/use-get-table-data';
+import filters from 'helpers/filters';
+import { getAllElectionData } from 'actions/voterActions';
 // components
 
 export default function CardPageVisits() {
@@ -17,27 +17,27 @@ export default function CardPageVisits() {
   const { elections } = electionList;
 
   const voterList = useSelector((state) => state.voterList);
-  const { loading, voters, error } = voterList;
+  const { voters } = voterList;
   const [columnsVoter, setColumnsVoter] = useState();
   const [rowsVoter, setRowsVoter] = useState();
 
-  const [columnsElection, setColumnsElection] = useState();
-  const [rowsElection, setRowsElection] = useState();
+  // const [columnsElection, setColumnsElection] = useState();
+  // const [rowsElection, setRowsElection] = useState();
 
   const ageFilterRef = useRef();
   useEffect(() => {
     dispatch(listVoters());
     dispatch(getAllElectionData());
-  }, []);
+  }, [dispatch]);
 
   let votersTable = useGetTableData(voters);
-  let electionTable = useGetTableData(elections);
+  // let electionTable = useGetTableData(elections);
 
   const selectableFields = (voters, elections) => {
     if (voters?.length > 0 && elections?.length > 0) {
       const fieldList1 = Object.keys(voters[0].Upload_data);
       for (let i = 0; i < fieldList1.length; i++) {
-        fieldList1[i] = fieldList1[i].replace(/_/g, " ");
+        fieldList1[i] = fieldList1[i].replace(/_/g, ' ');
       }
 
       // const fieldList2 = Object.keys(elections[0]);
@@ -55,7 +55,7 @@ export default function CardPageVisits() {
   useEffect(() => {
     setRowsVoter(votersTable.rowsData);
     setColumnsVoter(votersTable.columnsData);
-  }, [votersTable]);
+  }, [votersTable.rowsData, votersTable.columnsData]);
 
   // useEffect(() => {
   //   setRowsElection(electionTable.rowsData);
@@ -66,7 +66,10 @@ export default function CardPageVisits() {
   const filterSubmitHandler = (e) => {
     e.preventDefault();
     const filterValue = ageFilterRef.current.value;
-    setRowsVoter(filters("Gender", filterValue, votersTable.rowsData));
+    const newRowsVoter = filters('Gender', filterValue, votersTable.rowsData);
+    console.log(newRowsVoter);
+    setRowsVoter(newRowsVoter);
+    console.log(rowsVoter);
   };
 
   const fields = selectableFields(voters, elections);
@@ -77,46 +80,56 @@ export default function CardPageVisits() {
         <form onSubmit={filterSubmitHandler}>
           <label>Filter Gender</label>
           <select ref={ageFilterRef}>
-            <option>M</option>
-            <option>F</option>
+            <option value="Male">M</option>
+            <option value={'Female'}>F</option>
           </select>
           <button
             type="submit"
             style={{
-              margin: "10px",
-              backgroundColor: "cyan",
-              padding: "10px",
+              margin: '10px',
+              backgroundColor: 'cyan',
+              padding: '10px',
             }}
           >
             Filter
           </button>
         </form>
 
-        <form style={{ display: "flex", flexDirection: "column" }}>
+        <form style={{ display: 'flex', flexDirection: 'column' }}>
           <label>Select Fields</label>
           <select>
             {fields?.fieldList1?.map((field, id) => (
-              <option value={id}>{field}</option>
+              <option value={id} key={id}>
+                {field}
+              </option>
             ))}
           </select>
           <select>
             {fields?.fieldList1?.map((field, id) => (
-              <option value={id}>{field}</option>
+              <option value={id} key={id}>
+                {field}
+              </option>
             ))}
           </select>
           <select>
             {fields?.fieldList1?.map((field, id) => (
-              <option value={id}>{field}</option>
+              <option value={id} key={id}>
+                {field}
+              </option>
             ))}
           </select>
           <select>
             {fields?.fieldList1?.map((field, id) => (
-              <option value={id}>{field}</option>
+              <option value={id} key={id}>
+                {field}
+              </option>
             ))}
           </select>
           <select>
             {fields?.fieldList1?.map((field, id) => (
-              <option value={id}>{field}</option>
+              <option value={id} key={id}>
+                {field}
+              </option>
             ))}
           </select>
         </form>

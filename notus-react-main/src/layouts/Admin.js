@@ -11,7 +11,6 @@ import FooterAdmin from 'components/Footers/FooterAdmin.js';
 // views
 
 import Dashboard from 'views/admin/Dashboard.js';
-import Maps from 'views/admin/Maps.js';
 import Settings from 'views/admin/Settings.js';
 import Tables from 'views/admin/Tables.js';
 import Questionnaire from 'views/admin/Questionnaire';
@@ -19,8 +18,7 @@ import { useSelector } from 'react-redux';
 
 export default function Admin() {
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, error } = userLogin;
-  console.log(userInfo);
+  const { userInfo } = userLogin;
   return (
     <>
       <Sidebar />
@@ -31,13 +29,17 @@ export default function Admin() {
           <Switch>
             <Route path="/admin/dashboard" exact>
               <HeaderStats />
-              {userInfo ? <Dashboard /> : <Redirect to="/auth/login" />}
+              {userInfo && userInfo.authType != 'Data Collector' ? (
+                <Dashboard />
+              ) : (
+                <Redirect to="/auth/login" />
+              )}
             </Route>
-            <Route path="/admin/maps" exact>
+            {/* <Route path="/admin/maps" exact>
               <HeaderStats />
 
               {userInfo ? <Maps /> : <Redirect to="/auth/login" />}
-            </Route>
+            </Route> */}
             <Route path="/admin/settings" exact>
               <HeaderStats />
 
@@ -50,7 +52,11 @@ export default function Admin() {
             </Route>
             {/* <Redirect from="*" to="/admin/dashboard" /> */}
             <Route path="/admin/ques" exact>
-              {userInfo ? <Questionnaire /> : <Redirect to="/auth/login" />}
+              {userInfo && userInfo.authType == 'Data Collector' ? (
+                <Questionnaire />
+              ) : (
+                <Redirect to="/auth/login" />
+              )}
             </Route>
           </Switch>
           <FooterAdmin />

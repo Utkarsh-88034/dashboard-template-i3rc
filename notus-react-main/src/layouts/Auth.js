@@ -14,7 +14,7 @@ import Register from 'views/auth/Register.js';
 
 export default function Auth() {
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, error } = userLogin;
+  const { userInfo } = userLogin;
 
   return (
     <>
@@ -30,7 +30,7 @@ export default function Auth() {
           ></div>
           <Switch>
             <Route path="/auth/register" exact>
-              {userInfo?.authType == 'System Admin' ? (
+              {userInfo?.authType === 'System Admin' ? (
                 <Register />
               ) : (
                 <Redirect to="/auth/login" />

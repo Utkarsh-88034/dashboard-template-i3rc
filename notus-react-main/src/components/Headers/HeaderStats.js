@@ -1,48 +1,43 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from 'react';
 
 // components
 
-import CardStats from "components/Cards/CardStats.js";
-import { useDispatch, useSelector } from "react-redux";
-import { listVoters } from "actions/voterActions";
-import { getAllElectionData } from "actions/voterActions";
-import counter from "helpers/counter";
-import { counterVoter } from "helpers/counter";
-import { counterElection } from "helpers/counter";
+import CardStats from 'components/Cards/CardStats.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { listVoters } from 'actions/voterActions';
+import { getAllElectionData } from 'actions/voterActions';
+
+import { counterVoter } from 'helpers/counter';
+import { counterElection } from 'helpers/counter';
 
 export default function HeaderStats() {
   // Fetching All Data
   const dispatch = useDispatch();
 
   const voterList = useSelector((state) => state.voterList);
-  const { loading, voters, error } = voterList;
+  const { voters } = voterList;
 
   const electionList = useSelector((state) => state.electionList);
   const { elections } = electionList;
-  console.log(elections);
-
-  const getVoterListHandler = async () => {
-    dispatch(listVoters());
-    dispatch(getAllElectionData());
-  };
 
   useEffect(() => {
-    getVoterListHandler();
-  }, []);
+    dispatch(listVoters());
+    dispatch(getAllElectionData());
+  }, [dispatch]);
 
   // Counting Values
 
   // Gender
-  const male = counterVoter(voters, "Gender", "Male");
-  const female = counterVoter(voters, "Gender", "Female");
-  const other = counterVoter(voters, "Gender", "Other");
+  // const male = counterVoter(voters, 'Gender', 'Male');
+  // const female = counterVoter(voters, 'Gender', 'Female');
+  // const other = counterVoter(voters, 'Gender', 'Other');
 
   // Active Voters
 
-  const activeVoters = counterVoter(voters, "Voter_status", 1);
+  const activeVoters = counterVoter(voters, 'Voter_status', 1);
   const needTransportation = counterElection(
     elections,
-    "need_transportation",
+    'need_transportation',
     1
   );
 

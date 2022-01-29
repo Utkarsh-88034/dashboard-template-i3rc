@@ -1,7 +1,7 @@
-import { userLoginAction, logout } from 'actions/userActions';
+import { userLoginAction } from 'actions/userActions';
 import React, { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 export default function Login() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -9,7 +9,7 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo, error } = userLogin;
+  const { userInfo } = userLogin;
   console.log(userInfo);
 
   const submitHandler = useCallback(
@@ -20,11 +20,20 @@ export default function Login() {
       e.preventDefault();
       dispatch(userLoginAction(email, password));
     },
-    [emailRef, passwordRef]
+    [emailRef, passwordRef, dispatch]
   );
   return (
     <>
-      <Switch>{userInfo && <Redirect to="/admin/dashboard" />}</Switch>
+      <Switch>
+        {userInfo?.authType == 'Data Collector' ? (
+          <Redirect to="/admin/ques" />
+        ) : userInfo ? (
+          <Redirect to="/admin/dashboard" />
+        ) : (
+          ''
+        )}
+      </Switch>
+
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">

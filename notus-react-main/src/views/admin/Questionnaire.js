@@ -1,11 +1,10 @@
-import React, { useCallback, useState } from 'react';
-import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import YearlyQues from 'components/Questionare/yearlyQues';
 import VoterQues from 'components/Questionare/voterQues';
 const Questionnaire = () => {
   const statusList = useSelector((state) => state.statusList);
-  const { loading, status, error } = statusList;
+  const { status, error } = statusList;
 
   const [step, setStep] = useState(1);
   const nextStep = () => {
@@ -27,7 +26,7 @@ const Questionnaire = () => {
       {step === 1 || error ? (
         <VoterQues nextStep={nextStep} setVoterID={getVoterID} />
       ) : (
-        <YearlyQues status={status} />
+        <YearlyQues status={status} voterID={voterID} />
       )}
     </>
   );
