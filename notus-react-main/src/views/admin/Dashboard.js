@@ -15,7 +15,10 @@ export default function Dashboard() {
             <CardLineChart />
           </div>
           <div className="w-full xl:w-4/12 px-4">
-            <CardBarChart />
+            <CardBarChart
+              label={['Male', 'Female', 'Other']}
+              field={'Gender'}
+            />
           </div>
         </div>
         <div className="flex flex-wrap mt-4">

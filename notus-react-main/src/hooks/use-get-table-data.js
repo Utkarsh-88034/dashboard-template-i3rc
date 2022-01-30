@@ -9,8 +9,10 @@ const useGetTableData = (voters, fields) => {
       const col = [];
       const fieldNames = Object.keys(voters[0].Upload_data);
       fieldNames.map((instance) => {
+        const Fname = instance.replace(/_/g, ' ');
+
         const config = {
-          name: instance.replace(/_/g, ' '),
+          name: Fname,
           selector: (row) => row[instance],
           filterable: true,
           sortable: true,
@@ -39,6 +41,7 @@ const useGetTableData = (voters, fields) => {
   };
   useEffect(() => {
     createRows(voters);
+
     createColumn(voters);
   }, [voters]);
 
