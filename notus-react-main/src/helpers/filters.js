@@ -1,20 +1,21 @@
-const filters = (column, filterValue, rowData) => {
+const filterSubmit = (column, filterValue, rowData) => {
   const newRowData = [];
   rowData?.map((row) => {
-    if (row[column] === filterValue) {
+    if (row[column].toLowerCase() === filterValue.toLowerCase()) {
       newRowData.push(row);
     }
   });
-  // if (newRowData.length == 0) {
-  //   newRowData.push({
-  //     Address: 'No User',
-  //     Age: 'No User',
-  //     Gender: 'No User',
-  //     Name: 'No User',
-  //     Voter_ID: 'No User',
-  //   });
-  // }
   return newRowData;
+};
+const filters = (data, filterColumns, rowData) => {
+  let rows = rowData;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i] != '') {
+      console.log(data[i]);
+      rows = filterSubmit(filterColumns[i], data[i], rows);
+    }
+  }
+  return rows;
 };
 
 export default filters;

@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useRef } from "react";
-import { postVoterData } from "actions/voterActions";
-import SubmitConfirmationCard from "components/Cards/SubmitConfirmationCard";
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useRef } from 'react';
+import { postVoterData } from 'actions/voterActions';
+import SubmitConfirmationCard from 'components/Cards/SubmitConfirmationCard';
 
-const VoterQues = ({ nextStep, setVoterID }) => {
+const VoterQues = ({ nextStep, setVoterID, backBtn }) => {
   const dispatch = useDispatch();
 
   const [submitForm, setSubmitForm] = useState(false);
@@ -43,7 +43,7 @@ const VoterQues = ({ nextStep, setVoterID }) => {
   const setSubmit = (value) => {
     setSubmitForm(value);
     setRenderModal(false);
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = 'auto';
   };
 
   const EpicRef = useRef();
@@ -63,12 +63,32 @@ const VoterQues = ({ nextStep, setVoterID }) => {
   const ageRef = useRef();
   return (
     <div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          cursor: 'pointer',
+          width: 'max-content',
+        }}
+        onClick={backBtn}
+      >
+        <i
+          style={{
+            margin: ' 1.5rem 0',
+            padding: '0.5rem 1rem',
+            borderRadius: '4px',
+            fontSize: '1.2rem',
+          }}
+          className="fas fa-chevron-left"
+        ></i>
+        Back
+      </div>
       {renderModal ? <SubmitConfirmationCard setSubmit={setSubmit} /> : <></>}
       <form
         className="flex flex-col"
-        style={{ margin: "10px" }}
+        style={{ margin: '10px' }}
         onSubmit={(e) => {
-          document.body.style.overflow = "hidden";
+          document.body.style.overflow = 'hidden';
           e.preventDefault();
           setRenderModal(true);
         }}
@@ -76,156 +96,156 @@ const VoterQues = ({ nextStep, setVoterID }) => {
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>EPIC Number</label>
-          <input type={"number"} ref={EpicRef} required></input>
+          <input type={'number'} ref={EpicRef} required></input>
         </div>
 
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Name</label>
-          <input type={"text"} ref={nameRef} required></input>
+          <input type={'text'} ref={nameRef} required></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Lok Sabha Name</label>
-          <input type={"text"} ref={lokSabhanNameRef}></input>
+          <input type={'text'} ref={lokSabhanNameRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Lok Sabha Number</label>
-          <input type={"number"} ref={lokSabhaNumberRef}></input>
+          <input type={'number'} ref={lokSabhaNumberRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Address</label>
-          <input type={"text"} ref={AddressRef}></input>
+          <input type={'text'} ref={AddressRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Vidhan Sabha Name</label>
-          <input type={"text"} ref={vidhanSabhaNameRef}></input>
+          <input type={'text'} ref={vidhanSabhaNameRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Vidhan Sabha Number</label>
-          <input type={"number"} ref={vidhanSabhaNumberRef}></input>
+          <input type={'number'} ref={vidhanSabhaNumberRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Polling Booth Number</label>
-          <input type={"number"} ref={pollingBoothNumberRef}></input>
+          <input type={'number'} ref={pollingBoothNumberRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Village Name</label>
-          <input type={"text"} ref={villageNameRef}></input>
+          <input type={'text'} ref={villageNameRef}></input>
         </div>
 
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Ward Number</label>
-          <input type={"number"} ref={wardNumberRef}></input>
+          <input type={'number'} ref={wardNumberRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Age</label>
-          <input type={"number"} ref={ageRef}></input>
+          <input type={'number'} ref={ageRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Locality</label>
-          <input type={"text"} ref={localityRef}></input>
+          <input type={'text'} ref={localityRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Gender</label>
@@ -238,22 +258,22 @@ const VoterQues = ({ nextStep, setVoterID }) => {
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Father's/ Husband's Name</label>
-          <input type={"text"} ref={fatherRef}></input>
+          <input type={'text'} ref={fatherRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: "10px 0",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
+            margin: '10px 0',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <label>Voter Status</label>
@@ -269,11 +289,11 @@ const VoterQues = ({ nextStep, setVoterID }) => {
         <button
           type="submit"
           style={{
-            margin: " 2rem 0",
-            padding: "0.5rem 1rem",
-            color: "white",
-            backgroundColor: "rgb(2, 132, 199)",
-            borderRadius: "4px",
+            margin: ' 2rem 0',
+            padding: '0.5rem 1rem',
+            color: 'white',
+            backgroundColor: 'rgb(2, 132, 199)',
+            borderRadius: '4px',
           }}
         >
           Create Voter
