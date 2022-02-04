@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 // components
 
-import CardStats from 'components/Cards/CardStats.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { listVoters } from 'actions/voterActions';
-import { getAllElectionData } from 'actions/voterActions';
+import CardStats from "components/Cards/CardStats.js";
+import { useDispatch, useSelector } from "react-redux";
+import { listVoters } from "actions/voterActions";
+import { getAllElectionData } from "actions/voterActions";
 
-import { counterVoter } from 'helpers/counter';
-import { counterElection } from 'helpers/counter';
+import { counterVoter } from "helpers/counter";
+import { counterElection } from "helpers/counter";
 
 export default function HeaderStats() {
   // Fetching All Data
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const voterList = useSelector((state) => state.voterList);
-  const { voters } = voterList;
+  // const voterList = useSelector((state) => state.voterList);
+  // const { voters } = voterList;
 
-  const electionList = useSelector((state) => state.electionList);
-  const { elections } = electionList;
+  // const electionList = useSelector((state) => state.electionList);
+  // const { elections } = electionList;
 
-  useEffect(() => {
-    dispatch(listVoters());
-    dispatch(getAllElectionData());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(listVoters());
+  //   dispatch(getAllElectionData());
+  // }, [dispatch]);
 
   // Counting Values
 
@@ -34,12 +34,12 @@ export default function HeaderStats() {
 
   // Active Voters
 
-  const activeVoters = counterVoter(voters, 'Voter_status', 1);
-  const needTransportation = counterElection(
-    elections,
-    'need_transportation',
-    1
-  );
+  // const activeVoters = counterVoter(voters, 'Voter_status', 1);
+  // const needTransportation = counterElection(
+  //   elections,
+  //   'need_transportation',
+  //   1
+  // );
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Active Voters"
-                  statTitle={activeVoters}
+                  statTitle={""}
                   statArrow="down"
                   statPercent="1.10"
                   statPercentColor="text-orange-500"
@@ -76,7 +76,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Need Transportation"
-                  statTitle={needTransportation}
+                  statTitle={""}
                   statArrow="down"
                   statPercent="3.48"
                   statPercentColor="text-red-500"

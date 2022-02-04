@@ -1,8 +1,8 @@
-import React from 'react';
-import Chart from 'chart.js';
-import { useSelector } from 'react-redux';
-import selectedColumns from 'helpers/selectedColumns';
-import { counterVoter } from 'helpers/counter';
+import React from "react";
+import Chart from "chart.js";
+import { useSelector } from "react-redux";
+import selectedColumns from "helpers/selectedColumns";
+import { counterVoter } from "helpers/counter";
 
 export default function CardBarChart({ label, field }) {
   const voterList = useSelector((state) => state.voterList);
@@ -13,107 +13,107 @@ export default function CardBarChart({ label, field }) {
     datasets: dataSets,
   };
 
-  for (let i = 0; i < label.length; i++) {
-    const count = counterVoter(voters, field, label[i]);
-    const config = {
-      label: new Date().getFullYear(),
-      backgroundColor: '#ed64a6',
-      borderColor: '#ed64a6',
-      data: [count],
-      fill: false,
-      barThickness: 8,
-    };
-    dataSets.push(config);
-  }
-  console.log(data);
-  React.useEffect(() => {
-    let config = {
-      type: 'bar',
-      data: {
-        labels: label,
-        datasets: [
-          {
-            label: new Date().getFullYear(),
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
-            data: [30, 19],
-            fill: false,
-            barThickness: 8,
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: '#4c51bf',
-            borderColor: '#4c51bf',
-            data: [45, 10],
-            barThickness: 8,
-          },
-        ],
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        title: {
-          display: false,
-          text: 'Orders Chart',
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false,
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true,
-        },
-        legend: {
-          labels: {
-            fontColor: 'rgba(0,0,0,.4)',
-          },
-          align: 'end',
-          position: 'bottom',
-        },
-        scales: {
-          xAxes: [
-            {
-              display: false,
-              scaleLabel: {
-                display: true,
-                labelString: 'Month',
-              },
-              gridLines: {
-                borderDash: [2],
-                borderDashOffset: [2],
-                color: 'rgba(33, 37, 41, 0.3)',
-                zeroLineColor: 'rgba(33, 37, 41, 0.3)',
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-          yAxes: [
-            {
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: 'Value',
-              },
-              gridLines: {
-                borderDash: [2],
-                drawBorder: false,
-                borderDashOffset: [2],
-                color: 'rgba(33, 37, 41, 0.2)',
-                zeroLineColor: 'rgba(33, 37, 41, 0.15)',
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-        },
-      },
-    };
-    let ctx = document.getElementById('bar-chart').getContext('2d');
-    window.myBar = new Chart(ctx, config);
-  }, []);
+  // for (let i = 0; i < label.length; i++) {
+  //   const count = counterVoter(voters, field, label[i]);
+  //   const config = {
+  //     label: new Date().getFullYear(),
+  //     backgroundColor: '#ed64a6',
+  //     borderColor: '#ed64a6',
+  //     data: [count],
+  //     fill: false,
+  //     barThickness: 8,
+  //   };
+  //   dataSets.push(config);
+  // }
+  // console.log(data);
+  // React.useEffect(() => {
+  //   let config = {
+  //     type: 'bar',
+  //     data: {
+  //       labels: label,
+  //       datasets: [
+  //         {
+  //           label: new Date().getFullYear(),
+  //           backgroundColor: '#ed64a6',
+  //           borderColor: '#ed64a6',
+  //           data: [30, 19],
+  //           fill: false,
+  //           barThickness: 8,
+  //         },
+  //         {
+  //           label: new Date().getFullYear() - 1,
+  //           fill: false,
+  //           backgroundColor: '#4c51bf',
+  //           borderColor: '#4c51bf',
+  //           data: [45, 10],
+  //           barThickness: 8,
+  //         },
+  //       ],
+  //     },
+  //     options: {
+  //       maintainAspectRatio: false,
+  //       responsive: true,
+  //       title: {
+  //         display: false,
+  //         text: 'Orders Chart',
+  //       },
+  //       tooltips: {
+  //         mode: 'index',
+  //         intersect: false,
+  //       },
+  //       hover: {
+  //         mode: 'nearest',
+  //         intersect: true,
+  //       },
+  //       legend: {
+  //         labels: {
+  //           fontColor: 'rgba(0,0,0,.4)',
+  //         },
+  //         align: 'end',
+  //         position: 'bottom',
+  //       },
+  //       scales: {
+  //         xAxes: [
+  //           {
+  //             display: false,
+  //             scaleLabel: {
+  //               display: true,
+  //               labelString: 'Month',
+  //             },
+  //             gridLines: {
+  //               borderDash: [2],
+  //               borderDashOffset: [2],
+  //               color: 'rgba(33, 37, 41, 0.3)',
+  //               zeroLineColor: 'rgba(33, 37, 41, 0.3)',
+  //               zeroLineBorderDash: [2],
+  //               zeroLineBorderDashOffset: [2],
+  //             },
+  //           },
+  //         ],
+  //         yAxes: [
+  //           {
+  //             display: true,
+  //             scaleLabel: {
+  //               display: false,
+  //               labelString: 'Value',
+  //             },
+  //             gridLines: {
+  //               borderDash: [2],
+  //               drawBorder: false,
+  //               borderDashOffset: [2],
+  //               color: 'rgba(33, 37, 41, 0.2)',
+  //               zeroLineColor: 'rgba(33, 37, 41, 0.15)',
+  //               zeroLineBorderDash: [2],
+  //               zeroLineBorderDashOffset: [2],
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   };
+  //   let ctx = document.getElementById('bar-chart').getContext('2d');
+  //   window.myBar = new Chart(ctx, config);
+  // }, []);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
