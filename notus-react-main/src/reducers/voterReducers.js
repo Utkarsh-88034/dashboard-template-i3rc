@@ -11,6 +11,9 @@ import {
   VOTER_ALL_ELECTION_REQUEST,
   VOTER_ALL_ELECTION_SUCCESS,
   VOTER_ALL_ELECTION_FAIL,
+  VOTER_BY_ID_ELECTION_REQUEST,
+  VOTER_BY_ID_ELECTION_SUCCESS,
+  VOTER_BY_ID_ELECTION_FAIL,
 } from "../constants/userConstants";
 
 export const voterListReducer = (state = { voters: [] }, action) => {
@@ -55,16 +58,32 @@ export const voterPostYearlyReducer = (state = {}, action) => {
   }
 };
 
-export const electionListReducer = (state = { elections: [] }, action) => {
+export const electionListReducer = (state = { eds: {} }, action) => {
   switch (action.type) {
     case VOTER_ALL_ELECTION_REQUEST:
-      return { loading: true, elections: [] };
+      return { ...state, loading: true };
     case VOTER_ALL_ELECTION_SUCCESS:
+      return {
+        loading: false,
+        eds: action.payload.data,
+      };
+    case VOTER_ALL_ELECTION_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const electionDataByIDReducer = (state = { elections: [] }, action) => {
+  switch (action.type) {
+    case VOTER_BY_ID_ELECTION_REQUEST:
+      return { loading: true, elections: [] };
+    case VOTER_BY_ID_ELECTION_SUCCESS:
       return {
         loading: false,
         elections: action.payload.data,
       };
-    case VOTER_ALL_ELECTION_FAIL:
+    case VOTER_BY_ID_ELECTION_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

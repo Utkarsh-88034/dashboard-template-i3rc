@@ -1,8 +1,11 @@
+import { getElectionDatabyID } from "actions/voterActions";
 import { postYearlyVoterData } from "actions/voterActions";
+import { data } from "autoprefixer";
+import axios from "axios";
 import SubmitConfirmationCard from "components/Cards/SubmitConfirmationCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const YearlyQues = ({ status, nextStep }) => {
   const [submitForm, setSubmitForm] = useState(false);
@@ -165,6 +168,11 @@ const YearlyQues = ({ status, nextStep }) => {
   const contactRef = useRef();
   const qualificationRef = useRef();
   const occupationRef = useRef();
+  const dcPartyRef = useRef();
+  const otherNational1Ref = useRef();
+  const otherNational2Ref = useRef();
+  const otherLocal1Ref = useRef();
+  const otherLocal2Ref = useRef();
 
   const [listOfCandidates, setListOfCandidates] = useState([]);
   const setParametersValue = (e) => {
@@ -202,7 +210,31 @@ const YearlyQues = ({ status, nextStep }) => {
   const date = new Date();
   const year = date.getFullYear();
 
+  const fillingArrayData = () => {
+    let lastElectionsMP = [];
+    let lastElectionsMLA = [];
+    let willVote = [];
+    let loyaltyArr = [];
+
+    return { lastElectionsMP, lastElectionsMLA, willVote, loyaltyArr };
+  };
+
+  // const electionListbyID = useSelector((state) => state.electionListbyID);
+  // const { eds, error } = electionListbyID;
+
+  const callED = async (edid) => {
+    // dispatch(getElectionDatabyID("61fe53e9536a2e4b4cc5c54d"));
+    const data = await axios.get(`/api/election/electiondata/dsnvv`);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    callED(455454);
+  }, []);
+
   const submitHandler = () => {
+    const { lastElectionsMP, lastElectionsMLA, willVote, loyaltyArr } =
+      fillingArrayData();
     const electionData = {
       Year: year,
       data: {
@@ -345,14 +377,14 @@ const YearlyQues = ({ status, nextStep }) => {
           name4_MPLIMC: listOfCandidates[MPPC4 - 1],
         },
         old_data_for_future_reference: {
-          Voted_for_mp: parseInt(q12Ref.current?.value),
-          Voted_for_mla: parseInt(q13Ref.current?.value),
-          Will_vote: parseInt(q14Ref.current?.value),
-          loyalty1: parseInt(q15aRef.current?.value),
-          loyalty2: parseInt(q15bRef.current?.value),
-          loyalty3: parseInt(q15cRef.current?.value),
-          loyalty4: parseInt(q15dRef.current?.value),
-          loyalty5: parseInt(q15eRef.current?.value),
+          Voted_for_mp: lastElectionsMP,
+          Voted_for_mla: lastElectionsMLA,
+          Will_vote: willVote,
+          loyalty: loyaltyArr,
+          // loyalty2: parseInt(q15bRef.current?.value),
+          // loyalty3: parseInt(q15cRef.current?.value),
+          // loyalty4: parseInt(q15dRef.current?.value),
+          // loyalty5: parseInt(q15eRef.current?.value),
 
           //change 1,2,3,4 to party name in backend
         },
@@ -366,8 +398,9 @@ const YearlyQues = ({ status, nextStep }) => {
         Ocuupation: occupationRef.current.value,
       },
     };
-
-    // dispatch(postYearlyVoterData(electionData, status._id));
+    // if (error) {
+    //   dispatch(postYearlyVoterData(electionData, status._id));
+    // }
   };
 
   if (submitForm) {
@@ -599,6 +632,34 @@ const YearlyQues = ({ status, nextStep }) => {
                 )}
               </select>
             </div>
+            <div
+              style={{
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type={"text"}
+                style={{ width: "80%" }}
+                ref={otherNational1Ref}
+              />
+            </div>
+            <div
+              style={{
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type={"text"}
+                style={{ width: "80%" }}
+                ref={otherNational2Ref}
+              />
+            </div>
           </div>
         </div>
         <div
@@ -745,6 +806,34 @@ const YearlyQues = ({ status, nextStep }) => {
                     )
                 )}
               </select>
+            </div>
+            <div
+              style={{
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type={"text"}
+                style={{ width: "80%" }}
+                ref={otherLocal1Ref}
+              />
+            </div>
+            <div
+              style={{
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type={"text"}
+                style={{ width: "80%" }}
+                ref={otherLocal2Ref}
+              />
             </div>
           </div>
         </div>
@@ -2468,85 +2557,43 @@ const YearlyQues = ({ status, nextStep }) => {
             margin: "10px 0",
           }}
         >
-          <label>Do not ask just to observe and record</label>
           <div
             style={{
-              margin: "10px",
+              margin: "10px 0",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
-            <label>BJP</label>
+            <label>Which Party is the Data Collector affiliated to?</label>
+            <select ref={dcPartyRef}>
+              <option value={1}>BJP - (Bharatiya Janata Party)</option>
+              <option value={2}>BSP - (Bahujan Samaj Party)</option>
+              <option value={3}>SP - (Samajwadi Party)</option>
+              <option value={4}>TMC - (Trinmool Congress)</option>
+              <option value={5}>Other</option>
+            </select>
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            margin: "10px 0",
+          }}
+        >
+          <div
+            style={{
+              margin: "10px 0",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <label>Do not ask just to observe and record</label>
             <select ref={q15aRef}>
-              <option value={1}>Fully against</option>
-              <option value={2}>Partially against</option>
-              <option value={3}>Undecided</option>
-              <option value={4}>Partially loyal</option>
-              <option value={5}>Fully loyal</option>
-            </select>
-          </div>
-          <div
-            style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <label>INC</label>
-            <select ref={q15bRef}>
-              <option value={1}>Fully against</option>
-              <option value={2}>Partially against</option>
-              <option value={3}>Undecided</option>
-              <option value={4}>Partially loyal</option>
-              <option value={5}>Fully loyal</option>
-            </select>
-          </div>
-          <div
-            style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <label>BSP</label>
-            <select ref={q15cRef}>
-              <option value={1}>Fully against</option>
-              <option value={2}>Partially against</option>
-              <option value={3}>Undecided</option>
-              <option value={4}>Partially loyal</option>
-              <option value={5}>Fully loyal</option>
-            </select>
-          </div>
-          <div
-            style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <label>SP</label>
-            <select ref={q15dRef}>
-              <option value={1}>Fully against</option>
-              <option value={2}>Partially against</option>
-              <option value={3}>Undecided</option>
-              <option value={4}>Partially loyal</option>
-              <option value={5}>Fully loyal</option>
-            </select>
-          </div>
-          <div
-            style={{
-              margin: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <label>Other</label>
-            <select ref={q15eRef}>
               <option value={1}>Fully against</option>
               <option value={2}>Partially against</option>
               <option value={3}>Undecided</option>

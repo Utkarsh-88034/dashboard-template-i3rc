@@ -1,8 +1,14 @@
 const filterSubmit = (column, filterValue, rowData) => {
   const newRowData = [];
   rowData?.map((row) => {
-    if (row[column].toLowerCase() === filterValue.toLowerCase()) {
-      newRowData.push(row);
+    if (typeof row[column] == "string" && typeof filterValue == "string") {
+      if (row[column].toLowerCase() === filterValue.toLowerCase()) {
+        newRowData.push(row);
+      }
+    } else {
+      if (row[column] === filterValue) {
+        newRowData.push(row);
+      }
     }
   });
   return newRowData;
@@ -10,8 +16,7 @@ const filterSubmit = (column, filterValue, rowData) => {
 const filters = (data, filterColumns, rowData) => {
   let rows = rowData;
   for (let i = 0; i < data.length; i++) {
-    if (data[i] != '') {
-      console.log(data[i]);
+    if (data[i] != "") {
       rows = filterSubmit(filterColumns[i], data[i], rows);
     }
   }

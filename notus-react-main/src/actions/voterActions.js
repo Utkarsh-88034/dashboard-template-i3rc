@@ -12,6 +12,9 @@ import {
   VOTER_ALL_ELECTION_REQUEST,
   VOTER_ALL_ELECTION_SUCCESS,
   VOTER_ALL_ELECTION_FAIL,
+  VOTER_BY_ID_ELECTION_REQUEST,
+  VOTER_BY_ID_ELECTION_SUCCESS,
+  VOTER_BY_ID_ELECTION_FAIL,
 } from "../constants/userConstants";
 
 export const listVoters = () => async (dispatch, getState) => {
@@ -137,6 +140,37 @@ export const getAllElectionData = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: VOTER_ALL_ELECTION_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getElectionDatabyID = (edid) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: VOTER_BY_ID_ELECTION_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.AccessToken}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/election/electiondata/${edid}`); //add config
+
+    dispatch({
+      type: VOTER_BY_ID_ELECTION_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VOTER_BY_ID_ELECTION_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
