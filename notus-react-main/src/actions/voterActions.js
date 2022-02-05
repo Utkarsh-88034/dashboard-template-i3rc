@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   VOTER_LIST_REQUEST,
   VOTER_LIST_SUCCESS,
@@ -15,7 +15,7 @@ import {
   VOTER_BY_ID_ELECTION_REQUEST,
   VOTER_BY_ID_ELECTION_SUCCESS,
   VOTER_BY_ID_ELECTION_FAIL,
-} from "../constants/userConstants";
+} from '../constants/userConstants';
 
 export const listVoters = () => async (dispatch, getState) => {
   try {
@@ -31,7 +31,7 @@ export const listVoters = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/voter/voterdata"); //add config
+    const { data } = await axios.get('/api/voter/voterdata'); //add config
 
     dispatch({
       type: VOTER_LIST_SUCCESS,
@@ -63,7 +63,7 @@ export const postVoterData = (voter) => async (dispatch, getState) => {
     };
     console.log(config);
 
-    const { data } = await axios.post("/api/voter/voterdata", voter, config);
+    const { data } = await axios.post('/api/voter/voterdata', voter, config);
 
     dispatch({
       type: VOTER_POST_SUCCESS,
@@ -131,7 +131,7 @@ export const getAllElectionData = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/election/electiondata"); //add config
+    const { data } = await axios.get('/api/election/electiondata'); //add config
 
     dispatch({
       type: VOTER_ALL_ELECTION_SUCCESS,
@@ -152,15 +152,15 @@ export const getElectionDatabyID = (edid) => async (dispatch, getState) => {
   try {
     dispatch({ type: VOTER_BY_ID_ELECTION_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+    // const {
+    //   eds: { electionListbyID },
+    // } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.AccessToken}`,
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${userInfo.AccessToken}`,
+    //   },
+    // };
 
     const { data } = await axios.get(`/api/election/electiondata/${edid}`); //add config
 

@@ -14,7 +14,7 @@ import {
   VOTER_BY_ID_ELECTION_REQUEST,
   VOTER_BY_ID_ELECTION_SUCCESS,
   VOTER_BY_ID_ELECTION_FAIL,
-} from "../constants/userConstants";
+} from '../constants/userConstants';
 
 export const voterListReducer = (state = { voters: [] }, action) => {
   switch (action.type) {
@@ -74,14 +74,14 @@ export const electionListReducer = (state = { eds: {} }, action) => {
   }
 };
 
-export const electionDataByIDReducer = (state = { elections: [] }, action) => {
+export const electionDataByIDReducer = (state = { eds: [] }, action) => {
   switch (action.type) {
     case VOTER_BY_ID_ELECTION_REQUEST:
-      return { loading: true, elections: [] };
+      return { loading: true, eds: [] };
     case VOTER_BY_ID_ELECTION_SUCCESS:
       return {
         loading: false,
-        elections: action.payload.data,
+        eds: action.payload.electionData,
       };
     case VOTER_BY_ID_ELECTION_FAIL:
       return { loading: false, error: action.payload };
