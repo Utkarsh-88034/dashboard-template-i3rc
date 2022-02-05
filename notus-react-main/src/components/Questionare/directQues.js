@@ -6,7 +6,7 @@ import { useGetTableData } from 'hooks/use-get-table-data';
 import filters from 'helpers/filters';
 import { listVoters } from 'actions/voterActions';
 
-const DirectQues = ({ backBtn }) => {
+const DirectQues = ({ backBtn, setedit }) => {
   const [filter, setFilter] = useState(false);
   const lokSabhaRef = useRef();
   const vidhanSabhaRef = useRef();
@@ -60,7 +60,7 @@ const DirectQues = ({ backBtn }) => {
     setRowsVoter(newRowsVoter);
   };
   const editVoter = () => {
-    console.log(rowsVoter);
+    setedit(rowsVoter[0].id);
   };
   return (
     <>
@@ -199,21 +199,15 @@ const DirectQues = ({ backBtn }) => {
             justifyContent: 'space-between',
           }}
         >
-          <label style={{ margin: ' 0 10px' }}>Ward No:</label>
+          <label style={{ margin: ' 0 10px' }}>Name:</label>
           <input
             ref={wardNumberRef}
-            list="list"
             style={{
               height: '35px',
               width: '250px',
               border: '1px solid black',
             }}
           />
-          <datalist id="list">
-            {Lok_Sabha.map((data) => (
-              <option>{data['Lok Sabha Name']}</option>
-            ))}
-          </datalist>
         </div>
         <div
           style={{

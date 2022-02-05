@@ -1,4 +1,5 @@
 import { getElectionDatabyID } from 'actions/voterActions';
+import { getVoterDatabyID } from 'actions/voterActions';
 import { postYearlyVoterData } from 'actions/voterActions';
 import { data } from 'autoprefixer';
 import axios from 'axios';
@@ -7,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const YearlyQues = ({ status, nextStep }) => {
+const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
   const [submitForm, setSubmitForm] = useState(false);
   const [renderModal, setRenderModal] = useState(false);
 
@@ -209,17 +210,24 @@ const YearlyQues = ({ status, nextStep }) => {
 
   const date = new Date();
   const year = date.getFullYear();
-  console.log(status);
+
   const electionListbyID = useSelector((state) => state.electionListbyID);
   const { eds, error } = electionListbyID;
-  const callED = async (edid) => {
-    dispatch(getElectionDatabyID(edid));
-  };
-  console.log(eds, error);
 
+  const voterById = useSelector((state) => state.voterById);
+  const { voter } = voterById;
   useEffect(() => {
-    callED('61fe527');
+    if (put) {
+      dispatch(getVoterDatabyID(voterIdDq));
+    }
   }, []);
+  useEffect(() => {
+    if (put) {
+      if (voter.Election_Data_ID) {
+        dispatch(getElectionDatabyID(voter.Election_Data_ID[0]));
+      }
+    }
+  }, [voter]);
 
   // if error => post;
   //if not error => put;
@@ -255,7 +263,6 @@ const YearlyQues = ({ status, nextStep }) => {
       dcPartyArr,
     } = fillingArrayData();
 
-    console.log('dfsdh');
     const electionData = {
       data: {
         National_five_issues: {
@@ -424,9 +431,12 @@ const YearlyQues = ({ status, nextStep }) => {
         Ocuupation: occupationRef.current.value,
       },
     };
-    if (error) {
+
+    if (post) {
       dispatch(postYearlyVoterData(electionData, status._id));
+    } else if (put) {
     }
+
     // if(!error){
     //   //put
     // }
@@ -435,7 +445,6 @@ const YearlyQues = ({ status, nextStep }) => {
   if (submitForm) {
     submitHandler();
   }
-  console.log(submitForm);
   const setSubmit = (value) => {
     if (value) {
       submitHandler();
@@ -443,8 +452,10 @@ const YearlyQues = ({ status, nextStep }) => {
 
     setRenderModal(false);
     document.body.style.overflow = 'auto';
-    if (value) {
-      nextStep(1);
+    if (post) {
+      if (value) {
+        nextStep(1);
+      }
     }
   };
 

@@ -15,6 +15,9 @@ import {
   VOTER_BY_ID_ELECTION_REQUEST,
   VOTER_BY_ID_ELECTION_SUCCESS,
   VOTER_BY_ID_ELECTION_FAIL,
+  VOTER_BY_ID_SUCCESS,
+  VOTER_BY_ID_FAIL,
+  VOTER_BY_ID_REQUEST,
 } from '../constants/userConstants';
 
 export const listVoters = () => async (dispatch, getState) => {
@@ -61,7 +64,6 @@ export const postVoterData = (voter) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.AccessToken}`,
       },
     };
-    console.log(config);
 
     const { data } = await axios.post('/api/voter/voterdata', voter, config);
 
@@ -94,7 +96,6 @@ export const postYearlyVoterData =
           Authorization: `Bearer ${userInfo.AccessToken}`,
         },
       };
-      console.log(config);
 
       const { data } = await axios.post(
         `/api/election/electiondata/${voterId}`,
@@ -152,10 +153,6 @@ export const getElectionDatabyID = (edid) => async (dispatch, getState) => {
   try {
     dispatch({ type: VOTER_BY_ID_ELECTION_REQUEST });
 
-    // const {
-    //   eds: { electionListbyID },
-    // } = getState();
-
     // const config = {
     //   headers: {
     //     Authorization: `Bearer ${userInfo.AccessToken}`,
@@ -171,6 +168,32 @@ export const getElectionDatabyID = (edid) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: VOTER_BY_ID_ELECTION_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const getVoterDatabyID = (vid) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: VOTER_BY_ID_REQUEST });
+
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${userInfo.AccessToken}`,
+    //   },
+    // };
+
+    const { data } = await axios.get(`/api/voter/voterdata/${vid}`); //add config
+
+    dispatch({
+      type: VOTER_BY_ID_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VOTER_BY_ID_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

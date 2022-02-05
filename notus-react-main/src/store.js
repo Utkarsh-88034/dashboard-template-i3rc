@@ -1,12 +1,13 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { userLoginReducer } from "./reducers/userReducers";
-import { userListReducer } from "./reducers/userReducers";
-import { voterListReducer } from "reducers/voterReducers";
-import { voterPostReducer } from "reducers/voterReducers";
-import { electionListReducer } from "reducers/voterReducers";
-import { electionDataByIDReducer } from "reducers/voterReducers";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { userLoginReducer } from './reducers/userReducers';
+import { userListReducer } from './reducers/userReducers';
+import { voterListReducer } from 'reducers/voterReducers';
+import { voterPostReducer } from 'reducers/voterReducers';
+import { electionListReducer } from 'reducers/voterReducers';
+import { electionDataByIDReducer } from 'reducers/voterReducers';
+import { voterDataByIDReducer } from 'reducers/voterReducers';
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -15,10 +16,11 @@ const reducer = combineReducers({
   statusList: voterPostReducer,
   electionList: electionListReducer,
   electionListbyID: electionDataByIDReducer,
+  voterById: voterDataByIDReducer,
 });
 
-const userInfoFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
 const initialState = {

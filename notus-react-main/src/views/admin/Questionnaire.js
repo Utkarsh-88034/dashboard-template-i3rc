@@ -8,8 +8,9 @@ import DirectQues from 'components/Questionare/directQues';
 const Questionnaire = () => {
   const statusList = useSelector((state) => state.statusList);
   const { status, error } = statusList;
-
+  const [editVoter, setEditVoter] = useState(false);
   const [step, setStep] = useState(1);
+  const [voterIdDq, setVoterIdDq] = useState(null);
   const nextStep = (i) => {
     setStep(i);
     window.scrollTo({
@@ -38,6 +39,11 @@ const Questionnaire = () => {
     setAddVoter(false);
     setTakeSurvey(false);
   };
+  const setedit = (value) => {
+    setTakeSurvey(false);
+    setVoterIdDq(value);
+    setEditVoter(true);
+  };
 
   return (
     <>
@@ -53,9 +59,12 @@ const Questionnaire = () => {
           voterID={voterID}
           nextStep={nextStep}
           backBtn={backBtn}
+          post={true}
         />
       ) : takeSurvey ? (
-        <DirectQues backBtn={backBtn} />
+        <DirectQues backBtn={backBtn} setedit={setedit} />
+      ) : editVoter ? (
+        <YearlyQues put={true} voterIdDq={voterIdDq} backBtn={backBtn} />
       ) : (
         <div
           style={{
