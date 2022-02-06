@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   VOTER_LIST_REQUEST,
   VOTER_LIST_SUCCESS,
@@ -18,7 +18,10 @@ import {
   VOTER_BY_ID_SUCCESS,
   VOTER_BY_ID_FAIL,
   VOTER_BY_ID_REQUEST,
-} from '../constants/userConstants';
+  VOTER_PUT_BY_ID_ELECTION_REQUEST,
+  VOTER_PUT_BY_ID_ELECTION_SUCCESS,
+  VOTER_PUT_BY_ID_ELECTION_FAIL,
+} from "../constants/userConstants";
 
 export const listVoters = () => async (dispatch, getState) => {
   try {
@@ -34,7 +37,7 @@ export const listVoters = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get('/api/voter/voterdata'); //add config
+    const { data } = await axios.get("/api/voter/voterdata"); //add config
 
     dispatch({
       type: VOTER_LIST_SUCCESS,
@@ -65,7 +68,7 @@ export const postVoterData = (voter) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post('/api/voter/voterdata', voter, config);
+    const { data } = await axios.post("/api/voter/voterdata", voter, config);
 
     dispatch({
       type: VOTER_POST_SUCCESS,
@@ -132,7 +135,7 @@ export const getAllElectionData = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get('/api/election/electiondata'); //add config
+    const { data } = await axios.get("/api/election/electiondata"); //add config
 
     dispatch({
       type: VOTER_ALL_ELECTION_SUCCESS,
@@ -201,3 +204,39 @@ export const getVoterDatabyID = (vid) => async (dispatch, getState) => {
     });
   }
 };
+
+export const putElectionDataById =
+  (yearly, eId) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: VOTER_PUT_BY_ID_ELECTION_REQUEST });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.AccessToken}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/election/electiondata/${eId}`,
+        yearly,
+        config
+      );
+
+      dispatch({
+        type: VOTER_PUT_BY_ID_ELECTION_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: VOTER_PUT_BY_ID_ELECTION_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

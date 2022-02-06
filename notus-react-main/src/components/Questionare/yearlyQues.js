@@ -1,4 +1,5 @@
 import { getElectionDatabyID } from "actions/voterActions";
+import { putElectionDataById } from "actions/voterActions";
 import { getVoterDatabyID } from "actions/voterActions";
 import { postYearlyVoterData } from "actions/voterActions";
 import { data } from "autoprefixer";
@@ -296,10 +297,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           eds.name_of_party_candidate.SP2,
           eds.name_of_party_candidate.SP3,
           eds.name_of_party_candidate.TMC1,
-          eds.name_of_party_candidate.other1,
           eds.name_of_party_candidate.TMC2,
-          eds.name_of_party_candidate.other2,
           eds.name_of_party_candidate.TMC3,
+          eds.name_of_party_candidate.other1,
+          eds.name_of_party_candidate.other2,
           eds.name_of_party_candidate.other3
         );
         setListOfCandidates(tempArr);
@@ -322,7 +323,7 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         Othername2Ref.current.value = listOfCandidates[16];
         Othername3Ref.current.value = listOfCandidates[17];
 
-        let tempArr2 = tempArr;
+        // let tempArr2 = tempArr;
 
         // for (var i = 0; i < tempArr2.length; i++) {
         //   if (tempArr2[i] == eds.Parameter_to_assess.name1_HAI) {
@@ -602,6 +603,13 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
     if (post) {
       dispatch(postYearlyVoterData(electionData, status._id));
     } else if (put) {
+      if (eds.Election_Data_ID) {
+        console.log("put if");
+        dispatch(putElectionDataById(electionData, eds.Election_Data_ID));
+      } else {
+        console.log("else");
+        dispatch(postYearlyVoterData(electionData, voterIdDq));
+      }
     }
 
     // if(!error){
