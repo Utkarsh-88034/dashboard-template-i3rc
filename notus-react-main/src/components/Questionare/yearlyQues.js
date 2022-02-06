@@ -1,12 +1,12 @@
-import { getElectionDatabyID } from 'actions/voterActions';
-import { getVoterDatabyID } from 'actions/voterActions';
-import { postYearlyVoterData } from 'actions/voterActions';
-import { data } from 'autoprefixer';
-import axios from 'axios';
-import SubmitConfirmationCard from 'components/Cards/SubmitConfirmationCard';
-import React, { useEffect, useState } from 'react';
-import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { getElectionDatabyID } from "actions/voterActions";
+import { getVoterDatabyID } from "actions/voterActions";
+import { postYearlyVoterData } from "actions/voterActions";
+import { data } from "autoprefixer";
+import axios from "axios";
+import SubmitConfirmationCard from "components/Cards/SubmitConfirmationCard";
+import React, { useEffect, useState } from "react";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
   const [submitForm, setSubmitForm] = useState(false);
@@ -174,6 +174,7 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
   const otherNational2Ref = useRef();
   const otherLocal1Ref = useRef();
   const otherLocal2Ref = useRef();
+  const asasaRef = useRef();
 
   const [listOfCandidates, setListOfCandidates] = useState([]);
   const setParametersValue = (e) => {
@@ -201,10 +202,9 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
       Othername3Ref.current?.value
     );
     const arrFiltered = tempList.filter((el) => {
-      return el !== null && el !== '';
+      return el !== null && el !== "";
     });
     setListOfCandidates(arrFiltered);
-    console.log(listOfCandidates);
   };
   const dispatch = useDispatch();
 
@@ -213,6 +213,7 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
 
   const electionListbyID = useSelector((state) => state.electionListbyID);
   const { eds, error } = electionListbyID;
+  console.log(eds);
 
   const voterById = useSelector((state) => state.voterById);
   const { voter } = voterById;
@@ -228,6 +229,172 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
       }
     }
   }, [voter]);
+
+  useEffect(() => {
+    if (put) {
+      if (eds._id) {
+        // Fill Data into form
+        contactRef.current.value = eds.Contact_number_for_all_active_voters;
+        q7aRef.current.value =
+          eds.Impact_on_voting.is_candidate_of_my_community_or_caste_or_religion;
+        q7bRef.current.value =
+          eds.Impact_on_voting.is_candidate_known_for_years;
+        // I have personal connect with the candidate ->d
+        q7cRef.current.value = eds.Impact_on_voting.is_candidate_from_my_area;
+        q7eRef.current.value =
+          eds.Impact_on_voting.is_candidate_help_us_solve_problem;
+        q7fRef.current.value = eds.Impact_on_voting.is_candidate_popular;
+        q7gRef.current.value =
+          eds.Impact_on_voting.is_candidate_with_strong_ideology;
+        q7hRef.current.value =
+          eds.Impact_on_voting.is_candidate_nonCorrupt_or_honest;
+        q7iRef.current.value =
+          eds.Impact_on_voting.will_analyse_past_of_the_candidate;
+        q7jRef.current.value =
+          eds.Impact_on_voting.based_on_suggestion_of_my_problem;
+        q7kRef.current.value =
+          eds.Impact_on_voting.based_on_suggestion_of_my_community;
+        q7lRef.current.value =
+          eds.Impact_on_voting.is_candidate_active_in_my_area;
+        q7mRef.current.value =
+          eds.Impact_on_voting.is_candidate_available_in_my_area;
+
+        setLIssue1(eds.Local_five_issues.Issue_1);
+        setLIssue2(eds.Local_five_issues.Issue_2);
+        setLIssue3(eds.Local_five_issues.Issue_3);
+        setLIssue4(eds.Local_five_issues.Issue_4);
+        setLIssue5(eds.Local_five_issues.Issue_5);
+        otherLocal1Ref.current.value = eds.Local_five_issues.Other_Issue_1;
+        otherLocal2Ref.current.value = eds.Local_five_issues.Other_Issue_2;
+
+        setNIssue1(eds.National_five_issues.Issue_1);
+        setNIssue2(eds.National_five_issues.Issue_2);
+        setNIssue3(eds.National_five_issues.Issue_3);
+        setNIssue4(eds.National_five_issues.Issue_4);
+        setNIssue5(eds.National_five_issues.Issue_5);
+        otherNational1Ref.current.value =
+          eds.National_five_issues.Other_Issue_1;
+        otherNational2Ref.current.value =
+          eds.National_five_issues.Other_Issue_2;
+        q17Ref.current.value = eds.Numbers_of_voters_in_house;
+        occupationRef.current.value = eds.Ocuupation;
+
+        setListOfCandidates([]);
+        let tempArr = [];
+
+        tempArr.push(
+          eds.name_of_party_candidate.INC1,
+          eds.name_of_party_candidate.INC2,
+          eds.name_of_party_candidate.INC3,
+          eds.name_of_party_candidate.BJP1,
+          eds.name_of_party_candidate.BJP2,
+          eds.name_of_party_candidate.BJP3,
+          eds.name_of_party_candidate.BSP1,
+          eds.name_of_party_candidate.BSP2,
+          eds.name_of_party_candidate.BSP3,
+          eds.name_of_party_candidate.SP1,
+          eds.name_of_party_candidate.SP2,
+          eds.name_of_party_candidate.SP3,
+          eds.name_of_party_candidate.TMC1,
+          eds.name_of_party_candidate.other1,
+          eds.name_of_party_candidate.TMC2,
+          eds.name_of_party_candidate.other2,
+          eds.name_of_party_candidate.TMC3,
+          eds.name_of_party_candidate.other3
+        );
+        setListOfCandidates(tempArr);
+        INCname1Ref.current.value = listOfCandidates[0];
+        INCname2Ref.current.value = listOfCandidates[1];
+        INCname3Ref.current.value = listOfCandidates[2];
+        BJPname1Ref.current.value = listOfCandidates[3];
+        BJPname2Ref.current.value = listOfCandidates[4];
+        BJPname3Ref.current.value = listOfCandidates[5];
+        BSPname1Ref.current.value = listOfCandidates[6];
+        BSPname2Ref.current.value = listOfCandidates[7];
+        BSPname3Ref.current.value = listOfCandidates[8];
+        SPname1Ref.current.value = listOfCandidates[9];
+        SPname2Ref.current.value = listOfCandidates[10];
+        SPname3Ref.current.value = listOfCandidates[11];
+        TMCname1Ref.current.value = listOfCandidates[12];
+        TMCname2Ref.current.value = listOfCandidates[13];
+        TMCname3Ref.current.value = listOfCandidates[14];
+        Othername1Ref.current.value = listOfCandidates[15];
+        Othername2Ref.current.value = listOfCandidates[16];
+        Othername3Ref.current.value = listOfCandidates[17];
+
+        let tempArr2 = tempArr;
+
+        // for (var i = 0; i < tempArr2.length; i++) {
+        //   if (tempArr2[i] == eds.Parameter_to_assess.name1_HAI) {
+        //     setHAR1(i);
+        //     // aRef.current.value = i;
+        //     console.log(aRef.current.value);
+        //     console.log(HAR1);
+        //     tempArr2.pop(tempArr2[i]);
+        //     break;
+        //   }
+        // }
+
+        q8aRef.current.value =
+          eds.Parameters_to_vote.chose_to_vote_after_after_duly_considering_the_candidate;
+
+        q8bRef.current.value = eds.Parameters_to_vote.always_vote_for_elections;
+
+        q8cRef.current.value = eds.Parameters_to_vote.loyal_to_only_one_party;
+        q8dRef.current.value =
+          eds.Parameters_to_vote.my_whole_family_loyal_to_only_one_party;
+
+        q8eRef.current.value =
+          eds.Parameters_to_vote.always_vote_for_most_deserving;
+        q8fRef.current.value =
+          eds.Parameters_to_vote.keep_changing_my_vote_based_on_candidates_every_years;
+
+        q8gRef.current.value =
+          eds.Parameters_to_vote.vote_for_any_candidate_that_will_help_me_personally;
+
+        q8hRef.current.value =
+          eds.Parameters_to_vote.will_vote_for_anyone_whom_i_am_comforatble_with;
+
+        q8iRef.current.value =
+          eds.Parameters_to_vote.wont_hesitate_to_vote_any_new_party_or_candidate_if_deserving;
+        q8jRef.current.value =
+          eds.Parameters_to_vote.i_believe_one_should_keep_changing_their_vote;
+
+        q8kRef.current.value =
+          eds.Parameters_to_vote.i_wait_till_last_time_to_decide_my_vote;
+
+        q8lRef.current.value =
+          eds.Parameters_to_vote.i_have_voted_by_getting_influenced_by_campaigns;
+
+        q8mRef.current.value =
+          eds.Parameters_to_vote.i_have_voted_by_getting_influenced_by_party_workers;
+
+        q8nRef.current.value =
+          eds.Parameters_to_vote.i_debate_and_discuss_with_my_family_and_friends_and_also_do_research;
+
+        qualificationRef.current.value = eds.Qualification;
+
+        q19Ref.current.value = eds.caste;
+        setQ9BJP(eds.know_the_candidate_of.BJP);
+        setQ9BSP(eds.know_the_candidate_of.other1);
+        setQ9SP(eds.know_the_candidate_of.SP);
+        setQ9TMC(eds.know_the_candidate_of.TMC);
+        setQ9Other(eds.know_the_candidate_of.other2);
+
+        q20Ref.current.value = eds.need_transportation;
+        dcPartyRef.current.value =
+          eds.old_data_for_future_reference.Dc_Party[0];
+        q13Ref.current.value =
+          eds.old_data_for_future_reference.Voted_for_mla[0];
+        q12Ref.current.value =
+          eds.old_data_for_future_reference.Voted_for_mp[0];
+        q14Ref.current.value = eds.old_data_for_future_reference.Will_vote[0];
+        q15aRef.current.value = eds.old_data_for_future_reference.loyalty[0];
+        q18Ref.current.value = eds.religious;
+        q16Ref.current.value = eds.remarks;
+      }
+    }
+  }, [eds]);
 
   // if error => post;
   //if not error => put;
@@ -451,7 +618,7 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
     }
 
     setRenderModal(false);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
     if (post) {
       if (value) {
         nextStep(1);
@@ -463,9 +630,9 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
     <>
       {renderModal ? <SubmitConfirmationCard setSubmit={setSubmit} /> : <></>}
       <form
-        style={{ margin: '10px 10px' }}
+        style={{ margin: "10px 10px" }}
         onSubmit={(e) => {
-          document.body.style.overflow = 'hidden';
+          document.body.style.overflow = "hidden";
           e.preventDefault();
           setRenderModal(true);
         }}
@@ -473,22 +640,22 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         <div
           className=" flex flex-row "
           style={{
-            margin: '10px 0',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
+            margin: "10px 0",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
           }}
         >
           <label>Contact Number</label>
-          <input type={'number'} ref={contactRef}></input>
+          <input type={"number"} ref={contactRef}></input>
         </div>
         <div
           className=" flex flex-row "
           style={{
-            margin: '10px 0',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
+            margin: "10px 0",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
           }}
         >
           <label>Qualification</label>
@@ -506,10 +673,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         <div
           className=" flex flex-row "
           style={{
-            margin: '10px 0',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
+            margin: "10px 0",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
           }}
         >
           <label>Occupation</label>
@@ -534,10 +701,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         <div
           className=" flex flex-col "
           style={{
-            margin: '10px 0',
-            justifyContent: 'space-between',
+            margin: "10px 0",
+            justifyContent: "space-between",
 
-            flexWrap: 'wrap',
+            flexWrap: "wrap",
           }}
         >
           <label>
@@ -546,18 +713,18 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </label>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-evenly',
-              flexWrap: 'wrap',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              flexWrap: "wrap",
             }}
           >
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -575,10 +742,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -601,10 +768,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -627,10 +794,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -653,10 +820,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -679,29 +846,29 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <input
-                type={'text'}
-                style={{ width: '80%' }}
+                type={"text"}
+                style={{ width: "80%" }}
                 ref={otherNational1Ref}
               />
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <input
-                type={'text'}
-                style={{ width: '80%' }}
+                type={"text"}
+                style={{ width: "80%" }}
                 ref={otherNational2Ref}
               />
             </div>
@@ -710,9 +877,9 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         <div
           className=" flex flex-col "
           style={{
-            margin: '10px 0',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
+            margin: "10px 0",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
           }}
         >
           <label>
@@ -721,18 +888,18 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </label>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-evenly',
-              flexWrap: 'wrap',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              flexWrap: "wrap",
             }}
           >
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -750,10 +917,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -776,10 +943,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -802,10 +969,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -828,10 +995,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <select
@@ -854,29 +1021,29 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <input
-                type={'text'}
-                style={{ width: '80%' }}
+                type={"text"}
+                style={{ width: "80%" }}
                 ref={otherLocal1Ref}
               />
             </div>
             <div
               style={{
-                margin: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                margin: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <input
-                type={'text'}
-                style={{ width: '80%' }}
+                type={"text"}
+                style={{ width: "80%" }}
                 ref={otherLocal2Ref}
               />
             </div>
@@ -885,10 +1052,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         <div
           className=" flex flex-row "
           style={{
-            margin: '10px 0',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
+            margin: "10px 0",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
           }}
         >
           <label>
@@ -908,7 +1075,7 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </select>
         </div>
         <div>
-          <label style={{ fontWeight: 'bolder' }}>
+          <label style={{ fontWeight: "bolder" }}>
             Of the following, please tell me the impact of each aspect over your
             decision to vote on 10 point scale where 1 is mean not at all impact
             and 10 means critical/ full impact?
@@ -916,140 +1083,140 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           <br />
           <br />
           <div className="flex flex-col">
-            <label style={{ margin: '10px 0' }}>
+            <label style={{ margin: "10px 0" }}>
               Candidate is member of my community/ caste/ religion
             </label>
-            <input type={'number'} max={10} ref={q7aRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7aRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate is known from many years
             </label>
-            <input type={'number'} max={10} ref={q7bRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7bRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate is local- from my area
             </label>
-            <input type={'number'} max={10} ref={q7cRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7cRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I have personal connect with the candidate
             </label>
-            <input type={'number'} max={10} ref={q7dRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7dRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate is ready to help us to solve all our problems
             </label>
-            <input type={'number'} max={10} ref={q7eRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7eRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate is very Popular
             </label>
-            <input type={'number'} max={10} ref={q7fRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7fRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate with strong ideology
             </label>
-            <input type={'number'} max={10} ref={q7gRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7gRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate is Non- corrupt/ honest image
             </label>
-            <input type={'number'} max={10} ref={q7hRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7hRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I will Analyse the candidates past performance
             </label>
-            <input type={'number'} max={10} ref={q7iRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7iRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Based on suggestion from family member
             </label>
-            <input type={'number'} max={10} ref={q7jRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7jRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Based on suggestion from community people
             </label>
-            <input type={'number'} max={10} ref={q7kRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7kRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate must be active in the area
             </label>
-            <input type={'number'} max={10} ref={q7lRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q7lRef}></input>
+            <label style={{ margin: "10px 0" }}>
               Candidate is Always available in the area
             </label>
-            <input type={'number'} max={10} ref={q7mRef}></input>
+            <input type={"number"} max={10} ref={q7mRef}></input>
           </div>
         </div>
         <div>
           <br />
           <br />
-          <label style={{ fontWeight: 'bolder' }}>
+          <label style={{ fontWeight: "bolder" }}>
             Of the following, please tell me how you are agree with on a scale
             of 10 where 10 means fully agree and 1 means not at all agree
           </label>
           <br />
           <br />
           <div className="flex flex-col">
-            <label style={{ margin: '10px 0' }}>
+            <label style={{ margin: "10px 0" }}>
               I choose whom to vote after duly considering the candidate, the
               party and their past performance
             </label>
-            <input type={'number'} max={10} ref={q8aRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8aRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I value my vote and always go to vote in Elections
             </label>
-            <input type={'number'} max={10} ref={q8bRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8bRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I am loyal towards a particular party and always vote for that
               party irrespective of the candidate
             </label>
-            <input type={'number'} max={10} ref={q8cRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8cRef}></input>
+            <label style={{ margin: "10px 0" }}>
               We as a family always vote for a particular party in every
               election
             </label>
-            <input type={'number'} max={10} ref={q8dRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8dRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I vote for most deserving candidate
             </label>
-            <input type={'number'} max={10} ref={q8eRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8eRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I keep changing my choice of vote every new election
             </label>
-            <input type={'number'} max={10} ref={q8fRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8fRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I will vote for any candidate who I think will help me personally
             </label>
-            <input type={'number'} max={10} ref={q8gRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8gRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I am not very particular about voting and will vote for anyone
               whom I am familiar with
             </label>
-            <input type={'number'} max={10} ref={q8hRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8hRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I would not hesitate to vote to a new candidate or party and give
               them a chance
             </label>
-            <input type={'number'} max={10} ref={q8iRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8iRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I believe one should keep changing his/ her choice of vote to keep
               these politicians on their toes
             </label>
-            <input type={'number'} max={10} ref={q8jRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8jRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I wait till the last minute to decide whom to vote
             </label>
-            <input type={'number'} max={10} ref={q8kRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8kRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I have at times voted a candidate after getting influenced by
               their campaign and personal charisma
             </label>
-            <input type={'number'} max={10} ref={q8lRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8lRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I have been influenced by the party workers tot vote for a
               particular candidate in the past
             </label>
-            <input type={'number'} max={10} ref={q8mRef}></input>
-            <label style={{ margin: '10px 0' }}>
+            <input type={"number"} max={10} ref={q8mRef}></input>
+            <label style={{ margin: "10px 0" }}>
               I debate and discuss with friends, family and also do my own
               research to finally choosing the candidate to vote for very
               carefully
             </label>
-            <input type={'number'} max={10} ref={q8nRef}></input>
+            <input type={"number"} max={10} ref={q8nRef}></input>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label style={{ margin: ' 10px 0' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ margin: " 10px 0" }}>
             Do you know the candidate of INC party for your parliamentary
             Constituency?
           </label>
@@ -1064,38 +1231,38 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </select>
           {q9INC === 1 ? (
             <>
-              <label style={{ margin: ' 10px 0' }}>
+              <label style={{ margin: " 10px 0" }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={INCname1Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={INCname2Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={INCname3Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
             </>
           ) : (
-            ''
+            ""
           )}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label style={{ margin: ' 10px 0' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ margin: " 10px 0" }}>
             Do you know the candidate of BJP party for your parliamentary
             Constituency?
           </label>
 
           <select
             ref={q9BJPRef}
-            style={{ margin: ' 10px 0' }}
+            style={{ margin: " 10px 0" }}
             onChange={(e) => {
               setQ9BJP(e.target.value);
             }}
@@ -1105,31 +1272,31 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </select>
           {q9BJP === 1 ? (
             <>
-              <label style={{ margin: ' 10px 0' }}>
+              <label style={{ margin: " 10px 0" }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={BJPname1Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={BJPname2Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={BJPname3Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
             </>
           ) : (
-            ''
+            ""
           )}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label style={{ margin: ' 10px 0' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ margin: " 10px 0" }}>
             Do you know the candidate of BSP party for your parliamentary
             Constituency?
           </label>
@@ -1145,31 +1312,31 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </select>
           {q9BSP === 1 ? (
             <>
-              <label style={{ margin: ' 10px 0' }}>
+              <label style={{ margin: " 10px 0" }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={BSPname1Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={BSPname2Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={BSPname3Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
             </>
           ) : (
-            ''
+            ""
           )}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label style={{ margin: ' 10px 0' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ margin: " 10px 0" }}>
             Do you know the candidate of SP party for your parliamentary
             Constituency?
           </label>
@@ -1185,31 +1352,31 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </select>
           {q9SP === 1 ? (
             <>
-              <label style={{ margin: ' 10px 0' }}>
+              <label style={{ margin: " 10px 0" }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={SPname1Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={SPname2Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={SPname3Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
             </>
           ) : (
-            ''
+            ""
           )}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label style={{ margin: ' 10px 0' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ margin: " 10px 0" }}>
             Do you know the candidate of TMC party for your parliamentary
             Constituency?
           </label>
@@ -1225,32 +1392,32 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </select>
           {q9TMC === 1 ? (
             <>
-              <label style={{ margin: ' 10px 0' }}>
+              <label style={{ margin: " 10px 0" }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={TMCname1Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={TMCname2Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={TMCname3Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
             </>
           ) : (
-            ''
+            ""
           )}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label style={{ margin: ' 10px 0' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ margin: " 10px 0" }}>
             Do you know the candidate of any Other party for your parliamentary
             Constituency?
           </label>
@@ -1265,27 +1432,27 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
           </select>
           {q9Other === 1 ? (
             <>
-              <label style={{ margin: ' 10px 0' }}>
+              <label style={{ margin: " 10px 0" }}>
                 Name of any three party candidates
               </label>
               <input
                 type="text"
                 ref={Othername1Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={Othername2Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
               <input
                 type="text"
                 ref={Othername3Ref}
-                style={{ margin: ' 10px 0' }}
+                style={{ margin: " 10px 0" }}
               />
             </>
           ) : (
-            ''
+            ""
           )}
         </div>
         <button
@@ -1294,14 +1461,14 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             setParametersValue(e);
           }}
           style={{
-            margin: ' 2rem 0',
-            padding: '0.5rem 1rem',
-            color: 'white',
-            backgroundColor: 'rgb(2, 132, 199)',
-            borderRadius: '4px',
+            margin: " 2rem 0",
+            padding: "0.5rem 1rem",
+            color: "white",
+            backgroundColor: "rgb(2, 132, 199)",
+            borderRadius: "4px",
           }}
         >
-          {showParameters ? 'HIDE CANDIDATES' : 'SHOW CANDIDATES'}
+          {showParameters ? "HIDE CANDIDATES" : "SHOW CANDIDATES"}
         </button>
         {showParameters && (
           <div>
@@ -1316,19 +1483,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1346,10 +1513,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1371,10 +1538,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1396,10 +1563,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1424,19 +1591,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1454,10 +1621,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1479,10 +1646,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1504,10 +1671,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1532,19 +1699,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1562,10 +1729,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1587,10 +1754,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1612,10 +1779,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1640,19 +1807,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1670,10 +1837,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1695,10 +1862,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1720,10 +1887,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1748,19 +1915,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1778,10 +1945,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1803,10 +1970,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1828,10 +1995,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1857,19 +2024,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1887,10 +2054,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1912,10 +2079,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1937,10 +2104,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1966,19 +2133,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -1996,10 +2163,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2021,10 +2188,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2046,10 +2213,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2074,19 +2241,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2104,10 +2271,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2129,10 +2296,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2154,10 +2321,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2182,19 +2349,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2212,10 +2379,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2237,10 +2404,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2262,10 +2429,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2290,19 +2457,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2320,10 +2487,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2345,10 +2512,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2370,10 +2537,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2398,19 +2565,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
             <br />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2428,10 +2595,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2453,10 +2620,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2478,10 +2645,10 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
               </div>
               <div
                 style={{
-                  margin: '10px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  margin: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <select
@@ -2506,12 +2673,12 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         )}
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label>
@@ -2532,19 +2699,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              margin: '10px 0',
+              display: "flex",
+              flexDirection: "column",
+              margin: "10px 0",
             }}
           >
             Can you please tell me, which of these political parties did you
@@ -2564,19 +2731,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              margin: '10px 0',
+              display: "flex",
+              flexDirection: "column",
+              margin: "10px 0",
             }}
           >
             Whom will you vote for in the coming General elections for MP?
@@ -2595,19 +2762,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            margin: "10px 0",
           }}
         >
           <div
             style={{
-              margin: '10px 0',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              margin: "10px 0",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <label>Which Party is the Data Collector affiliated to?</label>
@@ -2622,19 +2789,19 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            margin: "10px 0",
           }}
         >
           <div
             style={{
-              margin: '10px 0',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              margin: "10px 0",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <label>Do not ask just to observe and record</label>
@@ -2649,12 +2816,12 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label>Remark/ suggestion/ Requirement</label>
@@ -2662,12 +2829,12 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label>Number of voters in household</label>
@@ -2675,16 +2842,16 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label>
-            Could you tell me which religious category you belong to?{' '}
+            Could you tell me which religious category you belong to?{" "}
           </label>
           <select ref={q18Ref}>
             <option value={1}>Hindu General</option>
@@ -2700,12 +2867,12 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label>Please mention your caste</label>
@@ -2713,12 +2880,12 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '10px 0',
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "10px 0",
           }}
         >
           <label>
@@ -2732,12 +2899,12 @@ const YearlyQues = ({ status, nextStep, post, put, voterIdDq }) => {
         <button
           type="submit"
           style={{
-            width: '100%',
-            margin: ' 2rem 0',
-            padding: '0.5rem 1rem',
-            color: 'white',
-            backgroundColor: 'rgb(2, 132, 199)',
-            borderRadius: '4px',
+            width: "100%",
+            margin: " 2rem 0",
+            padding: "0.5rem 1rem",
+            color: "white",
+            backgroundColor: "rgb(2, 132, 199)",
+            borderRadius: "4px",
           }}
         >
           Submit Voter Data
