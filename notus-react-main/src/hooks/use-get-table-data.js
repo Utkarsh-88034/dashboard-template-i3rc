@@ -7,11 +7,20 @@ const useGetTableData = (voters, fields) => {
   const createColumn = (voters) => {
     if (voters?.length > 0 && voters[0]?.Upload_data) {
       const col = [];
-
-      const fieldNames = Object.keys(voters[0].Upload_data);
+      const showField = [
+        'Voter ID',
+        'Name',
+        'Lok Sabha Name',
+        'Gender',
+        'Age',
+        'Father or Husbands name',
+        'Address',
+      ];
+      const fieldNames = Object.keys(voters[2].Upload_data);
+      console.log(fieldNames);
       fieldNames.map((instance) => {
         const Fname = instance.replace(/_/g, ' ');
-        if (Fname == 'id') {
+        if (Fname == 'id' || !showField.includes(Fname)) {
           const config = {
             name: Fname,
             selector: (row) => row[instance],

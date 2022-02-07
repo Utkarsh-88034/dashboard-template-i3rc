@@ -14,6 +14,12 @@ const VoterQues = ({ nextStep, setVoterID, backBtn }) => {
   const submitVoterDetails = useCallback(async () => {
     const data = {
       Upload_data: {
+        Voter_ID: EpicRef.current.value,
+        Name: nameRef.current.value,
+        Gender: genderRef.current.value,
+        Age: ageRef.current.value,
+        Father_or_Husbands_name: fatherRef.current.value,
+        Address: AddressRef.current.value,
         Lok_Sabha_Name: lokSabhanNameRef.current.value,
         Lok_Sabha_Number: lokSabhaNumberRef.current.value,
         Vidhan_Sabha_Name: vidhanSabhaNameRef.current.value,
@@ -21,13 +27,7 @@ const VoterQues = ({ nextStep, setVoterID, backBtn }) => {
         polling_Booth_number: pollingBoothNumberRef.current.value,
         Village_Name: villageNameRef.current.value,
         Ward_No: wardNumberRef.current.value,
-        Voter_ID: EpicRef.current.value,
         Locality: localityRef.current.value,
-        Name: nameRef.current.value,
-        Address: AddressRef.current.value,
-        Gender: genderRef.current.value,
-        Age: ageRef.current.value,
-        Father_or_Husbands_name: fatherRef.current.value,
         Voter_status: voterStatusRef.current.value,
       },
     };

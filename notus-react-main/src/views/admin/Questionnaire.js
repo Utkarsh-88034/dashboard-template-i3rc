@@ -4,6 +4,7 @@ import YearlyQues from 'components/Questionare/yearlyQues';
 import VoterQues from 'components/Questionare/voterQues';
 import TypeCard from 'components/Type Cards/TypeCard.js';
 import DirectQues from 'components/Questionare/directQues';
+import { Prompt } from 'react-router';
 
 const Questionnaire = () => {
   const statusList = useSelector((state) => state.statusList);
@@ -18,7 +19,11 @@ const Questionnaire = () => {
       behavior: 'smooth',
     });
   };
-
+  window.onbeforeunload = (e) => {
+    console.log('first');
+    e.preventDefault();
+    e.returnValue = '';
+  };
   const [voterID, setvoterID] = useState(null);
 
   const [addVoter, setAddVoter] = useState(false);
@@ -30,23 +35,56 @@ const Questionnaire = () => {
 
   const setaddVoter = () => {
     setAddVoter(true);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
   const settakeSurvey = () => {
     setTakeSurvey(true);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   const backBtn = () => {
     setAddVoter(false);
     setTakeSurvey(false);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
+
+  const backtoSearch = () => {
+    setAddVoter(false);
+    setEditVoter(false);
+    setTakeSurvey(true);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const backtoAddVoter = () => {
+    setAddVoter(true);
+    setStep(1);
+  };
+
   const setedit = (value) => {
     setTakeSurvey(false);
     setVoterIdDq(value);
     setEditVoter(true);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (
     <>
+      <Prompt message="Are you sure you want to leave?" when={false} />
       {(addVoter && step === 1) || error ? (
         <VoterQues
           nextStep={nextStep}
@@ -58,13 +96,13 @@ const Questionnaire = () => {
           status={status}
           voterID={voterID}
           nextStep={nextStep}
-          backBtn={backBtn}
+          backBtn={backtoAddVoter}
           post={true}
         />
       ) : takeSurvey ? (
         <DirectQues backBtn={backBtn} setedit={setedit} />
       ) : editVoter ? (
-        <YearlyQues put={true} voterIdDq={voterIdDq} backBtn={backBtn} />
+        <YearlyQues put={true} voterIdDq={voterIdDq} backBtn={backtoSearch} />
       ) : (
         <div
           style={{
