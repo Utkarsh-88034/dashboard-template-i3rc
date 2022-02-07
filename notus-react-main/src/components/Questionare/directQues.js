@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Lok_Sabha from '../../assets/data/chintu';
-import CardPageVisits from 'components/Cards/CardPageVisits';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetTableData } from 'hooks/use-get-table-data';
-import filters from 'helpers/filters';
-import { listVoters } from 'actions/voterActions';
+import React, { useEffect, useRef, useState } from "react";
+import Lok_Sabha from "../../assets/data/up";
+import CardPageVisits from "components/Cards/CardPageVisits";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetTableData } from "hooks/use-get-table-data";
+import filters from "helpers/filters";
+import { listVoters } from "actions/voterActions";
 
 const DirectQues = ({ backBtn, setedit }) => {
   const [filter, setFilter] = useState(false);
@@ -46,12 +46,12 @@ const DirectQues = ({ backBtn, setedit }) => {
     setColumnsVoter(votersTable.columnsData);
   }, [votersTable.rowsData, votersTable.columnsData]);
   const filterColumns = [
-    'Lok_Sabha_Name',
-    'Vidhan_Sabha_Name',
-    'polling_Booth_number',
-    'Village_Name',
-    'Name',
-    'Voter_ID',
+    "Lok_Sabha_Name",
+    "Vidhan_Sabha_Name",
+    "polling_Booth_number",
+    "Village_Name",
+    "Name",
+    "Voter_ID",
   ];
   const onSubmit = () => {
     data.push(
@@ -74,7 +74,7 @@ const DirectQues = ({ backBtn, setedit }) => {
     setedit(rowsVoter[0].id);
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
@@ -82,19 +82,19 @@ const DirectQues = ({ backBtn, setedit }) => {
     <>
       <div
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-          width: 'max-content',
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+          width: "max-content",
         }}
         onClick={backBtn}
       >
         <i
           style={{
-            margin: ' 1.5rem 0',
-            padding: '0.5rem 1rem',
-            borderRadius: '4px',
-            fontSize: '1.2rem',
+            margin: " 1.5rem 0",
+            padding: "0.5rem 1rem",
+            borderRadius: "4px",
+            fontSize: "1.2rem",
           }}
           className="fas fa-chevron-left"
         ></i>
@@ -103,150 +103,150 @@ const DirectQues = ({ backBtn, setedit }) => {
 
       <form
         style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          margin: ' 2rem',
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
+          margin: " 2rem",
         }}
       >
         <div
           style={{
-            margin: '10px',
-            width: '30rem',
-            display: 'flex',
-            justifyContent: 'space-between',
+            margin: "10px",
+            width: "30rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <label style={{ margin: ' 0 10px' }}>Name:</label>
+          <label style={{ margin: " 0 10px" }}>Name:</label>
           <input
             onChange={(e) => {
               setName(e.target.value);
             }}
             style={{
-              height: '35px',
-              width: '250px',
-              border: '1px solid black',
+              height: "35px",
+              width: "250px",
+              border: "1px solid black",
             }}
           />
         </div>
         <div
           style={{
-            margin: '10px',
-            width: '30rem',
-            display: 'flex',
-            justifyContent: 'space-between',
+            margin: "10px",
+            width: "30rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <label style={{ margin: ' 0 10px' }}>Voter ID:</label>
+          <label style={{ margin: " 0 10px" }}>Voter ID:</label>
           <input
             onChange={(e) => {
               setVoterID(e.target.value);
             }}
             type="number"
             style={{
-              height: '35px',
-              width: '250px',
-              border: '1px solid black',
+              height: "35px",
+              width: "250px",
+              border: "1px solid black",
             }}
           />
         </div>
         <div
           style={{
-            margin: '10px',
-            width: '30rem',
-            display: 'flex',
-            justifyContent: 'space-between',
+            margin: "10px",
+            width: "30rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <label style={{ margin: ' 0 10px' }}>Lok Sabha Name:</label>
+          <label style={{ margin: " 0 10px" }}>Lok Sabha Name:</label>
           <input
             onChange={(e) => {
               setLokSabha(e.target.value);
             }}
             list="list"
             style={{
-              height: '35px',
-              width: '250px',
-              border: '1px solid black',
+              height: "35px",
+              width: "250px",
+              border: "1px solid black",
             }}
           />
           <datalist id="list">
             {Lok_Sabha.map((data) => (
-              <option>{data['Lok Sabha Name']}</option>
+              <option>{data["Lok Sabha Name"]}</option>
             ))}
           </datalist>
         </div>
         <div
           style={{
-            margin: '10px',
-            width: '30rem',
-            display: 'flex',
-            justifyContent: 'space-between',
+            margin: "10px",
+            width: "30rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <label style={{ margin: ' 0 10px' }}>Vidhan Sabha Name:</label>
+          <label style={{ margin: " 0 10px" }}>Vidhan Sabha Name:</label>
           <input
             onChange={(e) => {
               setVidhanSabha(e.target.value);
             }}
             list="list"
             style={{
-              height: '35px',
-              width: '250px',
-              border: '1px solid black',
+              height: "35px",
+              width: "250px",
+              border: "1px solid black",
             }}
           />
           <datalist id="list">
             {Lok_Sabha.map((data) => (
-              <option>{data['Lok Sabha Name']}</option>
+              <option>{data["Lok Sabha Name"]}</option>
             ))}
           </datalist>
         </div>
         <div
           style={{
-            margin: '10px',
-            width: '30rem',
-            display: 'flex',
-            justifyContent: 'space-between',
+            margin: "10px",
+            width: "30rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <label style={{ margin: ' 0 10px' }}>Polling Booth Number:</label>
+          <label style={{ margin: " 0 10px" }}>Polling Booth Number:</label>
           <input
-            type={'text'}
+            type={"text"}
             onChange={(e) => {
               setPollingBoothNo(e.target.value);
             }}
             style={{
-              height: '35px',
-              width: '250px',
-              border: '1px solid black',
+              height: "35px",
+              width: "250px",
+              border: "1px solid black",
             }}
           />
         </div>
         <div
           style={{
-            margin: '10px',
-            width: '30rem',
-            display: 'flex',
-            justifyContent: 'space-between',
+            margin: "10px",
+            width: "30rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <label style={{ margin: ' 0 10px' }}>Village Name:</label>
+          <label style={{ margin: " 0 10px" }}>Village Name:</label>
           <input
             onChange={(e) => {
               setVillageName(e.target.value);
             }}
             list="list"
             style={{
-              height: '35px',
-              width: '250px',
-              border: '1px solid black',
+              height: "35px",
+              width: "250px",
+              border: "1px solid black",
             }}
           />
           <datalist id="list">
             {Lok_Sabha.map((data) => (
-              <option>{data['Lok Sabha Name']}</option>
+              <option>{data["Lok Sabha Name"]}</option>
             ))}
           </datalist>
         </div>
@@ -256,18 +256,18 @@ const DirectQues = ({ backBtn, setedit }) => {
         <button
           onClick={editVoter}
           style={{
-            margin: ' 1.5rem 0',
-            padding: '0.5rem 1rem',
-            color: 'white',
-            backgroundColor: 'rgb(2, 132, 199)',
-            borderRadius: '4px',
-            width: '100%',
+            margin: " 1.5rem 0",
+            padding: "0.5rem 1rem",
+            color: "white",
+            backgroundColor: "rgb(2, 132, 199)",
+            borderRadius: "4px",
+            width: "100%",
           }}
         >
           Confirm Voter
         </button>
       ) : (
-        ''
+        ""
       )}
     </>
   );
