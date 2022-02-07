@@ -64,14 +64,14 @@ export const voterPostYearlyReducer = (state = {}, action) => {
   }
 };
 
-export const electionListReducer = (state = { eds: {} }, action) => {
+export const electionListReducer = (state = { edl: [] }, action) => {
   switch (action.type) {
     case VOTER_ALL_ELECTION_REQUEST:
       return { ...state, loading: true };
     case VOTER_ALL_ELECTION_SUCCESS:
       return {
         loading: false,
-        eds: action.payload.data,
+        edl: action.payload.data,
       };
     case VOTER_ALL_ELECTION_FAIL:
       return { loading: false, error: action.payload };
