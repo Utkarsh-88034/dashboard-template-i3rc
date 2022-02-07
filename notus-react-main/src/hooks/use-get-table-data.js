@@ -17,7 +17,6 @@ const useGetTableData = (voters, fields) => {
         "Address",
       ];
       const fieldNames = Object.keys(voters[0].Upload_data);
-      console.log(fieldNames);
       fieldNames.map((instance) => {
         const Fname = instance.replace(/_/g, " ");
         if (Fname == "id" || !showField.includes(Fname)) {
