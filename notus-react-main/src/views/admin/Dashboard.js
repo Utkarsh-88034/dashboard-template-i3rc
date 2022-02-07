@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect } from "react";
 
 // components
 
-import CardLineChart from 'components/Cards/CardLineChart.js';
-import CardBarChart from 'components/Cards/CardBarChart.js';
-import CardSocialTraffic from 'components/Cards/CardSocialTraffic.js';
+import CardLineChart from "components/Cards/CardLineChart.js";
+import CardBarChart from "components/Cards/CardBarChart.js";
+import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
+import Example from "components/Cards/CardBarChart";
+import { ResponsiveContainer } from "recharts";
+import { useDispatch, useSelector } from "react-redux";
+import { listVoters } from "actions/voterActions";
 
 export default function Dashboard() {
+  //
+  //
+  const voterList = useSelector((state) => state.voterList);
+  const { voters } = voterList;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(listVoters());
+  }, [dispatch]);
+
   return (
     <>
       <div className="mt-6">
@@ -15,10 +29,7 @@ export default function Dashboard() {
             <CardLineChart />
           </div>
           <div className="w-full xl:w-4/12 px-4">
-            <CardBarChart
-              label={['Male', 'Female', 'Other']}
-              field={'Gender'}
-            />
+            <CardBarChart voters={voters} />
           </div>
         </div>
         <div className="flex flex-wrap mt-4">
@@ -27,6 +38,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      {/* <CardBarChart /> */}
     </>
   );
 }
