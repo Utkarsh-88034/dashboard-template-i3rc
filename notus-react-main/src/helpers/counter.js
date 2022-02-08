@@ -8,7 +8,7 @@ const counterVoter = (data, field, countingValue) => {
 const counterElection = (data, field, countingValue) => {
   var count = 0;
 
-  data.map((voter) => voter[field] === countingValue && count++);
+  data.map((voter) => voter[field] == countingValue && count++);
   return count;
 };
 

@@ -135,6 +135,7 @@ export const getAllElectionData = () => async (dispatch, getState) => {
       },
     };
 
+    // console.log(userInfo);
     const { data } = await axios.get("/api/election/electiondata"); //add config
 
     dispatch({

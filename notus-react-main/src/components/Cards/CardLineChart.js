@@ -1,131 +1,94 @@
-import React from "react";
-import Chart from "chart.js";
+import React, { PureComponent } from "react";
+import {
+  ComposedChart,
+  Line,
+  Area,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-export default function CardLineChart() {
-  React.useEffect(() => {
-    var config = {
-      type: "line",
-      data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
-        datasets: [
-          {
-            label: new Date().getFullYear(),
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
-            data: [65, 78, 66, 44, 56, 67, 75],
-            fill: false,
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: "#fff",
-            borderColor: "#fff",
-            data: [40, 68, 86, 74, 56, 60, 87],
-          },
-        ],
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        title: {
-          display: false,
-          text: "Sales Charts",
-          fontColor: "white",
-        },
-        legend: {
-          labels: {
-            fontColor: "white",
-          },
-          align: "end",
-          position: "bottom",
-        },
-        tooltips: {
-          mode: "index",
-          intersect: false,
-        },
-        hover: {
-          mode: "nearest",
-          intersect: true,
-        },
-        scales: {
-          xAxes: [
-            {
-              ticks: {
-                fontColor: "rgba(255,255,255,.7)",
-              },
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: "Month",
-                fontColor: "white",
-              },
-              gridLines: {
-                display: false,
-                borderDash: [2],
-                borderDashOffset: [2],
-                color: "rgba(33, 37, 41, 0.3)",
-                zeroLineColor: "rgba(0, 0, 0, 0)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-          yAxes: [
-            {
-              ticks: {
-                fontColor: "rgba(255,255,255,.7)",
-              },
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: "Value",
-                fontColor: "white",
-              },
-              gridLines: {
-                borderDash: [3],
-                borderDashOffset: [3],
-                drawBorder: false,
-                color: "rgba(255, 255, 255, 0.15)",
-                zeroLineColor: "rgba(33, 37, 41, 0)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-        },
-      },
-    };
-    var ctx = document.getElementById("line-chart").getContext("2d");
-    window.myLine = new Chart(ctx, config);
-  }, []);
+const data = [
+  {
+    name: "Page A",
+    uv: 590,
+    pv: 800,
+    amt: 1400,
+  },
+  {
+    name: "Page B",
+    uv: 868,
+    pv: 967,
+    amt: 1506,
+  },
+  {
+    name: "Page C",
+    uv: 1397,
+    pv: 1098,
+    amt: 989,
+  },
+  {
+    name: "Page D",
+    uv: 1480,
+    pv: 1200,
+    amt: 1228,
+  },
+  {
+    name: "Page E",
+    uv: 1520,
+    pv: 1108,
+    amt: 1100,
+  },
+  {
+    name: "Page F",
+    uv: 1400,
+    pv: 680,
+    amt: 1700,
+  },
+];
+
+const CardLineChart = ({ data, color }) => {
   return (
-    <>
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
-        <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full max-w-full flex-grow flex-1">
-              <h6 className="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
-                Overview
-              </h6>
-              <h2 className="text-white text-xl font-semibold">Sales value</h2>
-            </div>
-          </div>
-        </div>
-        <div className="p-4 flex-auto">
-          {/* Chart */}
-          <div className="relative h-350-px">
-            <canvas id="line-chart"></canvas>
-          </div>
-        </div>
-      </div>
-    </>
+    <div
+      style={{
+        backgroundColor: "rgb(51,65,85)",
+        backdropFilter: "0.5",
+        borderRadius: "5px",
+        paddingBottom: "1rem",
+        margin: "2rem",
+      }}
+    >
+      <ResponsiveContainer width="100%" height={500}>
+        <ComposedChart
+          width={500}
+          height={400}
+          data={data}
+          margin={{
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20,
+          }}
+        >
+          {/* <CartesianGrid stroke="#f5f5f5" /> */}
+          <XAxis dataKey="name" scale="band" stroke="#c2c2c2" />
+          <YAxis stroke="#c2c2c2" />
+          <Tooltip />
+          <Legend
+            wrapperStyle={{
+              alignItems: "center",
+              margin: "-1rem 0",
+            }}
+          />
+          <Bar dataKey="Mean" barSize={40} fill={color} />
+          <Line type="monotone" dataKey="Mean" stroke="#7ddaff" />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
   );
-}
+};
+export default CardLineChart;

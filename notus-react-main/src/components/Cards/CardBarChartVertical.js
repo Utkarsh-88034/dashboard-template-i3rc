@@ -9,6 +9,8 @@ import {
   Legend,
   Bar,
   ResponsiveContainer,
+  ReferenceLine,
+  ComposedChart,
 } from "recharts";
 
 import React from "react";
@@ -26,7 +28,7 @@ const CardBarChartVertical = ({ data, color, width }) => {
       }}
     >
       <ResponsiveContainer width={"100%"} height={500}>
-        <BarChart
+        <ComposedChart
           layout="vertical"
           data={data}
           margin={{
@@ -44,6 +46,7 @@ const CardBarChartVertical = ({ data, color, width }) => {
             stroke="#c2c2c2"
           />
           <XAxis type="number" stroke="#c2c2c2" />
+          <ReferenceLine x={0} stroke="#c2c2c2" />
           <Tooltip />
           {/* <Bar dataKey="count" fill="#6eacdb" /> */}
           <Bar dataKey="Count" fill={color || "#db6e6e"} />
@@ -56,7 +59,7 @@ const CardBarChartVertical = ({ data, color, width }) => {
               margin: "0 1rem",
             }}
           /> */}
-        </BarChart>
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );

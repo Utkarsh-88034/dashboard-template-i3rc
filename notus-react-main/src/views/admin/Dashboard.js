@@ -19,6 +19,13 @@ import Influence from "Chart Data/Influence";
 import Example from "components/Cards/CardPieChar";
 import { counterElection } from "helpers/counter";
 import CardPieChart from "components/Cards/CardPieChar";
+import PieRechartComponent from "components/Cards/CardPieChar";
+import { q15 } from "Coding Notations/voter.status";
+import { q18 } from "Coding Notations/voter.status";
+import { q14 } from "Coding Notations/voter.status";
+import oldDataCalculator from "Chart Data/oldDataFuture";
+import { parameterCalculator } from "Chart Data/parameterImpactData";
+import { impactCalculator } from "Chart Data/parameterImpactData";
 
 export default function Dashboard() {
   //
@@ -54,8 +61,6 @@ export default function Dashboard() {
   ];
   const { infleunceData } = Influence(edl);
 
-  console.log(infleunceData);
-
   const yes = counterElection(edl, "need_transportation", 1);
   const no = counterElection(edl, "need_transportation", 2);
 
@@ -69,30 +74,104 @@ export default function Dashboard() {
       value: no,
     },
   ];
+  console.log(edl);
+
+  const {
+    willVoteData,
+    votedMLAData,
+    votedMPData,
+    loyaltyData,
+    religiousData,
+    gainLossMLAData,
+    gainLossMPData,
+  } = oldDataCalculator(edl);
+
+  const parameterMeanData = parameterCalculator(edl);
+  const impactMeanData = impactCalculator(edl);
 
   return (
     <>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <div style={{ width: "50%", minWidth: "400px" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          overflowX: "hidden",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div style={{ width: "100%", minWidth: "300px" }}>
+          <CardLineChart data={parameterMeanData} color={"#f57a7a"} />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px" }}>
+          <CardLineChart data={impactMeanData} color={"#ccc"} />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
           <CardBarChartHorizontal data={data} color={"#d692fc"} />
         </div>
 
-        <div style={{ width: "50%", minWidth: "400px" }}>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
           <CardBarChartVertical data={NationalIssueData} color={"#78bff5"} />
         </div>
-        <div style={{ width: "50%", minWidth: "400px" }}>
+
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
           <CardBarChartVertical data={LocalIssueData} color={"#92f79e"} />
         </div>
-        <div style={{ width: "50%", minWidth: "400px" }}>
+
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <CardBarChartVertical
+            data={votedMPData}
+            color={"#ffce63"}
+            width={200}
+          />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <CardBarChartVertical
+            data={votedMLAData}
+            color={"#7c75ff"}
+            width={200}
+          />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <CardBarChartVertical
+            data={willVoteData}
+            color={"#ff75b6"}
+            width={200}
+          />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <CardBarChartVertical
+            data={gainLossMPData}
+            color={"#a79cdb"}
+            width={200}
+          />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <CardBarChartVertical
+            data={gainLossMLAData}
+            color={"#9fdb9c"}
+            width={200}
+          />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
           <CardBarChartVertical
             data={infleunceData}
-            width={300}
+            width={280}
             color={"#ff6969"}
           />
         </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <PieRechartComponent data={needTransporatationData} />
+        </div>
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <PieRechartComponent data={loyaltyData} />
+        </div>
+
+        <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
+          <PieRechartComponent data={religiousData} />
+        </div>
       </div>
 
-      <CardPieChart data={needTransporatationData} />
+      {/* <CardPieChart data={needTransporatationData} /> */}
     </>
   );
 }

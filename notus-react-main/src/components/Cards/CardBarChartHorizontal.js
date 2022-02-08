@@ -9,6 +9,7 @@ import {
   Legend,
   Bar,
   ResponsiveContainer,
+  ComposedChart,
 } from "recharts";
 
 import React from "react";
@@ -26,7 +27,7 @@ const CardBarChartHorizontal = ({ data, color }) => {
       }}
     >
       <ResponsiveContainer width={"100%"} height={500}>
-        <BarChart
+        <ComposedChart
           data={data}
           margin={{
             top: 35,
@@ -50,7 +51,7 @@ const CardBarChartHorizontal = ({ data, color }) => {
               margin: "0 1rem",
             }}
           /> */}
-        </BarChart>
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );
