@@ -1,31 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 // components
 
-import CardLineChart from "components/Cards/CardLineChart.js";
-import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
-import { ResponsiveContainer } from "recharts";
-import { useDispatch, useSelector } from "react-redux";
-import { listVoters } from "actions/voterActions";
-import { counterVoter } from "helpers/counter";
-import { getAllElectionData } from "actions/voterActions";
-import { getKeyByValue } from "helpers/object";
-import { removeFromArray } from "helpers/object";
-import { sumOfArray } from "helpers/object";
-import CardBarChartHorizontal from "components/Cards/CardBarChartHorizontal";
-import CardBarChartVertical from "components/Cards/CardBarChartVertical";
-import { graphIssueDataGenerator } from "Chart Data/Issues";
-import Influence from "Chart Data/Influence";
-import Example from "components/Cards/CardPieChar";
-import { counterElection } from "helpers/counter";
-import CardPieChart from "components/Cards/CardPieChar";
-import PieRechartComponent from "components/Cards/CardPieChar";
-import { q15 } from "Coding Notations/voter.status";
-import { q18 } from "Coding Notations/voter.status";
-import { q14 } from "Coding Notations/voter.status";
-import oldDataCalculator from "Chart Data/oldDataFuture";
-import { parameterCalculator } from "Chart Data/parameterImpactData";
-import { impactCalculator } from "Chart Data/parameterImpactData";
+import CardLineChart from 'components/Cards/CardLineChart.js';
+import CardSocialTraffic from 'components/Cards/CardSocialTraffic.js';
+import { ResponsiveContainer } from 'recharts';
+import { useDispatch, useSelector } from 'react-redux';
+import { listVoters } from 'actions/voterActions';
+import { counterVoter } from 'helpers/counter';
+import { getAllElectionData } from 'actions/voterActions';
+import { getKeyByValue } from 'helpers/object';
+import { removeFromArray } from 'helpers/object';
+import { sumOfArray } from 'helpers/object';
+import CardBarChartHorizontal from 'components/Cards/CardBarChartHorizontal';
+import CardBarChartVertical from 'components/Cards/CardBarChartVertical';
+import { graphIssueDataGenerator } from 'Chart Data/Issues';
+import Influence from 'Chart Data/Influence';
+import Example from 'components/Cards/CardPieChar';
+import { counterElection } from 'helpers/counter';
+import CardPieChart from 'components/Cards/CardPieChar';
+import PieRechartComponent from 'components/Cards/CardPieChar';
+import { q15 } from 'Coding Notations/voter.status';
+import { q18 } from 'Coding Notations/voter.status';
+import { q14 } from 'Coding Notations/voter.status';
+import oldDataCalculator from 'Chart Data/oldDataFuture';
+import { parameterCalculator } from 'Chart Data/parameterImpactData';
+import { impactCalculator } from 'Chart Data/parameterImpactData';
+import TypeCard from 'components/Type Cards/TypeCard';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   //
@@ -43,34 +45,34 @@ export default function Dashboard() {
     dispatch(getAllElectionData());
   }, [dispatch]);
 
-  const males = counterVoter(voters, "Gender", "Male");
-  const females = counterVoter(voters, "Gender", "Female");
+  const males = counterVoter(voters, 'Gender', 'Male');
+  const females = counterVoter(voters, 'Gender', 'Female');
 
   // Issues
   const { NationalIssueData, LocalIssueData } = graphIssueDataGenerator(edl);
 
   const data = [
     {
-      name: "Female",
+      name: 'Female',
       Count: females,
     },
     {
-      name: "Male",
+      name: 'Male',
       Count: males,
     },
   ];
   const { infleunceData } = Influence(edl);
 
-  const yes = counterElection(edl, "need_transportation", 1);
-  const no = counterElection(edl, "need_transportation", 2);
+  const yes = counterElection(edl, 'need_transportation', 1);
+  const no = counterElection(edl, 'need_transportation', 2);
 
   const needTransporatationData = [
     {
-      name: "Yes",
+      name: 'Yes',
       value: yes,
     },
     {
-      name: "No",
+      name: 'No',
       value: no,
     },
   ];
@@ -91,7 +93,46 @@ export default function Dashboard() {
 
   return (
     <>
-      <div
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Link to="/admin/dashboard/voter-mapping">
+          <TypeCard
+            icon={'fas fa-users'}
+            title={'Voter Mapping'}
+            color="#5261c7"
+          />
+        </Link>
+        <Link to="/admin/dashboard/disposition">
+          <TypeCard
+            icon={'fas fa-user-tie'}
+            title={'Disposition'}
+            color="#d384f0"
+          />
+        </Link>
+        <Link to="/admin/dashboard/blw">
+          <TypeCard
+            icon={'fas fa-briefcase'}
+            title={'Booth Level workers'}
+            color="#61964a"
+          />
+        </Link>
+        <Link to="/admin/dashboard/ctv">
+          <TypeCard
+            icon={'fas fa-link'}
+            title={'Connect to your voters'}
+            color="#ed9a6d"
+          />
+        </Link>
+
+        <Link to="/admin/dashboard/solution">
+          <TypeCard
+            icon={'fas fa-question'}
+            title={'D day Solution'}
+            color="#eb6767"
+          />
+        </Link>
+      </div>
+
+      {/* <div
         style={{
           display: "flex",
           flexWrap: "wrap",
@@ -169,7 +210,7 @@ export default function Dashboard() {
         <div style={{ width: "100%", minWidth: "300px", maxWidth: "600px" }}>
           <PieRechartComponent data={religiousData} />
         </div>
-      </div>
+      </div> */}
 
       {/* <CardPieChart data={needTransporatationData} /> */}
     </>

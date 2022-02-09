@@ -1,8 +1,8 @@
-import { q18 } from "Coding Notations/voter.status";
-import { q14 } from "Coding Notations/voter.status";
-import { counterElection } from "helpers/counter";
+import { q18 } from 'Coding Notations/voter.status';
+import { q14 } from 'Coding Notations/voter.status';
+import { counterElection } from 'helpers/counter';
 
-const { q15 } = require("Coding Notations/voter.status");
+const { q15 } = require('Coding Notations/voter.status');
 
 const oldDataCalculator = (edl) => {
   let loyaltyObj = {
@@ -14,10 +14,13 @@ const oldDataCalculator = (edl) => {
   };
   const counterLoyalty = (data, countingValue) => {
     var count = 0;
-    data.map((voter) => {
-      voter.old_data_for_future_reference.loyalty[0] == countingValue &&
-        count++;
-    });
+    if (data) {
+      data.map((voter) => {
+        voter.old_data_for_future_reference.loyalty[0] == countingValue &&
+          count++;
+      });
+    }
+
     return count;
   };
   const loyaltyKeys = Object.keys(loyaltyObj);
@@ -64,7 +67,7 @@ const oldDataCalculator = (edl) => {
   const religiousKeys = Object.keys(religiousObj);
 
   religiousKeys.map((key) => {
-    let countOfReligious = counterElection(edl, "religious", key);
+    let countOfReligious = counterElection(edl, 'religious', key);
     religiousObj[key] = countOfReligious;
   });
 
@@ -92,10 +95,13 @@ const oldDataCalculator = (edl) => {
   // console.log(edl[0].old_data_for_future_reference.loyalty[0]);
   const counterVotedMP = (data, countingValue) => {
     var count = 0;
-    data.map((voter) => {
-      voter.old_data_for_future_reference.Voted_for_mp[0] == countingValue &&
-        count++;
-    });
+    if (data) {
+      data.map((voter) => {
+        voter.old_data_for_future_reference.Voted_for_mp[0] == countingValue &&
+          count++;
+      });
+    }
+
     return count;
   };
   const votedMPKeys = Object.keys(votedLastMPObj);
@@ -128,10 +134,13 @@ const oldDataCalculator = (edl) => {
   // console.log(edl[0].old_data_for_future_reference.loyalty[0]);
   const counterVotedMP2 = (data, countingValue) => {
     var count = 0;
-    data.map((voter) => {
-      voter.old_data_for_future_reference.Voted_for_mp[1] == countingValue &&
-        count++;
-    });
+    if (data) {
+      data.map((voter) => {
+        voter.old_data_for_future_reference.Voted_for_mp[1] == countingValue &&
+          count++;
+      });
+    }
+
     return count;
   };
   const votedMP2Keys = Object.keys(votedLastMP2Obj);
@@ -164,10 +173,12 @@ const oldDataCalculator = (edl) => {
   // console.log(edl[0].old_data_for_future_reference.loyalty[0]);
   const counterVotedMLA = (data, countingValue) => {
     var count = 0;
-    data.map((voter) => {
-      voter.old_data_for_future_reference.Voted_for_mla[0] == countingValue &&
-        count++;
-    });
+    if (data) {
+      data.map((voter) => {
+        voter.old_data_for_future_reference.Voted_for_mla[0] == countingValue &&
+          count++;
+      });
+    }
     return count;
   };
   const votedMLAKeys = Object.keys(votedLastMLAObj);
@@ -200,10 +211,13 @@ const oldDataCalculator = (edl) => {
   // console.log(edl[0].old_data_for_future_reference.loyalty[0]);
   const counterVotedMLA2 = (data, countingValue) => {
     var count = 0;
-    data.map((voter) => {
-      voter.old_data_for_future_reference.Voted_for_mla[1] == countingValue &&
-        count++;
-    });
+    if (data) {
+      data.map((voter) => {
+        voter.old_data_for_future_reference.Voted_for_mla[1] == countingValue &&
+          count++;
+      });
+    }
+
     return count;
   };
   const votedMLA2Keys = Object.keys(votedLastMLA2Obj);
@@ -255,10 +269,13 @@ const oldDataCalculator = (edl) => {
   // console.log(edl[0].old_data_for_future_reference.loyalty[0]);
   const counterWillVote = (data, countingValue) => {
     var count = 0;
-    data.map((voter) => {
-      voter.old_data_for_future_reference.Will_vote[0] == countingValue &&
-        count++;
-    });
+    if (data) {
+      data.map((voter) => {
+        voter.old_data_for_future_reference.Will_vote[0] == countingValue &&
+          count++;
+      });
+    }
+
     return count;
   };
   const willVoteKeys = Object.keys(willVoteObj);

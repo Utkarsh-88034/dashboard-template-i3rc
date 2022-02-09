@@ -1,4 +1,4 @@
-import { influence } from "Coding Notations/voter.status";
+import { influence } from 'Coding Notations/voter.status';
 
 const Influence = (edl) => {
   const influenceObj = {
@@ -12,10 +12,11 @@ const Influence = (edl) => {
     8: 0,
     9: 0,
   };
-
-  edl.map((data) => {
-    influenceObj[data.influence] += 1;
-  });
+  if (edl) {
+    edl.map((data) => {
+      influenceObj[data.influence] += 1;
+    });
+  }
 
   const values = Object.values(influence);
   const infleunceData = [];

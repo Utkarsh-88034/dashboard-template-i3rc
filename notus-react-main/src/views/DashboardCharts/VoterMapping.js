@@ -1,58 +1,60 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Lok_Sabha from '../../assets/data/up';
-import CardPageVisits from 'components/Cards/CardPageVisits';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetTableData } from 'hooks/use-get-table-data';
-import filters from 'helpers/filters';
+import { getAllElectionData } from 'actions/voterActions';
 import { listVoters } from 'actions/voterActions';
+import Lok_Sabha from 'assets/data/chintu';
+import oldDataCalculator from 'Chart Data/oldDataFuture';
+import { impactCalculator } from 'Chart Data/parameterImpactData';
+import { parameterCalculator } from 'Chart Data/parameterImpactData';
+import CardBarChartVertical from 'components/Cards/CardBarChartVertical';
+import PieRechartComponent from 'components/Cards/CardPieChar';
+import chartFilteredData from 'helpers/chartData';
+import { counterElection } from 'helpers/counter';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const DirectQues = ({ backBtn, setedit }) => {
-  const [filter, setFilter] = useState(false);
-  const lokSabhaRef = useRef();
-  const vidhanSabhaRef = useRef();
-  const pollingBoothRef = useRef();
-  const villageNameRef = useRef();
-  const wardNumberRef = useRef();
-  const voterIdRef = useRef();
-  const data = [];
-
-  const dispatch = useDispatch();
-  const voterList = useSelector((state) => state.voterList);
-  const { voters } = voterList;
-
-  //states
-
-  const [columnsVoter, setColumnsVoter] = useState();
-  const [rowsVoter, setRowsVoter] = useState();
-  const [selectedFields, setSelectedFields] = useState([]);
-  const [rowCopy, setRowCopy] = useState();
-
+const VoterMapping = () => {
   const [name, setName] = useState();
   const [pollingBoothNo, setPollingBoothNo] = useState();
   const [lokSabha, setLokSabha] = useState();
   const [vidhanSabha, setVidhanSabha] = useState();
   const [villageName, setVillageName] = useState();
   const [voterID, setVoterID] = useState();
+  const [voterData, setVoterData] = useState();
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listVoters());
+    dispatch(getAllElectionData());
   }, [dispatch]);
 
-  let votersTable = useGetTableData(voters);
+  const voterList = useSelector((state) => state.voterList);
+  const { voters } = voterList;
+  const electionList = useSelector((state) => state.electionList);
+  const { edl } = electionList;
 
-  useEffect(() => {
-    setRowsVoter(votersTable.rowsData);
-    setRowCopy(votersTable.rowsData);
-    setColumnsVoter(votersTable.columnsData);
-  }, [votersTable.rowsData, votersTable.columnsData]);
-  const filterColumns = [
-    'Lok_Sabha_Name',
-    'Vidhan_Sabha_Name',
-    'polling_Booth_number',
-    'Village_Name',
-    'Name',
-    'Voter_ID',
+  const yes = counterElection(edl, 'need_transportation', 1);
+  const no = counterElection(edl, 'need_transportation', 2);
+
+  const needTransporatationData = [
+    {
+      name: 'Yes',
+      value: yes,
+    },
+    {
+      name: 'No',
+      value: no,
+    },
   ];
+  const {
+    willVoteData,
+    votedMLAData,
+    votedMPData,
+    loyaltyData,
+    religiousData,
+    gainLossMLAData,
+    gainLossMPData,
+  } = oldDataCalculator(voterData);
+
+  const data = [];
   const onSubmit = () => {
     data.push(
       lokSabha,
@@ -62,45 +64,19 @@ const DirectQues = ({ backBtn, setedit }) => {
       name,
       voterID
     );
-    const newRowsVoter = filters(data, filterColumns, rowCopy);
-    setRowsVoter(newRowsVoter);
+    const filteredData = chartFilteredData(data, voters, edl);
+    setVoterData(filteredData);
+    // setVoterData(newVoterData);
   };
 
   useEffect(() => {
     onSubmit();
   }, [lokSabha, vidhanSabha, name, voterID, pollingBoothNo, villageName]);
 
-  const editVoter = () => {
-    setedit(rowsVoter[0].id);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
+  const parameterMeanData = parameterCalculator(edl);
+  const impactMeanData = impactCalculator(edl);
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-          width: 'max-content',
-        }}
-        onClick={backBtn}
-      >
-        <i
-          style={{
-            margin: ' 1.5rem 0',
-            padding: '0.5rem 1rem',
-            borderRadius: '4px',
-            fontSize: '1.2rem',
-          }}
-          className="fas fa-chevron-left"
-        ></i>
-        Back
-      </div>
-
       <form
         style={{
           display: 'flex',
@@ -251,26 +227,52 @@ const DirectQues = ({ backBtn, setedit }) => {
           </datalist>
         </div>
       </form>
-      <CardPageVisits columnsVoter={columnsVoter} rowsVoter={rowsVoter} />
-      {rowsVoter?.length == 1 ? (
-        <button
-          onClick={editVoter}
-          style={{
-            margin: ' 1.5rem 0',
-            padding: '0.5rem 1rem',
-            color: 'white',
-            backgroundColor: 'rgb(2, 132, 199)',
-            borderRadius: '4px',
-            width: '100%',
-          }}
-        >
-          Confirm Voter
-        </button>
-      ) : (
-        ''
-      )}
+      <div>
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical
+            data={votedMPData}
+            color={'#ffce63'}
+            width={200}
+          />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical
+            data={votedMLAData}
+            color={'#7c75ff'}
+            width={200}
+          />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical
+            data={willVoteData}
+            color={'#ff75b6'}
+            width={200}
+          />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical
+            data={gainLossMPData}
+            color={'#a79cdb'}
+            width={200}
+          />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical
+            data={gainLossMLAData}
+            color={'#9fdb9c'}
+            width={200}
+          />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <PieRechartComponent data={needTransporatationData} />
+        </div>
+
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <PieRechartComponent data={religiousData} />
+        </div>
+      </div>
     </>
   );
 };
 
-export default DirectQues;
+export default VoterMapping;

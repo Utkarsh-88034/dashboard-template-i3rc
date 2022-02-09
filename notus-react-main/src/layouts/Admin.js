@@ -15,6 +15,10 @@ import Settings from 'views/admin/Settings.js';
 import Tables from 'views/admin/Tables.js';
 import Questionnaire from 'views/admin/Questionnaire';
 import { useSelector } from 'react-redux';
+import VoterMapping from 'views/DashboardCharts/VoterMapping';
+import Disposition from 'views/DashboardCharts/Disposition';
+import BoothLevel from 'views/DashboardCharts/BoothLevel';
+import ConnectToVoter from 'views/DashboardCharts/ConnectToVoter';
 
 export default function Admin() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -28,6 +32,46 @@ export default function Admin() {
         <div className="relative top-4 px-0 md:px-0 mx-0 w-full my-24">
           <Switch>
             <Route path="/admin/dashboard" exact>
+              <HeaderStats />
+              {userInfo && userInfo.authType != 'Data Collector' ? (
+                <Dashboard />
+              ) : (
+                <Redirect to="/auth/login" />
+              )}
+            </Route>
+            <Route path="/admin/dashboard/voter-mapping" exact>
+              <HeaderStats />
+              {userInfo && userInfo.authType != 'Data Collector' ? (
+                <VoterMapping />
+              ) : (
+                <Redirect to="/auth/login" />
+              )}
+            </Route>
+            <Route path="/admin/dashboard/disposition" exact>
+              <HeaderStats />
+              {userInfo && userInfo.authType != 'Data Collector' ? (
+                <Disposition />
+              ) : (
+                <Redirect to="/auth/login" />
+              )}
+            </Route>
+            <Route path="/admin/dashboard/blw" exact>
+              <HeaderStats />
+              {userInfo && userInfo.authType != 'Data Collector' ? (
+                <BoothLevel />
+              ) : (
+                <Redirect to="/auth/login" />
+              )}
+            </Route>
+            <Route path="/admin/dashboard/ctv" exact>
+              <HeaderStats />
+              {userInfo && userInfo.authType != 'Data Collector' ? (
+                <ConnectToVoter />
+              ) : (
+                <Redirect to="/auth/login" />
+              )}
+            </Route>
+            <Route path="/admin/dashboard/solution" exact>
               <HeaderStats />
               {userInfo && userInfo.authType != 'Data Collector' ? (
                 <Dashboard />

@@ -1,58 +1,45 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Lok_Sabha from '../../assets/data/up';
-import CardPageVisits from 'components/Cards/CardPageVisits';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetTableData } from 'hooks/use-get-table-data';
-import filters from 'helpers/filters';
+import { getAllElectionData } from 'actions/voterActions';
 import { listVoters } from 'actions/voterActions';
+import Lok_Sabha from 'assets/data/up';
+import Influence from 'Chart Data/Influence';
+import { graphIssueDataGenerator } from 'Chart Data/Issues';
+import oldDataCalculator from 'Chart Data/oldDataFuture';
+import { impactCalculator } from 'Chart Data/parameterImpactData';
+import { parameterCalculator } from 'Chart Data/parameterImpactData';
+import CardBarChartVertical from 'components/Cards/CardBarChartVertical';
+import CardLineChart from 'components/Cards/CardLineChart';
+import chartFilteredData from 'helpers/chartData';
+import filters from 'helpers/filters';
+import { useGetTableData } from 'hooks/use-get-table-data';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const DirectQues = ({ backBtn, setedit }) => {
-  const [filter, setFilter] = useState(false);
-  const lokSabhaRef = useRef();
-  const vidhanSabhaRef = useRef();
-  const pollingBoothRef = useRef();
-  const villageNameRef = useRef();
-  const wardNumberRef = useRef();
-  const voterIdRef = useRef();
-  const data = [];
-
-  const dispatch = useDispatch();
-  const voterList = useSelector((state) => state.voterList);
-  const { voters } = voterList;
-
-  //states
-
-  const [columnsVoter, setColumnsVoter] = useState();
-  const [rowsVoter, setRowsVoter] = useState();
-  const [selectedFields, setSelectedFields] = useState([]);
-  const [rowCopy, setRowCopy] = useState();
-
+const Disposition = () => {
   const [name, setName] = useState();
   const [pollingBoothNo, setPollingBoothNo] = useState();
   const [lokSabha, setLokSabha] = useState();
   const [vidhanSabha, setVidhanSabha] = useState();
   const [villageName, setVillageName] = useState();
   const [voterID, setVoterID] = useState();
+  const [voterData, setVoterData] = useState();
 
+  const { NationalIssueData, LocalIssueData } =
+    graphIssueDataGenerator(voterData);
+  const { infleunceData } = Influence(voterData);
+  const parameterMeanData = parameterCalculator(voterData);
+  const impactMeanData = impactCalculator(voterData);
+
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listVoters());
+    dispatch(getAllElectionData());
   }, [dispatch]);
+  const electionList = useSelector((state) => state.electionList);
+  const { edl } = electionList;
+  const voterList = useSelector((state) => state.voterList);
+  const { voters } = voterList;
 
-  let votersTable = useGetTableData(voters);
-
-  useEffect(() => {
-    setRowsVoter(votersTable.rowsData);
-    setRowCopy(votersTable.rowsData);
-    setColumnsVoter(votersTable.columnsData);
-  }, [votersTable.rowsData, votersTable.columnsData]);
-  const filterColumns = [
-    'Lok_Sabha_Name',
-    'Vidhan_Sabha_Name',
-    'polling_Booth_number',
-    'Village_Name',
-    'Name',
-    'Voter_ID',
-  ];
+  const data = [];
   const onSubmit = () => {
     data.push(
       lokSabha,
@@ -62,45 +49,17 @@ const DirectQues = ({ backBtn, setedit }) => {
       name,
       voterID
     );
-    const newRowsVoter = filters(data, filterColumns, rowCopy);
-    setRowsVoter(newRowsVoter);
+    const filteredData = chartFilteredData(data, voters, edl);
+    setVoterData(filteredData);
+    // setVoterData(newVoterData);
   };
 
   useEffect(() => {
     onSubmit();
   }, [lokSabha, vidhanSabha, name, voterID, pollingBoothNo, villageName]);
 
-  const editVoter = () => {
-    setedit(rowsVoter[0].id);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-          width: 'max-content',
-        }}
-        onClick={backBtn}
-      >
-        <i
-          style={{
-            margin: ' 1.5rem 0',
-            padding: '0.5rem 1rem',
-            borderRadius: '4px',
-            fontSize: '1.2rem',
-          }}
-          className="fas fa-chevron-left"
-        ></i>
-        Back
-      </div>
-
       <form
         style={{
           display: 'flex',
@@ -251,26 +210,38 @@ const DirectQues = ({ backBtn, setedit }) => {
           </datalist>
         </div>
       </form>
-      <CardPageVisits columnsVoter={columnsVoter} rowsVoter={rowsVoter} />
-      {rowsVoter?.length == 1 ? (
-        <button
-          onClick={editVoter}
-          style={{
-            margin: ' 1.5rem 0',
-            padding: '0.5rem 1rem',
-            color: 'white',
-            backgroundColor: 'rgb(2, 132, 199)',
-            borderRadius: '4px',
-            width: '100%',
-          }}
-        >
-          Confirm Voter
-        </button>
-      ) : (
-        ''
-      )}
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          overflowX: 'hidden',
+          justifyContent: 'space-evenly',
+          width: '100%',
+        }}
+      >
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical data={NationalIssueData} color={'#78bff5'} />
+        </div>
+
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical data={LocalIssueData} color={'#92f79e'} />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px', maxWidth: '600px' }}>
+          <CardBarChartVertical
+            data={infleunceData}
+            width={280}
+            color={'#ff6969'}
+          />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px' }}>
+          <CardLineChart data={parameterMeanData} color={'#f57a7a'} />
+        </div>
+        <div style={{ width: '100%', minWidth: '300px' }}>
+          <CardLineChart data={impactMeanData} color={'#ccc'} />
+        </div>
+      </div>
     </>
   );
 };
 
-export default DirectQues;
+export default Disposition;
