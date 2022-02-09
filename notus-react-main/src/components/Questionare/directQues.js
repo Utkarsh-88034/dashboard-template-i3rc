@@ -33,18 +33,27 @@ const DirectQues = ({ backBtn, setedit }) => {
   const [vidhanSabha, setVidhanSabha] = useState();
   const [villageName, setVillageName] = useState();
   const [voterID, setVoterID] = useState();
+  const [toggleTable, setToggleTable] = useState(false);
 
   useEffect(() => {
     dispatch(listVoters());
   }, [dispatch]);
+  const editVoter = () => {
+    setedit(rowsVoter[0].id);
 
-  let votersTable = useGetTableData(voters);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+  let votersTable = useGetTableData(voters, editVoter);
 
   useEffect(() => {
     setRowsVoter(votersTable.rowsData);
     setRowCopy(votersTable.rowsData);
     setColumnsVoter(votersTable.columnsData);
   }, [votersTable.rowsData, votersTable.columnsData]);
+
   const filterColumns = [
     'Lok_Sabha_Name',
     'Vidhan_Sabha_Name',
@@ -70,16 +79,8 @@ const DirectQues = ({ backBtn, setedit }) => {
     onSubmit();
   }, [lokSabha, vidhanSabha, name, voterID, pollingBoothNo, villageName]);
 
-  const editVoter = () => {
-    setedit(rowsVoter[0].id);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   return (
-    <>
+    <div style={{ paddingTop: '80px' }}>
       <div
         style={{
           display: 'flex',
@@ -252,24 +253,7 @@ const DirectQues = ({ backBtn, setedit }) => {
         </div>
       </form>
       <CardPageVisits columnsVoter={columnsVoter} rowsVoter={rowsVoter} />
-      {rowsVoter?.length == 1 ? (
-        <button
-          onClick={editVoter}
-          style={{
-            margin: ' 1.5rem 0',
-            padding: '0.5rem 1rem',
-            color: 'white',
-            backgroundColor: 'rgb(2, 132, 199)',
-            borderRadius: '4px',
-            width: '100%',
-          }}
-        >
-          Confirm Voter
-        </button>
-      ) : (
-        ''
-      )}
-    </>
+    </div>
   );
 };
 

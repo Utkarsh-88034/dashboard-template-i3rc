@@ -62,7 +62,7 @@ const VoterQues = ({ nextStep, setVoterID, backBtn }) => {
   const localityRef = useRef();
   const ageRef = useRef();
   return (
-    <div>
+    <div style={{ paddingTop: '80px' }}>
       <div
         style={{
           display: 'flex',

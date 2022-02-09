@@ -11,23 +11,23 @@ import {
   ResponsiveContainer,
   ReferenceLine,
   ComposedChart,
-} from "recharts";
+} from 'recharts';
 
-import React from "react";
-import { counterVoter } from "helpers/counter";
+import React from 'react';
+import { counterVoter } from 'helpers/counter';
 
 const CardBarChartVertical = ({ data, color, width }) => {
   const renderLineChart = (
     <div
       style={{
-        backgroundColor: "rgb(51,65,85)",
-        backdropFilter: "0.5",
-        borderRadius: "5px",
-        paddingBottom: "1rem",
-        margin: "2rem",
+        backgroundColor: 'rgb(51,65,85)',
+        backdropFilter: '0.5',
+        borderRadius: '5px',
+        paddingBottom: '1rem',
+        margin: '2rem',
       }}
     >
-      <ResponsiveContainer width={"100%"} height={500}>
+      <ResponsiveContainer width={'100%'} height={335}>
         <ComposedChart
           layout="vertical"
           data={data}
@@ -49,7 +49,7 @@ const CardBarChartVertical = ({ data, color, width }) => {
           <ReferenceLine x={0} stroke="#c2c2c2" />
           <Tooltip />
           {/* <Bar dataKey="count" fill="#6eacdb" /> */}
-          <Bar dataKey="Count" fill={color || "#db6e6e"} />
+          <Bar dataKey="Count" fill={color || '#db6e6e'} barSize={25} />
 
           {/* <Legend
             wrapperStyle={{

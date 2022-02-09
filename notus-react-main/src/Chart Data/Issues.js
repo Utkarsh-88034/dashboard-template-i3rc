@@ -8,7 +8,7 @@ const graphIssueDataGenerator = (edl) => {
     1: 2,
     2: 14,
     3: 15,
-    4: 3,
+    4: 30,
     5: 5,
     6: 10,
     7: 20,
@@ -139,7 +139,7 @@ const graphIssueDataGenerator = (edl) => {
       Count: top5LIssues[0]['other'],
     },
   ];
-  return { NationalIssueData, LocalIssueData };
+  return { NationalIssueData, LocalIssueData, top5NIssues, top5LIssues };
 };
 
 export { graphIssueDataGenerator };

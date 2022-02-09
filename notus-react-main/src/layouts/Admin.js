@@ -28,7 +28,9 @@ export default function Admin() {
       <Sidebar />
       <div className="block md:ml-64 bg-blueGray-100">
         {/* Header */}
-        <AdminNavbar />
+        <div style={{ position: 'fixed', top: 0, zIndex: 10000, width: '82%' }}>
+          <AdminNavbar />
+        </div>
         <div className="relative top-4 px-0 md:px-0 mx-0 w-full my-24">
           <Switch>
             <Route path="/admin/dashboard" exact>
@@ -48,7 +50,7 @@ export default function Admin() {
               )}
             </Route>
             <Route path="/admin/dashboard/disposition" exact>
-              <HeaderStats />
+              {/* <HeaderStats /> */}
               {userInfo && userInfo.authType != 'Data Collector' ? (
                 <Disposition />
               ) : (
