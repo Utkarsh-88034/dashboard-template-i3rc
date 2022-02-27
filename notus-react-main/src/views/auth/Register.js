@@ -8,6 +8,7 @@ import { State, City } from 'country-state-city';
 
 import { useDispatch } from 'react-redux';
 import MultiSelect from 'components/select/MultiSelect';
+import State_List from 'assets/data/stateslist';
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
@@ -18,72 +19,111 @@ export default function Register() {
   const dispatch = useDispatch();
   const [selectedState, setSelectedState] = useState([]);
   const [selectedCities, setSelectedCities] = useState([]);
+  const [cities, setCities] = useState([]);
   const [selectedlks, setSelectedlks] = useState([]);
   const [selectedvds, setSelectedvds] = useState([]);
+  const [vidhanSabha, setVidhanSabha] = useState([]);
+  const [selectedStateNames, setSelectedStateNames] = useState([]);
 
   const [selectedwrds, setSelectedwrds] = useState([]);
 
-  const [accessType, setAccessType] = useState();
+  const [accessType, setAccessType] = useState('');
   const [renderModal, setRenderModal] = useState(false);
 
-  const submitHandler = useCallback(
-    (e) => {
-      e.preventDefault(); // dhyan rakhein iska ..... Ispr aur bat krni h
-      const name = nameRef.current.value;
-      const email = emailRef.current.value;
-      const password = passwordRef.current.value;
-      const authType = authTypeRef.current.value;
-      const party = partyRef.current.value;
-      let lok_sabha_access, vidhan_sabha_access, ward_no_access;
+  const submitHandler = (e) => {
+    e.preventDefault(); // dhyan rakhein iska ..... Ispr aur bat krni h
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const authType = authTypeRef.current.value;
+    const party = partyRef.current.value;
+    let lok_sabha_access, vidhan_sabha_access, ward_no_access;
 
-      if (accessType == 'lks') {
-        lok_sabha_access = selectedlks;
-      }
-      if (accessType == 'vds') {
-        vidhan_sabha_access = selectedvds;
-      }
-      if (accessType == 'wrd') {
-        ward_no_access = selectedwrds;
-      }
+    if (accessType == 'lks') {
+      lok_sabha_access = selectedlks;
+    }
+    if (accessType == 'vds') {
+      const vdsArray = [];
+      selectedStateNames.map((state) => {
+        State_List.map((st) => {
+          const config = {};
 
-      const userCreate = {
-        name,
-        email,
-        password,
-        authType,
-      };
-      dispatch(register(name, email, password, authType));
-      setRenderModal(true);
-    },
-    [dispatch]
-  );
+          if (st['State Name'] == state) {
+            config['state'] = state;
+            const vsdTemp = [];
+            st['Vidhan Sabha List'].map((vd) => {
+              if (selectedvds.includes(vd)) {
+                vsdTemp.push(vd);
+              }
+            });
+            config['vdns'] = vsdTemp;
+            vdsArray.push(config);
+          }
+        });
+      });
+      vidhan_sabha_access = vdsArray;
+    }
+    if (accessType == 'wrd') {
+      ward_no_access = selectedwrds;
+    }
+
+    const userCreate = {
+      name,
+      email,
+      password,
+      authType,
+      party,
+      lok_sabha_access,
+      vidhan_sabha_access,
+      ward_no_access,
+    };
+    console.log(userCreate);
+    // dispatch(register(name, email, password, authType));
+    // setRenderModal(true);
+  };
   const states = State.getStatesOfCountry('IN');
 
-  const getSelectedStates = (value) => {
+  const getSelectedStates = (value, nameArray) => {
     setSelectedState(value);
+    setSelectedStateNames(nameArray);
     let tempArray = [];
 
     value.map((state) => {
       tempArray = tempArray.concat(City.getCitiesOfState('IN', state));
     });
-    setSelectedCities(tempArray);
+    setCities(tempArray);
+
+    const temp2 = [];
+    nameArray.map((stateName) => {
+      State_List.map((state) => {
+        if (state['State Name'] == stateName) {
+          state['Vidhan Sabha List'].map((vds) => {
+            const config = {};
+            config['Vidhan Sabha Name'] = vds;
+
+            temp2.push(config);
+          });
+        }
+      });
+    });
+
+    setVidhanSabha(temp2);
   };
-  const getSelectedCities = (value) => {
+  const getSelectedCities = (value, nameArray) => {
     setSelectedCities(value);
   };
-  const getSelectedLks = (value) => {
+  const getSelectedLks = (value, nameArray) => {
     setSelectedlks(value);
   };
-  const getSelectedvds = (value) => {
+
+  const getSelectedvds = (value, nameArray) => {
     setSelectedvds(value);
-    const config = {};
-    selectedState.map((state) => {
-      config['state'] = state;
-    });
+    console.log(value);
   };
   const getSelectedwrds = (value) => {
     setSelectedwrds(value);
   };
+
   return (
     <>
       {renderModal && (
@@ -229,7 +269,7 @@ export default function Register() {
                         </label>
                         <MultiSelect
                           data={states}
-                          value={'name'}
+                          attribute={'name'}
                           index={'isoCode'}
                           callback={getSelectedStates}
                         />
@@ -247,8 +287,8 @@ export default function Register() {
                           Cities
                         </label>
                         <MultiSelect
-                          data={selectedCities}
-                          value={'name'}
+                          data={cities}
+                          attribute={'name'}
                           index={'name'}
                           callback={getSelectedCities}
                         />
@@ -266,7 +306,7 @@ export default function Register() {
                         </label>
                         <MultiSelect
                           data={Lok_Sabha}
-                          value={'Lok Sabha Name'}
+                          attribute={'Lok Sabha Name'}
                           index={'Lok Sabha Number'}
                           callback={getSelectedLks}
                         />
@@ -282,9 +322,9 @@ export default function Register() {
                           Vidhan Sabha Access
                         </label>
                         <MultiSelect
-                          data={Lok_Sabha}
-                          value={'Lok Sabha Name'}
-                          index={'Lok Sabha Number'}
+                          data={vidhanSabha}
+                          attribute={'Vidhan Sabha Name'}
+                          index={'Vidhan Sabha Name'}
                           callback={getSelectedvds}
                         />
                       </div>

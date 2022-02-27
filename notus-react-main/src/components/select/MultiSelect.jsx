@@ -4,18 +4,23 @@ import React from 'react';
 import './multiselect.css';
 const { Option } = Select;
 
-const MultiSelect = ({ data, value, index, callback }) => {
+const MultiSelect = ({ data, attribute, index, callback }) => {
   const [size, setSize] = React.useState('default');
 
-  const handleSizeChange = (e) => {
-    setSize(e.target.value);
-  };
   const children = [];
   data.map((lk) => {
-    children.push(<Option key={lk[index]}>{lk[value]}</Option>);
+    children.push(<Option key={lk[index]}>{lk[attribute]}</Option>);
   });
   function handleChange(value) {
-    callback(value);
+    const nameArray = [];
+    value.map((val) => {
+      data.map((lk) => {
+        if (lk[index] == val) {
+          nameArray.push(lk[attribute]);
+        }
+      });
+    });
+    callback(value, nameArray);
   }
 
   return (
