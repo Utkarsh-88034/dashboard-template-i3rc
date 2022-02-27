@@ -1,15 +1,29 @@
 import { register } from 'actions/userActions';
+import { Select, Radio } from 'antd';
+import Lok_Sabha from 'assets/data/up';
 import DataConfirmationCard from 'components/Cards/DataConfirmationCard';
 import React, { useCallback, useRef, useState } from 'react';
+import './register.module.css';
+import { State, City } from 'country-state-city';
 
 import { useDispatch } from 'react-redux';
+import MultiSelect from 'components/select/MultiSelect';
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const authTypeRef = useRef();
+  const partyRef = useRef();
+  const lknAccessRef = useRef();
   const dispatch = useDispatch();
+  const [selectedState, setSelectedState] = useState([]);
+  const [selectedCities, setSelectedCities] = useState([]);
+  const [selectedlks, setSelectedlks] = useState([]);
+  const [selectedvds, setSelectedvds] = useState([]);
 
+  const [selectedwrds, setSelectedwrds] = useState([]);
+
+  const [accessType, setAccessType] = useState();
   const [renderModal, setRenderModal] = useState(false);
 
   const submitHandler = useCallback(
@@ -19,12 +33,57 @@ export default function Register() {
       const email = emailRef.current.value;
       const password = passwordRef.current.value;
       const authType = authTypeRef.current.value;
+      const party = partyRef.current.value;
+      let lok_sabha_access, vidhan_sabha_access, ward_no_access;
+
+      if (accessType == 'lks') {
+        lok_sabha_access = selectedlks;
+      }
+      if (accessType == 'vds') {
+        vidhan_sabha_access = selectedvds;
+      }
+      if (accessType == 'wrd') {
+        ward_no_access = selectedwrds;
+      }
+
+      const userCreate = {
+        name,
+        email,
+        password,
+        authType,
+      };
       dispatch(register(name, email, password, authType));
       setRenderModal(true);
     },
     [dispatch]
   );
+  const states = State.getStatesOfCountry('IN');
 
+  const getSelectedStates = (value) => {
+    setSelectedState(value);
+    let tempArray = [];
+
+    value.map((state) => {
+      tempArray = tempArray.concat(City.getCitiesOfState('IN', state));
+    });
+    setSelectedCities(tempArray);
+  };
+  const getSelectedCities = (value) => {
+    setSelectedCities(value);
+  };
+  const getSelectedLks = (value) => {
+    setSelectedlks(value);
+  };
+  const getSelectedvds = (value) => {
+    setSelectedvds(value);
+    const config = {};
+    selectedState.map((state) => {
+      config['state'] = state;
+    });
+  };
+  const getSelectedwrds = (value) => {
+    setSelectedwrds(value);
+  };
   return (
     <>
       {renderModal && (
@@ -115,6 +174,121 @@ export default function Register() {
                         <option value="Data Collector">Data Collector</option>
                       </select>
                     </div>
+
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="party"
+                      >
+                        Party
+                      </label>
+                      <select
+                        required
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="party"
+                        id="party"
+                        ref={partyRef}
+                      >
+                        <option value="BJP">BJP</option>
+                        <option value="INC">INC</option>
+                        <option Value="BSP">BSP</option>
+                        <option value="SP">SP</option>
+                        <option value="TMC">TMC</option>
+                        <option value="Other">OTHER</option>
+                      </select>
+                    </div>
+
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="access-type"
+                      >
+                        Access Type
+                      </label>
+                      <select
+                        required
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="access-type"
+                        id="access-type"
+                        onChange={(e) => {
+                          setAccessType(e.target.value);
+                        }}
+                      >
+                        <option value="lks">Lok Sabha</option>
+                        <option value="vds">Vidhan Sabha</option>
+                        <option Value="wrd">Ward</option>
+                      </select>
+                    </div>
+                    {accessType == 'vds' || accessType == 'wrd' ? (
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="lkn"
+                        >
+                          State
+                        </label>
+                        <MultiSelect
+                          data={states}
+                          value={'name'}
+                          index={'isoCode'}
+                          callback={getSelectedStates}
+                        />
+                      </div>
+                    ) : (
+                      ''
+                    )}
+
+                    {accessType == 'wrd' ? (
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="lkn"
+                        >
+                          Cities
+                        </label>
+                        <MultiSelect
+                          data={selectedCities}
+                          value={'name'}
+                          index={'name'}
+                          callback={getSelectedCities}
+                        />
+                      </div>
+                    ) : (
+                      ''
+                    )}
+                    {accessType == 'lks' && (
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="lkn"
+                        >
+                          Lok Sabha Access
+                        </label>
+                        <MultiSelect
+                          data={Lok_Sabha}
+                          value={'Lok Sabha Name'}
+                          index={'Lok Sabha Number'}
+                          callback={getSelectedLks}
+                        />
+                      </div>
+                    )}
+
+                    {accessType == 'vds' && (
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="lkn"
+                        >
+                          Vidhan Sabha Access
+                        </label>
+                        <MultiSelect
+                          data={Lok_Sabha}
+                          value={'Lok Sabha Name'}
+                          index={'Lok Sabha Number'}
+                          callback={getSelectedvds}
+                        />
+                      </div>
+                    )}
 
                     <div className="text-center mt-6">
                       <button

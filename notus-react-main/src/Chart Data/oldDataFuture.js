@@ -294,8 +294,6 @@ const oldDataCalculator = (edl) => {
     willVoteData.push(config);
   });
 
-  console.log(gainLossMLAData);
-
   return {
     willVoteData,
     votedMLAData,

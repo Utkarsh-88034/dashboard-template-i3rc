@@ -4,7 +4,9 @@ const parameterCalculator = (edl) => {
       const noOfVoters = edl.length;
       let sum = 0;
       edl.map((voter) => {
-        sum += voter.Parameters_to_vote[statement];
+        if (voter.Parameters_to_vote) {
+          sum += voter.Parameters_to_vote[statement];
+        }
       });
       return sum / noOfVoters;
     }
@@ -128,8 +130,11 @@ const impactCalculator = (edl) => {
     if (edl) {
       const noOfVoters = edl.length;
       let sum = 0;
+
       edl.map((voter) => {
-        sum += voter.Impact_on_voting[statement];
+        if (voter.Impact_on_voting) {
+          sum += voter.Impact_on_voting[statement];
+        }
       });
       return sum / noOfVoters;
     }
