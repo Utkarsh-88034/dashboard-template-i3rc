@@ -23,6 +23,7 @@ import ConnectToVoter from 'views/DashboardCharts/ConnectToVoter';
 export default function Admin() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  console.log(userInfo);
   return (
     <>
       <Sidebar />

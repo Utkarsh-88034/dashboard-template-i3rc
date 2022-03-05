@@ -107,7 +107,18 @@ export default function Register() {
     };
     console.log(userCreate);
 
-    // dispatch(register(name, email, password, authType));
+    dispatch(
+      register(
+        name,
+        email,
+        password,
+        authType,
+        party,
+        lok_sabha_access,
+        vidhan_sabha_access,
+        ward_no_access
+      )
+    );
     // setRenderModal(true);
   };
   const states = State.getStatesOfCountry('IN');
