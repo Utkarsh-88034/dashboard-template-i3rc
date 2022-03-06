@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -103,12 +104,15 @@ export const register =
         },
         config
       );
+      toast.success('ho gya ji');
 
-      dispatch({
-        type: USER_REGISTER_SUCCESS,
-        payload: data,
-      });
+      // dispatch({
+      //   type: USER_REGISTER_SUCCESS,
+      //   payload: data,
+      // });
     } catch (error) {
+      toast.error('nhi hua bhai');
+
       dispatch({
         type: USER_REGISTER_FAIL,
         payload:

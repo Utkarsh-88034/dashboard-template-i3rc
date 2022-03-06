@@ -11,6 +11,7 @@ import MultiSelect from 'components/select/MultiSelect';
 import State_List from 'assets/data/stateslist';
 import wardData from 'assets/data/ward';
 import { removeFromArray } from 'helpers/object';
+import { ToastContainer } from 'react-toastify';
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
@@ -436,6 +437,7 @@ export default function Register() {
           </div>
         </div>
       }
+      <ToastContainer />
     </>
   );
 }
