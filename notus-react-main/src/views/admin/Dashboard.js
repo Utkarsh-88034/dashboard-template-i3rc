@@ -30,6 +30,7 @@ import TypeCard from "components/Type Cards/TypeCard";
 import { Link } from "react-router-dom";
 import { listVotersLkn } from "actions/voterActions";
 import { getAllElectionDataLkn } from "actions/voterActions";
+import { listVotersVdn } from "actions/voterActions";
 
 export default function Dashboard() {
   //
@@ -76,8 +77,21 @@ export default function Dashboard() {
       dispatch(getAllElectionDataLkn(lknAccess));
     } else if (userInfo.user.vidhan_sabha_access.length > 0) {
       // call for vidhan sabaha
-      dispatch(listVoters());
-      dispatch(getAllElectionData());
+      // voterdatavdn?state=ahmd&vdn=8&vdn1=5
+      userInfo.user.vidhan_sabha_access.map((vdn, index) => {
+        let vdnAccess = "";
+        vdnAccess += `state=${vdn.state}&`;
+        vdn.vdns.map((singleVdn) => {
+          if (index < vdn.vdns.length - 1) {
+            vdnAccess += `vdn${index + 1}=${singleVdn}&`;
+          } else {
+            vdnAccess += `vdn${index + 1}=${singleVdn}`;
+          }
+        });
+        // console.log(vdnAccess);
+        dispatch(listVotersVdn(vdnAccess));
+        // dispatch(getAllElectionData());
+      });
     } else if (userInfo.user.ward_no_access.length > 0) {
       // call for ward no
       dispatch(listVoters());
@@ -87,22 +101,22 @@ export default function Dashboard() {
     }
   }, [dispatch]);
 
-  const males = counterVoter(voters, "Gender", "Male");
-  const females = counterVoter(voters, "Gender", "Female");
+  // const males = counterVoter(voters, "Gender", "Male");
+  // const females = counterVoter(voters, "Gender", "Female");
 
   // Issues
   const { NationalIssueData, LocalIssueData } = graphIssueDataGenerator(edl);
 
-  const data = [
-    {
-      name: "Female",
-      Count: females,
-    },
-    {
-      name: "Male",
-      Count: males,
-    },
-  ];
+  // const data = [
+  //   {
+  //     name: "Female",
+  //     Count: females,
+  //   },
+  //   {
+  //     name: "Male",
+  //     Count: males,
+  //   },
+  // ];
   const { infleunceData } = Influence(edl);
 
   const yes = counterElection(edl, "need_transportation", 1);

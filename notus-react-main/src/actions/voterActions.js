@@ -30,6 +30,9 @@ import {
   VOTER_ALL_ELECTION_SUCCESS_VDN,
   VOTER_ALL_ELECTION_FAIL_VDN,
   VOTER_ALL_ELECTION_REQUEST_VDN,
+  VOTER_LIST_REQUEST_VDN,
+  VOTER_LIST_SUCCESS_VDN,
+  VOTER_LIST_FAIL_VDN,
 } from "../constants/userConstants";
 
 export const listVoters = () => async (dispatch, getState) => {
@@ -86,6 +89,37 @@ export const listVotersLkn = (lknAccess) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: VOTER_LIST_FAIL_LKN,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listVotersVdn = (vdnAccess) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: VOTER_LIST_REQUEST_VDN });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.AccessToken}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/voter/voterdatavdn?${vdnAccess}`); //add config
+
+    dispatch({
+      type: VOTER_LIST_SUCCESS_VDN,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VOTER_LIST_FAIL_VDN,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

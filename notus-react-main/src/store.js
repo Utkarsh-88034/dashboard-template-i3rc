@@ -11,11 +11,13 @@ import { voterDataByIDReducer } from "reducers/voterReducers";
 import { voterListReducerLkn } from "reducers/voterReducers";
 import { electionListReducerLkn } from "reducers/voterReducers";
 import { electionListReducerVdn } from "reducers/voterReducers";
+import { voterListReducerVdn } from "reducers/voterReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userList: userListReducer,
   voterListLkn: voterListReducerLkn,
+  voterListVdn: voterListReducerVdn,
   voterList: voterListReducer,
   statusList: voterPostReducer,
   electionList: electionListReducer,

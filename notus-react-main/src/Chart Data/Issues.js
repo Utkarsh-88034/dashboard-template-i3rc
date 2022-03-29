@@ -1,6 +1,6 @@
-import { sumOfArray } from 'helpers/object';
-import { getKeyByValue } from 'helpers/object';
-import { removeFromArray } from 'helpers/object';
+import { sumOfArray } from "helpers/object";
+import { getKeyByValue } from "helpers/object";
+import { removeFromArray } from "helpers/object";
 
 const graphIssueDataGenerator = (edl) => {
   const NationalIssueNo = {
@@ -84,7 +84,7 @@ const graphIssueDataGenerator = (edl) => {
 
     issueValue = Object.values(issueNo);
     const otherMax = sumOfArray(issueValue) + 4;
-    top5Issues['other'] = otherMax;
+    top5Issues["other"] = otherMax;
     let top5IssueCounts = Object.values(top5Issues);
     top5IssueCounts.pop();
     top5IssueCounts.sort();
@@ -94,24 +94,24 @@ const graphIssueDataGenerator = (edl) => {
 
   const NationalIssueData = [
     {
-      name: 'Issue 1',
+      name: "Issue 1",
       Count: top5NIssues[1][3],
     },
     {
-      name: 'Issue 2',
+      name: "Issue 2",
       Count: top5NIssues[1][2],
     },
     {
-      name: 'Issue 3',
+      name: "Issue 3",
       Count: top5NIssues[1][1],
     },
     {
-      name: 'Issue 4',
+      name: "Issue 4",
       Count: top5NIssues[1][0],
     },
     {
-      name: 'Other',
-      Count: top5NIssues[0]['other'],
+      name: "Other",
+      Count: top5NIssues[0]["other"],
     },
   ];
 
@@ -119,24 +119,24 @@ const graphIssueDataGenerator = (edl) => {
 
   const LocalIssueData = [
     {
-      name: 'Issue 1',
+      name: "Issue 1",
       Count: top5LIssues[1][3],
     },
     {
-      name: 'Issue 2',
+      name: "Issue 2",
       Count: top5LIssues[1][2],
     },
     {
-      name: 'Issue 3',
+      name: "Issue 3",
       Count: top5LIssues[1][1],
     },
     {
-      name: 'Issue 4',
+      name: "Issue 4",
       Count: top5LIssues[1][0],
     },
     {
-      name: 'Other',
-      Count: top5LIssues[0]['other'],
+      name: "Other",
+      Count: top5LIssues[0]["other"],
     },
   ];
   return { NationalIssueData, LocalIssueData, top5NIssues, top5LIssues };

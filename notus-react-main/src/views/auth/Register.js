@@ -15,7 +15,6 @@ import { toast, ToastContainer } from "react-toastify";
 import { listUsers } from "actions/userActions";
 
 export default function Register() {
-
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -37,7 +36,7 @@ export default function Register() {
 
   const [accessType, setAccessType] = useState("");
   const [renderModal, setRenderModal] = useState(false);
-  dispatch(listUsers())
+  dispatch(listUsers());
 
   const submitHandler = (e) => {
     e.preventDefault(); // dhyan rakhein iska ..... Ispr aur bat krni h
@@ -58,14 +57,13 @@ export default function Register() {
       selectedStateNames.map((state) => {
         State_List.map((st) => {
           const config = {};
-          console.log(st)
+          console.log(st);
           if (st["State Name"] == state) {
             config["state"] = state;
             const vsdTemp = [];
             st["Vidhan Sabha List"].map((vd) => {
-              
-              if (selectedvds.includes(vd)) {
-                vsdTemp.push(vd);
+              if (selectedvds.includes(vd["vdn name"])) {
+                vsdTemp.push(vd["number"]);
               }
             });
             config["vdns"] = vsdTemp;
@@ -79,15 +77,29 @@ export default function Register() {
     }
 
     if (accessType == "wrd") {
-      console.log(wdAccess);
       const tempArray = [...wdAccess];
       tempArray.map((state) => {
         state["cities"].map((city) => {
           const tempArr = city["wdns"];
           const wdnListAfterCheckForExistence = [];
+
           tempArr.map((wdn) => {
             if (selectedwds.includes(`${city.city} ${wdn}`)) {
-              wdnListAfterCheckForExistence.push(`${city.city} ${wdn}`);
+              wardData.map((stateWD) => {
+                console.log(stateWD);
+
+                stateWD.cities.map((war) => {
+                  if (war.city == city.city) {
+                    war.wards.map((singleWd) => {
+                      if (singleWd["wardName"] == wdn) {
+                        wdnListAfterCheckForExistence.push(
+                          parseInt(singleWd["wardNo"])
+                        );
+                      }
+                    });
+                  }
+                });
+              });
             }
           });
           city["wdns"] = wdnListAfterCheckForExistence;
@@ -113,18 +125,18 @@ export default function Register() {
     };
     console.log(userCreate);
 
-    // dispatch(
-    //   register(
-    //     name,
-    //     email,
-    //     password,
-    //     authType,
-    //     party,
-    //     lok_sabha_access,
-    //     vidhan_sabha_access,
-    //     ward_no_access
-    //   )
-    // );
+    dispatch(
+      register(
+        name,
+        email,
+        password,
+        authType,
+        party,
+        lok_sabha_access,
+        vidhan_sabha_access,
+        ward_no_access
+      )
+    );
 
     toast.success("hogaya");
 
@@ -148,7 +160,8 @@ export default function Register() {
         if (state["State Name"] == stateName) {
           state["Vidhan Sabha List"].map((vds) => {
             const config = {};
-            config["Vidhan Sabha Name"] = vds;
+            console.log(vds);
+            config["Vidhan Sabha Name"] = vds["vdn name"];
             temp2.push(config);
           });
         }
@@ -193,8 +206,10 @@ export default function Register() {
       }
     });
     setWdAccess(backendDataList);
+    console.log(backendDataList);
     setWards(tempArr);
   };
+  console.log(wards);
 
   const getSelectedLks = (value, nameArray) => {
     setSelectedlks(value);
