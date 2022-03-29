@@ -1,17 +1,18 @@
-import { register } from 'actions/userActions';
-import { Select, Radio } from 'antd';
-import Lok_Sabha from 'assets/data/up';
-import DataConfirmationCard from 'components/Cards/DataConfirmationCard';
-import React, { useCallback, useRef, useState } from 'react';
-import './register.module.css';
-import { State, City } from 'country-state-city';
+import { register } from "actions/userActions";
+import { Select, Radio } from "antd";
+import Lok_Sabha from "assets/data/up";
+import DataConfirmationCard from "components/Cards/DataConfirmationCard";
+import React, { useCallback, useRef, useState } from "react";
+import "./register.module.css";
+import { State, City } from "country-state-city";
 
-import { useDispatch } from 'react-redux';
-import MultiSelect from 'components/select/MultiSelect';
-import State_List from 'assets/data/stateslist';
-import wardData from 'assets/data/ward';
-import { removeFromArray } from 'helpers/object';
-import { ToastContainer } from 'react-toastify';
+import { useDispatch } from "react-redux";
+import MultiSelect from "components/select/MultiSelect";
+import State_List from "assets/data/stateslist";
+import wardData from "assets/data/ward";
+import { removeFromArray } from "helpers/object";
+import { toast, ToastContainer } from "react-toastify";
+
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
@@ -32,7 +33,7 @@ export default function Register() {
   const [wdAccess, setWdAccess] = useState([]);
   const [wdAccessCopy, setWdAccessCopy] = useState([]);
 
-  const [accessType, setAccessType] = useState('');
+  const [accessType, setAccessType] = useState("");
   const [renderModal, setRenderModal] = useState(false);
 
   const submitHandler = (e) => {
@@ -44,26 +45,26 @@ export default function Register() {
     const party = partyRef.current.value;
     let lok_sabha_access, vidhan_sabha_access, ward_no_access;
 
-    if (accessType == 'lks') {
+    if (accessType == "lks") {
       lok_sabha_access = selectedlks;
       vidhan_sabha_access = [];
       ward_no_access = [];
     }
-    if (accessType == 'vds') {
+    if (accessType == "vds") {
       const vdsArray = [];
       selectedStateNames.map((state) => {
         State_List.map((st) => {
           const config = {};
 
-          if (st['State Name'] == state) {
-            config['state'] = state;
+          if (st["State Name"] == state) {
+            config["state"] = state;
             const vsdTemp = [];
-            st['Vidhan Sabha List'].map((vd) => {
+            st["Vidhan Sabha List"].map((vd) => {
               if (selectedvds.includes(vd)) {
                 vsdTemp.push(vd);
               }
             });
-            config['vdns'] = vsdTemp;
+            config["vdns"] = vsdTemp;
             vdsArray.push(config);
           }
         });
@@ -73,19 +74,19 @@ export default function Register() {
       lok_sabha_access = [];
     }
 
-    if (accessType == 'wrd') {
+    if (accessType == "wrd") {
       console.log(wdAccess);
       const tempArray = [...wdAccess];
       tempArray.map((state) => {
-        state['cities'].map((city) => {
-          const tempArr = city['wdns'];
+        state["cities"].map((city) => {
+          const tempArr = city["wdns"];
           const wdnListAfterCheckForExistence = [];
           tempArr.map((wdn) => {
             if (selectedwds.includes(`${city.city} ${wdn}`)) {
               wdnListAfterCheckForExistence.push(`${city.city} ${wdn}`);
             }
           });
-          city['wdns'] = wdnListAfterCheckForExistence;
+          city["wdns"] = wdnListAfterCheckForExistence;
         });
       });
       console.log(tempArray);
@@ -120,9 +121,12 @@ export default function Register() {
         ward_no_access
       )
     );
+
+    toast.success("hogaya");
+
     // setRenderModal(true);
   };
-  const states = State.getStatesOfCountry('IN');
+  const states = State.getStatesOfCountry("IN");
 
   const getSelectedStates = (value, nameArray) => {
     setSelectedState(value);
@@ -130,17 +134,17 @@ export default function Register() {
     let tempArray = [];
 
     value.map((state) => {
-      tempArray = tempArray.concat(City.getCitiesOfState('IN', state));
+      tempArray = tempArray.concat(City.getCitiesOfState("IN", state));
     });
     setCities(tempArray);
 
     const temp2 = [];
     nameArray.map((stateName) => {
       State_List.map((state) => {
-        if (state['State Name'] == stateName) {
-          state['Vidhan Sabha List'].map((vds) => {
+        if (state["State Name"] == stateName) {
+          state["Vidhan Sabha List"].map((vds) => {
             const config = {};
-            config['Vidhan Sabha Name'] = vds;
+            config["Vidhan Sabha Name"] = vds;
             temp2.push(config);
           });
         }
@@ -156,31 +160,31 @@ export default function Register() {
     // setSelectedwds;
     const backendDataList = [];
     wardData.map((state) => {
-      if (selectedStateNames.includes(state['state'])) {
+      if (selectedStateNames.includes(state["state"])) {
         const cityListTemp = [];
         const backendDataConfig = {};
-        backendDataConfig['state'] = state.state;
+        backendDataConfig["state"] = state.state;
 
-        state['cities'].map((city) => {
-          if (value.includes(city['city'])) {
+        state["cities"].map((city) => {
+          if (value.includes(city["city"])) {
             const cityConfig = {};
-            cityConfig['city'] = city.city;
+            cityConfig["city"] = city.city;
             const wardListTemp = [];
 
-            city['wards'].map((ward) => {
+            city["wards"].map((ward) => {
               wardListTemp.push(ward.wardName);
 
               const config = {};
 
-              config['Ward No'] = ward.wardNo;
-              config['Ward Name'] = city.city + ' ' + ward.wardName;
+              config["Ward No"] = ward.wardNo;
+              config["Ward Name"] = city.city + " " + ward.wardName;
               tempArr.push(config);
             });
-            cityConfig['wdns'] = wardListTemp;
+            cityConfig["wdns"] = wardListTemp;
             cityListTemp.push(cityConfig);
           }
         });
-        backendDataConfig['cities'] = cityListTemp;
+        backendDataConfig["cities"] = cityListTemp;
         backendDataList.push(backendDataConfig);
       }
     });
@@ -204,8 +208,8 @@ export default function Register() {
     <>
       {renderModal && (
         <DataConfirmationCard
-          message={'User Created Successfully'}
-          to={'/admin/dashboard'}
+          message={"User Created Successfully"}
+          to={"/admin/dashboard"}
         />
       )}
       {
@@ -335,7 +339,7 @@ export default function Register() {
                         <option Value="wrd">Ward</option>
                       </select>
                     </div>
-                    {accessType == 'vds' || accessType == 'wrd' ? (
+                    {accessType == "vds" || accessType == "wrd" ? (
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -345,16 +349,16 @@ export default function Register() {
                         </label>
                         <MultiSelect
                           data={states}
-                          attribute={'name'}
-                          index={'isoCode'}
+                          attribute={"name"}
+                          index={"isoCode"}
                           callback={getSelectedStates}
                         />
                       </div>
                     ) : (
-                      ''
+                      ""
                     )}
 
-                    {accessType == 'wrd' ? (
+                    {accessType == "wrd" ? (
                       <>
                         <div className="relative w-full mb-3">
                           <label
@@ -365,11 +369,11 @@ export default function Register() {
                           </label>
                           <MultiSelect
                             data={cities}
-                            attribute={'name'}
-                            index={'name'}
+                            attribute={"name"}
+                            index={"name"}
                             callback={getSelectedCities}
                           />
-                        </div>{' '}
+                        </div>{" "}
                         <div className="relative w-full mb-3">
                           <label
                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -379,16 +383,16 @@ export default function Register() {
                           </label>
                           <MultiSelect
                             data={wards}
-                            attribute={'Ward Name'}
-                            index={'Ward Name'}
+                            attribute={"Ward Name"}
+                            index={"Ward Name"}
                             callback={getSelectedwrds}
                           />
                         </div>
                       </>
                     ) : (
-                      ''
+                      ""
                     )}
-                    {accessType == 'lks' && (
+                    {accessType == "lks" && (
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -398,14 +402,14 @@ export default function Register() {
                         </label>
                         <MultiSelect
                           data={Lok_Sabha}
-                          attribute={'Lok Sabha Name'}
-                          index={'Lok Sabha Number'}
+                          attribute={"Lok Sabha Name"}
+                          index={"Lok Sabha Number"}
                           callback={getSelectedLks}
                         />
                       </div>
                     )}
 
-                    {accessType == 'vds' && (
+                    {accessType == "vds" && (
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -415,8 +419,8 @@ export default function Register() {
                         </label>
                         <MultiSelect
                           data={vidhanSabha}
-                          attribute={'Vidhan Sabha Name'}
-                          index={'Vidhan Sabha Name'}
+                          attribute={"Vidhan Sabha Name"}
+                          index={"Vidhan Sabha Name"}
                           callback={getSelectedvds}
                         />
                       </div>
@@ -435,9 +439,9 @@ export default function Register() {
               </div>
             </div>
           </div>
+          <ToastContainer />
         </div>
       }
-      <ToastContainer />
     </>
   );
 }

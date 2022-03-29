@@ -21,6 +21,15 @@ import {
   VOTER_PUT_BY_ID_ELECTION_REQUEST,
   VOTER_PUT_BY_ID_ELECTION_SUCCESS,
   VOTER_PUT_BY_ID_ELECTION_FAIL,
+  VOTER_LIST_REQUEST_LKN,
+  VOTER_LIST_SUCCESS_LKN,
+  VOTER_LIST_FAIL_LKN,
+  VOTER_ALL_ELECTION_REQUEST_LKN,
+  VOTER_ALL_ELECTION_SUCCESS_LKN,
+  VOTER_ALL_ELECTION_FAIL_LKN,
+  VOTER_ALL_ELECTION_SUCCESS_VDN,
+  VOTER_ALL_ELECTION_FAIL_VDN,
+  VOTER_ALL_ELECTION_REQUEST_VDN,
 } from "../constants/userConstants";
 
 export const listVoters = () => async (dispatch, getState) => {
@@ -46,6 +55,37 @@ export const listVoters = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: VOTER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listVotersLkn = (lknAccess) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: VOTER_LIST_REQUEST_LKN });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.AccessToken}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/voter/voterdatalkn?${lknAccess}`); //add config
+
+    dispatch({
+      type: VOTER_LIST_SUCCESS_LKN,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VOTER_LIST_FAIL_LKN,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -152,6 +192,76 @@ export const getAllElectionData = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const getAllElectionDataLkn =
+  (lknAccess) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: VOTER_ALL_ELECTION_REQUEST_LKN });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.AccessToken}`,
+        },
+      };
+
+      // console.log(userInfo);
+      const { data } = await axios.get(
+        `/api/election/electiondatalkn?${lknAccess}`
+      ); //add config
+
+      dispatch({
+        type: VOTER_ALL_ELECTION_SUCCESS_LKN,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: VOTER_ALL_ELECTION_FAIL_LKN,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const getAllElectionDataVdn =
+  (vdnAccess) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: VOTER_ALL_ELECTION_REQUEST_VDN });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.AccessToken}`,
+        },
+      };
+
+      // console.log(userInfo);
+      const { data } = await axios.get(
+        `/api/election/electiondatavdn?${vdnAccess}`
+      ); //add config
+
+      dispatch({
+        type: VOTER_ALL_ELECTION_SUCCESS_VDN,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: VOTER_ALL_ELECTION_FAIL_VDN,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const getElectionDatabyID = (edid) => async (dispatch, getState) => {
   try {

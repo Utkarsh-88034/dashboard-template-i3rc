@@ -1,82 +1,123 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 
 // components
 
-import CardLineChart from 'components/Cards/CardLineChart.js';
-import CardSocialTraffic from 'components/Cards/CardSocialTraffic.js';
-import { ResponsiveContainer } from 'recharts';
-import { useDispatch, useSelector } from 'react-redux';
-import { listVoters } from 'actions/voterActions';
-import { counterVoter } from 'helpers/counter';
-import { getAllElectionData } from 'actions/voterActions';
-import { getKeyByValue } from 'helpers/object';
-import { removeFromArray } from 'helpers/object';
-import { sumOfArray } from 'helpers/object';
-import CardBarChartHorizontal from 'components/Cards/CardBarChartHorizontal';
-import CardBarChartVertical from 'components/Cards/CardBarChartVertical';
-import { graphIssueDataGenerator } from 'Chart Data/Issues';
-import Influence from 'Chart Data/Influence';
-import Example from 'components/Cards/CardPieChar';
-import { counterElection } from 'helpers/counter';
-import CardPieChart from 'components/Cards/CardPieChar';
-import PieRechartComponent from 'components/Cards/CardPieChar';
-import { q15 } from 'Coding Notations/voter.status';
-import { q18 } from 'Coding Notations/voter.status';
-import { q14 } from 'Coding Notations/voter.status';
-import oldDataCalculator from 'Chart Data/oldDataFuture';
-import { parameterCalculator } from 'Chart Data/parameterImpactData';
-import { impactCalculator } from 'Chart Data/parameterImpactData';
-import TypeCard from 'components/Type Cards/TypeCard';
-import { Link } from 'react-router-dom';
+import CardLineChart from "components/Cards/CardLineChart.js";
+import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
+import { ResponsiveContainer } from "recharts";
+import { useDispatch, useSelector } from "react-redux";
+import { listVoters } from "actions/voterActions";
+import { counterVoter } from "helpers/counter";
+import { getAllElectionData } from "actions/voterActions";
+import { getKeyByValue } from "helpers/object";
+import { removeFromArray } from "helpers/object";
+import { sumOfArray } from "helpers/object";
+import CardBarChartHorizontal from "components/Cards/CardBarChartHorizontal";
+import CardBarChartVertical from "components/Cards/CardBarChartVertical";
+import { graphIssueDataGenerator } from "Chart Data/Issues";
+import Influence from "Chart Data/Influence";
+import Example from "components/Cards/CardPieChar";
+import { counterElection } from "helpers/counter";
+import CardPieChart from "components/Cards/CardPieChar";
+import PieRechartComponent from "components/Cards/CardPieChar";
+import { q15 } from "Coding Notations/voter.status";
+import { q18 } from "Coding Notations/voter.status";
+import { q14 } from "Coding Notations/voter.status";
+import oldDataCalculator from "Chart Data/oldDataFuture";
+import { parameterCalculator } from "Chart Data/parameterImpactData";
+import { impactCalculator } from "Chart Data/parameterImpactData";
+import TypeCard from "components/Type Cards/TypeCard";
+import { Link } from "react-router-dom";
+import { listVotersLkn } from "actions/voterActions";
+import { getAllElectionDataLkn } from "actions/voterActions";
 
 export default function Dashboard() {
   //
   //
-  const voterList = useSelector((state) => state.voterList);
-  const { voters } = voterList;
 
-  const electionList = useSelector((state) => state.electionList);
-  const { edl } = electionList;
+  const [voters, setVoters] = useState();
+  const [edl, setEdl] = useState();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const voterListLkn = useSelector((state) => state.voterListLkn);
+  const { votersLkn } = voterListLkn;
+
+  const electionListLkn = useSelector((state) => state.electionListLkn);
+  const { edlLkn } = electionListLkn;
 
   const dispatch = useDispatch();
+  console.log(voters, edl);
+  useEffect(() => {
+    if (userInfo.user.lok_sabha_access.length > 0) {
+      if (votersLkn) {
+        setVoters(votersLkn.final_data);
+      }
+      if (edlLkn) {
+        setEdl(edlLkn);
+      }
+    }
+  }, [votersLkn]);
 
   useEffect(() => {
-    dispatch(listVoters());
-    dispatch(getAllElectionData());
+    // acc to user access
+
+    if (userInfo.user.lok_sabha_access.length > 0) {
+      let lknAccess = "";
+      userInfo.user.lok_sabha_access.map((lkn, index) => {
+        if (index < userInfo.user.lok_sabha_access.length - 1) {
+          lknAccess += `lkn${index + 1}=${lkn}&`;
+        } else {
+          lknAccess += `lkn${index + 1}=${lkn}`;
+        }
+      });
+      dispatch(listVotersLkn(lknAccess));
+      dispatch(getAllElectionDataLkn(lknAccess));
+    } else if (userInfo.user.vidhan_sabha_access.length > 0) {
+      // call for vidhan sabaha
+      dispatch(listVoters());
+      dispatch(getAllElectionData());
+    } else if (userInfo.user.ward_no_access.length > 0) {
+      // call for vidhan sabaha
+      dispatch(listVoters());
+      dispatch(getAllElectionData());
+    } else {
+      console.log("CHeck something you might not be ghetting ");
+    }
   }, [dispatch]);
 
-  const males = counterVoter(voters, 'Gender', 'Male');
-  const females = counterVoter(voters, 'Gender', 'Female');
+  const males = counterVoter(voters, "Gender", "Male");
+  const females = counterVoter(voters, "Gender", "Female");
 
   // Issues
   const { NationalIssueData, LocalIssueData } = graphIssueDataGenerator(edl);
 
   const data = [
     {
-      name: 'Female',
+      name: "Female",
       Count: females,
     },
     {
-      name: 'Male',
+      name: "Male",
       Count: males,
     },
   ];
   const { infleunceData } = Influence(edl);
 
-  const yes = counterElection(edl, 'need_transportation', 1);
-  const no = counterElection(edl, 'need_transportation', 2);
+  const yes = counterElection(edl, "need_transportation", 1);
+  const no = counterElection(edl, "need_transportation", 2);
 
   const needTransporatationData = [
     {
-      name: 'Yes',
+      name: "Yes",
       value: yes,
     },
     {
-      name: 'No',
+      name: "No",
       value: no,
     },
   ];
-  console.log(edl);
 
   const {
     willVoteData,
@@ -93,40 +134,40 @@ export default function Dashboard() {
 
   return (
     <>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Link to="/admin/dashboard/voter-mapping">
           <TypeCard
-            icon={'fas fa-users'}
-            title={'Voter Mapping'}
+            icon={"fas fa-users"}
+            title={"Voter Mapping"}
             color="#5261c7"
           />
         </Link>
         <Link to="/admin/dashboard/disposition">
           <TypeCard
-            icon={'fas fa-user-tie'}
-            title={'Disposition'}
+            icon={"fas fa-user-tie"}
+            title={"Disposition"}
             color="#d384f0"
           />
         </Link>
         <Link to="/admin/dashboard/blw">
           <TypeCard
-            icon={'fas fa-briefcase'}
-            title={'Booth Level workers'}
+            icon={"fas fa-briefcase"}
+            title={"Booth Level workers"}
             color="#61964a"
           />
         </Link>
         <Link to="/admin/dashboard/ctv">
           <TypeCard
-            icon={'fas fa-link'}
-            title={'Connect to your voters'}
+            icon={"fas fa-link"}
+            title={"Connect to your voters"}
             color="#ed9a6d"
           />
         </Link>
 
         <Link to="/admin/dashboard/solution">
           <TypeCard
-            icon={'fas fa-question'}
-            title={'D day Solution'}
+            icon={"fas fa-question"}
+            title={"D day Solution"}
             color="#eb6767"
           />
         </Link>

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { toast } from "react-toastify";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -24,7 +24,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_DETAILS_RESET,
   USER_UPDATE_FAIL,
-} from '../constants/userConstants';
+} from "../constants/userConstants";
 
 export const userLoginAction = (email, password) => async (dispatch) => {
   try {
@@ -34,12 +34,12 @@ export const userLoginAction = (email, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
     const { data } = await axios.post(
-      '/api/auth/login',
+      "/api/auth/login",
       { email, password },
       config
     );
@@ -49,7 +49,7 @@ export const userLoginAction = (email, password) => async (dispatch) => {
       payload: data,
     });
 
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -62,9 +62,9 @@ export const userLoginAction = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.removeItem('userInfo');
+  localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
-  document.location.href = '/';
+  document.location.href = "/";
 };
 
 export const register =
@@ -86,12 +86,12 @@ export const register =
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
 
       const { data } = await axios.post(
-        '/api/auth/create',
+        "/api/auth/create",
         {
           name,
           email,
@@ -104,15 +104,12 @@ export const register =
         },
         config
       );
-      toast.success('ho gya ji');
 
-      // dispatch({
-      //   type: USER_REGISTER_SUCCESS,
-      //   payload: data,
-      // });
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: data,
+      });
     } catch (error) {
-      toast.error('nhi hua bhai');
-
       dispatch({
         type: USER_REGISTER_FAIL,
         payload:
@@ -150,7 +147,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (message === "Not authorized, token failed") {
       dispatch(logout());
     }
     dispatch({
@@ -172,7 +169,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -187,13 +184,13 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (message === "Not authorized, token failed") {
       dispatch(logout());
     }
     dispatch({
@@ -230,7 +227,7 @@ export const listUsers = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (message === "Not authorized, token failed") {
       dispatch(logout());
     }
     dispatch({
@@ -264,7 +261,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (message === "Not authorized, token failed") {
       dispatch(logout());
     }
     dispatch({
@@ -286,7 +283,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -307,7 +304,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (message === "Not authorized, token failed") {
       dispatch(logout());
     }
     dispatch({

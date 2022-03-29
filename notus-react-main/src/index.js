@@ -1,21 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import store from 'store';
-import { Provider } from 'react-redux';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'assets/styles/tailwind.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import store from "store";
+import { Provider } from "react-redux";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "assets/styles/tailwind.css";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // layouts
 
-import Admin from 'layouts/Admin.js';
-import Auth from 'layouts/Auth.js';
+import Admin from "layouts/Admin.js";
+import Auth from "layouts/Auth.js";
 
 // views without layouts
 
-import Landing from 'views/Landing.js';
-import Profile from 'views/Profile.js';
-import { ToastContainer } from 'react-toastify';
+import Landing from "views/Landing.js";
+import Profile from "views/Profile.js";
 // import Index from 'views/Index.js';
 // import Login from 'views/auth/Login';
 
@@ -35,5 +37,5 @@ ReactDOM.render(
       </Switch>
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
