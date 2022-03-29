@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { coolGray } from "tailwindcss/colors";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -216,8 +217,8 @@ export const listUsers = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/auth/allusers`, config);
-
+    const  data  = await axios.get(`/api/auth/allusers`, config);
+    console.log(data)
     dispatch({
       type: USER_LIST_SUCCESS,
       payload: data,

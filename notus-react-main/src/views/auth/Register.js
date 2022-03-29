@@ -12,8 +12,10 @@ import State_List from "assets/data/stateslist";
 import wardData from "assets/data/ward";
 import { removeFromArray } from "helpers/object";
 import { toast, ToastContainer } from "react-toastify";
+import { listUsers } from "actions/userActions";
 
 export default function Register() {
+
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -35,6 +37,7 @@ export default function Register() {
 
   const [accessType, setAccessType] = useState("");
   const [renderModal, setRenderModal] = useState(false);
+  dispatch(listUsers())
 
   const submitHandler = (e) => {
     e.preventDefault(); // dhyan rakhein iska ..... Ispr aur bat krni h
@@ -55,11 +58,12 @@ export default function Register() {
       selectedStateNames.map((state) => {
         State_List.map((st) => {
           const config = {};
-
+          console.log(st)
           if (st["State Name"] == state) {
             config["state"] = state;
             const vsdTemp = [];
             st["Vidhan Sabha List"].map((vd) => {
+              
               if (selectedvds.includes(vd)) {
                 vsdTemp.push(vd);
               }
@@ -109,18 +113,18 @@ export default function Register() {
     };
     console.log(userCreate);
 
-    dispatch(
-      register(
-        name,
-        email,
-        password,
-        authType,
-        party,
-        lok_sabha_access,
-        vidhan_sabha_access,
-        ward_no_access
-      )
-    );
+    // dispatch(
+    //   register(
+    //     name,
+    //     email,
+    //     password,
+    //     authType,
+    //     party,
+    //     lok_sabha_access,
+    //     vidhan_sabha_access,
+    //     ward_no_access
+    //   )
+    // );
 
     toast.success("hogaya");
 

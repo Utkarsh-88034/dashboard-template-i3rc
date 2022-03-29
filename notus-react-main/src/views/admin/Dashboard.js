@@ -79,7 +79,7 @@ export default function Dashboard() {
       dispatch(listVoters());
       dispatch(getAllElectionData());
     } else if (userInfo.user.ward_no_access.length > 0) {
-      // call for vidhan sabaha
+      // call for ward no
       dispatch(listVoters());
       dispatch(getAllElectionData());
     } else {

@@ -2,7 +2,7 @@ const State_List = [
   {
     'State number': 1,
     'State Name': 'Andhra Pradesh',
-    'Vidhan Sabha List': ['A', 'B', 'C'],
+    'Vidhan Sabha List': [{"vdn name":'A',"number":1}, {"vdn name":'B',"number":2}, {"vdn name":'C',"number":3}],
   },
   {
     'State number': 2,
