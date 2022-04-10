@@ -31,6 +31,7 @@ import { Link } from "react-router-dom";
 import { listVotersLkn } from "actions/voterActions";
 import { getAllElectionDataLkn } from "actions/voterActions";
 import { listVotersVdn } from "actions/voterActions";
+import { listVotersWdn } from "actions/voterActions";
 
 export default function Dashboard() {
   //
@@ -49,7 +50,7 @@ export default function Dashboard() {
   const { edlLkn } = electionListLkn;
 
   const dispatch = useDispatch();
-  console.log(voters, edl);
+  // console.log(voters, edl);
   useEffect(() => {
     if (userInfo.user.lok_sabha_access.length > 0) {
       if (votersLkn) {
@@ -65,39 +66,59 @@ export default function Dashboard() {
     // acc to user access
 
     if (userInfo.user.lok_sabha_access.length > 0) {
-      let lknAccess = "";
+      let lknAccessWithoutUnderscore = "";
       userInfo.user.lok_sabha_access.map((lkn, index) => {
         if (index < userInfo.user.lok_sabha_access.length - 1) {
-          lknAccess += `lkn${index + 1}=${lkn}&`;
+          lknAccessWithoutUnderscore += `lkn${index + 1}=${lkn}&`;
         } else {
-          lknAccess += `lkn${index + 1}=${lkn}`;
+          lknAccessWithoutUnderscore += `lkn${index + 1}=${lkn}`;
         }
       });
+      let lknAccess = lknAccessWithoutUnderscore.replace(/ /g, "__");
       dispatch(listVotersLkn(lknAccess));
       dispatch(getAllElectionDataLkn(lknAccess));
     } else if (userInfo.user.vidhan_sabha_access.length > 0) {
       // call for vidhan sabaha
       // voterdatavdn?state=ahmd&vdn=8&vdn1=5
       userInfo.user.vidhan_sabha_access.map((vdn, index) => {
-        let vdnAccess = "";
-        vdnAccess += `state=${vdn.state}&`;
+        let vdnAccessWithoutUnderscore = "";
+        vdnAccessWithoutUnderscore += `state=${vdn.state}&`;
         vdn.vdns.map((singleVdn) => {
           if (index < vdn.vdns.length - 1) {
-            vdnAccess += `vdn${index + 1}=${singleVdn}&`;
+            vdnAccessWithoutUnderscore += `vdn${index + 1}=${singleVdn}&`;
           } else {
-            vdnAccess += `vdn${index + 1}=${singleVdn}`;
+            vdnAccessWithoutUnderscore += `vdn${index + 1}=${singleVdn}`;
           }
         });
+        let vdnAccess = vdnAccessWithoutUnderscore.replace(/ /g, "__");
         // console.log(vdnAccess);
         dispatch(listVotersVdn(vdnAccess));
         // dispatch(getAllElectionData());
       });
     } else if (userInfo.user.ward_no_access.length > 0) {
       // call for ward no
-      dispatch(listVoters());
+      // ?state=ahmd&city=ahmd&wdn=5
+      userInfo.user.ward_no_access.map((wdn, index) => {
+        let wdnAccessWithoutUnderscores = "";
+
+        wdnAccessWithoutUnderscores += `state=${wdn.state}&`;
+        wdn.cities.map((city, index) => {
+          wdnAccessWithoutUnderscores += `city=${city.city}&`;
+          city.wdns.map((singleWdn, index) => {
+            if (index < city.wdns.length - 1) {
+              wdnAccessWithoutUnderscores += `wdn${index + 1}=${singleWdn}&`;
+            } else {
+              wdnAccessWithoutUnderscores += `wdn${index + 1}=${singleWdn}`;
+            }
+          });
+        });
+        let wdnAccess = wdnAccessWithoutUnderscores.replace(/ /g, "__");
+        console.log(wdnAccess);
+        dispatch(listVotersWdn(wdnAccess));
+      });
       dispatch(getAllElectionData());
     } else {
-      console.log("CHeck something you might not be ghetting ");
+      console.log("Check something you might not be getting");
     }
   }, [dispatch]);
 

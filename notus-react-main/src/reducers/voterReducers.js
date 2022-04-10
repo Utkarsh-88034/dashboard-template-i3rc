@@ -32,6 +32,9 @@ import {
   VOTER_LIST_REQUEST_VDN,
   VOTER_LIST_SUCCESS_VDN,
   VOTER_LIST_FAIL_VDN,
+  VOTER_LIST_REQUEST_WDN,
+  VOTER_LIST_SUCCESS_WDN,
+  VOTER_LIST_FAIL_WDN,
 } from "../constants/userConstants";
 
 export const voterListReducer = (state = { voters: [] }, action) => {
@@ -73,9 +76,25 @@ export const voterListReducerVdn = (state = { votersVdn: [] }, action) => {
     case VOTER_LIST_SUCCESS_VDN:
       return {
         loading: false,
-        votersVdn: action.payload,
+        votersVdn: action.payload.final_data,
       };
     case VOTER_LIST_FAIL_VDN:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const voterListReducerWdn = (state = { votersWdn: [] }, action) => {
+  switch (action.type) {
+    case VOTER_LIST_REQUEST_WDN:
+      return { loading: true, votersWdn: [] };
+    case VOTER_LIST_SUCCESS_WDN:
+      return {
+        loading: false,
+        votersWdn: action.payload.final_data,
+      };
+    case VOTER_LIST_FAIL_WDN:
       return { loading: false, error: action.payload };
     default:
       return state;
