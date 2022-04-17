@@ -35,6 +35,9 @@ import {
   VOTER_LIST_REQUEST_WDN,
   VOTER_LIST_SUCCESS_WDN,
   VOTER_LIST_FAIL_WDN,
+  VOTER_ALL_ELECTION_REQUEST_WDN,
+  VOTER_ALL_ELECTION_FAIL_WDN,
+  VOTER_ALL_ELECTION_SUCCESS_WDN,
 } from "../constants/userConstants";
 
 export const voterListReducer = (state = { voters: [] }, action) => {
@@ -56,11 +59,11 @@ export const voterListReducer = (state = { voters: [] }, action) => {
 export const voterListReducerLkn = (state = { votersLkn: [] }, action) => {
   switch (action.type) {
     case VOTER_LIST_REQUEST_LKN:
-      return { loading: true, voters: [] };
+      return { loading: true, votersLkn: [] };
     case VOTER_LIST_SUCCESS_LKN:
       return {
         loading: false,
-        votersLkn: action.payload,
+        votersLkn: action.payload.final_data,
       };
     case VOTER_LIST_FAIL_LKN:
       return { loading: false, error: action.payload };
@@ -72,7 +75,7 @@ export const voterListReducerLkn = (state = { votersLkn: [] }, action) => {
 export const voterListReducerVdn = (state = { votersVdn: [] }, action) => {
   switch (action.type) {
     case VOTER_LIST_REQUEST_VDN:
-      return { loading: true, voters: [] };
+      return { loading: true, votersLkn: [] };
     case VOTER_LIST_SUCCESS_VDN:
       return {
         loading: false,
@@ -169,6 +172,22 @@ export const electionListReducerVdn = (state = { edlVdn: [] }, action) => {
         edlVdn: action.payload,
       };
     case VOTER_ALL_ELECTION_FAIL_VDN:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const electionListReducerWdn = (state = { edlWdn: [] }, action) => {
+  switch (action.type) {
+    case VOTER_ALL_ELECTION_REQUEST_WDN:
+      return { ...state, loading: true };
+    case VOTER_ALL_ELECTION_SUCCESS_WDN:
+      return {
+        loading: false,
+        edlWdn: action.payload,
+      };
+    case VOTER_ALL_ELECTION_FAIL_WDN:
       return { loading: false, error: action.payload };
     default:
       return state;

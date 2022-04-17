@@ -13,6 +13,7 @@ import { electionListReducerLkn } from "reducers/voterReducers";
 import { electionListReducerVdn } from "reducers/voterReducers";
 import { voterListReducerVdn } from "reducers/voterReducers";
 import { voterListReducerWdn } from "reducers/voterReducers";
+import { electionListReducerWdn } from "reducers/voterReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   voterById: voterDataByIDReducer,
   electionListLkn: electionListReducerLkn,
   electionListVdn: electionListReducerVdn,
+  electionListWdn: electionListReducerWdn,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

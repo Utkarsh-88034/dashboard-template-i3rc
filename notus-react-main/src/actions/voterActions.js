@@ -36,6 +36,9 @@ import {
   VOTER_LIST_REQUEST_WDN,
   VOTER_LIST_SUCCESS_WDN,
   VOTER_LIST_FAIL_WDN,
+  VOTER_ALL_ELECTION_REQUEST_WDN,
+  VOTER_ALL_ELECTION_SUCCESS_WDN,
+  VOTER_ALL_ELECTION_FAIL_WDN,
 } from "../constants/userConstants";
 
 export const listVoters = () => async (dispatch, getState) => {
@@ -323,6 +326,41 @@ export const getAllElectionDataVdn =
     } catch (error) {
       dispatch({
         type: VOTER_ALL_ELECTION_FAIL_VDN,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const getAllElectionDataWdn =
+  (wdnAccess) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: VOTER_ALL_ELECTION_REQUEST_WDN });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.AccessToken}`,
+        },
+      };
+
+      // console.log(userInfo);
+      const { data } = await axios.get(
+        `/api/election/electiondatawdn?${wdnAccess}`
+      ); //add config
+
+      dispatch({
+        type: VOTER_ALL_ELECTION_SUCCESS_WDN,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: VOTER_ALL_ELECTION_FAIL_WDN,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
